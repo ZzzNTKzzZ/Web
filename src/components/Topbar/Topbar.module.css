@@ -1,0 +1,48 @@
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px; /* optional fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 24px;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 12px;
+    font-family: 'Segoe UI', sans-serif;
+    z-index: 1001; /* above sidebar and menu */
+}
+
+.domain {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.undoRedo {
+    display: flex;
+    gap: 12px;
+}
+
+.undoRedo button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+    color: #333;
+}
+
+.undoRedo button:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}

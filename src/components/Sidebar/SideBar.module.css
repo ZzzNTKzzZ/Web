@@ -1,0 +1,83 @@
+.side {
+  display: flex;
+  height: 100vh;
+  background-color: #f5f7fa;
+  border-right: 1px solid #ddd;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.sideBar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  height: 100vh;
+  width: 72px; /* or your preferred fixed width */
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 12px;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+.button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+  background-color: #e0e0e0;
+}
+
+.active {
+  background-color: #007bff;
+}
+
+.active img {
+  filter: brightness(0) invert(1); /* Makes icon white on blue */
+}
+
+.button img {
+  width: 24px;
+  height: 24px;
+}
+
+.sideMenu {
+  position: fixed;
+  top: 70px;
+  left: 72px; /* same as .sideBar width */
+  height: 100vh;
+  min-width: 280px;
+  padding: 16px;
+  border-left: 1px solid #ddd;
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.03);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sideMenu p {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.close img {
+  width: 16px;
+  height: 16px;
+}

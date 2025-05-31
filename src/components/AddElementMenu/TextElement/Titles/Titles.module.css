@@ -1,0 +1,21 @@
+.container {
+  padding: 16px;
+  background: #fff;
+  max-width: 600px;
+  margin: auto;
+}
+
+.listTitle {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.titleType {
+  font-size: 24px;
+  font-style: bold;
+  border-bottom: 1px solid #ccc;
+}

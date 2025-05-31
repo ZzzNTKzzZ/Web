@@ -1,0 +1,84 @@
+.menu {
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-height: 90vh;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.menu > div:first-child {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 10;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.menu p {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.close {
+  cursor: pointer;
+}
+
+.close img {
+  width: 16px;
+  height: 16px;
+}
+
+/* New layout for side-by-side */
+.content {
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Left side: element list */
+.listElement {
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+  padding-right: 24px;
+  border-right: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.element {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 15px;
+}
+
+.element:hover {
+  background-color: #e2e2e2;
+}
+
+.active {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Right side: settings panel */
+.popupMenu {
+  flex: 1;
+  background-color: #fafafa;
+}

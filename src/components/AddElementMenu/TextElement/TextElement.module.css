@@ -1,0 +1,54 @@
+.container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-height: 90vh;
+  display: flex;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Left side: list of types */
+.listType {
+  list-style: none;
+  margin: 0;
+  padding: 16px 24px 16px 16px;
+  border-right: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 12px 0 0 12px;
+}
+
+/* List item */
+.type {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 15px;
+}
+
+.type:hover {
+  background-color: #e2e2e2;
+}
+
+/* Active item */
+.active {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Right side: content panel */
+.typeMenu {
+  flex: 1;
+  background-color: #fafafa;
+  padding: 16px;
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 80px;
+  /* remove internal scroll */
+  overflow-y: scroll;
+}
