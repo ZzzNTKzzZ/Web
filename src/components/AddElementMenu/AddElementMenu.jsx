@@ -2,7 +2,6 @@ import { useState } from "react";
 import style from "./AddElementMenu.module.css";
 
 import CloseIcon from "../../assets/icon/Close.svg";
-import TextElement from "./TextElement/TextElement";
 
 export default function AddElementMenu({contents ,onClick }) {
  
