@@ -4,13 +4,12 @@
   background-color: #f5f7fa;
   border-right: 1px solid #ddd;
   font-family: "Segoe UI", sans-serif;
-}
-
-.sideBar {
   position: fixed;
   top: 70px;
   left: 0;
-  height: 100vh;
+}
+
+.sideBar {
   width: 72px; /* or your preferred fixed width */
   display: flex;
   flex-direction: column;

@@ -4,12 +4,8 @@ import style from "./AddElementMenu.module.css";
 import CloseIcon from "../../assets/icon/Close.svg";
 import TextElement from "./TextElement/TextElement";
 
-export default function AddElementMenu({ onClick }) {
-  const elements = [
-    { text: "Text", menu: <TextElement /> },
-    { text: "Image", menu: <div>Image settings</div> },
-    { text: "Button", menu: <div>Button settings</div> },
-  ];
+export default function AddElementMenu({contents ,onClick }) {
+ 
 
   const [activeElement, setActiveElement] = useState("Text");
 
@@ -25,21 +21,21 @@ export default function AddElementMenu({ onClick }) {
 
       <div className={style.content}>
         <ul className={style.listElement}>
-          {elements.map((e, index) => (
+          {contents.map((content, index) => (
             <li
               key={index}
               className={`${style.element} ${
-                activeElement === e.text ? style.active : ""
+                activeElement === content.text ? style.active : ""
               }`}
-              onClick={() => setActiveElement(e.text)}
+              onClick={() => setActiveElement(content.text)}
             >
-              {e.text}
+              {content.text}
             </li>
           ))}
         </ul>
 
         <div className={style.popupMenu}>
-          {elements.find((el) => el.text === activeElement)?.menu}
+          {contents.find((el) => el.text === activeElement)?.menu}
         </div>
       </div>
     </div>

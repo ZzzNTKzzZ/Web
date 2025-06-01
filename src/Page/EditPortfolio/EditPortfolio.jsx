@@ -8,7 +8,9 @@ import DropZone from "../../components/DropZone/DropZone";
 
 // Simple EditableBox component (draggable box)
 import { useDrag } from "react-dnd";
+import EditZone from "../../components/EditZone/EditZone";
 
+import style from "./EditPortfolio.module.css";
 function EditableBox({ id, text }) {
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: "BOX",
@@ -76,36 +78,10 @@ export default function EditPortfolio() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div>
-        {/* <Topbar />
-        <SideBar /> */}
-
-        {/* Outside boxes */}
-        <div style={{ padding: "16px" }}>
-          <h3>Outside Items (Drag me to drop zones)</h3>
-          <div style={{ display: "flex", gap: "12px" }}>
-            {outsideItems.map(({ id, text }) => (
-              <EditableBox key={id} id={id} text={text} />
-            ))}
-          </div>
-        </div>
-
-        {/* Drop Zones */}
-        <div style={{ display: "flex", justifyContent: "space-around", marginTop: 32 }}>
-          <DropZone accepted={"BOX"} onDrop={handleDropZone1}>
-            <h3>Drop Zone 1</h3>
-            {zone1Items.map(({ id, text }) => (
-              <EditableBox key={id} id={id} text={text} />
-            ))}
-          </DropZone>
-
-          <DropZone accepted={"BOX"} onDrop={handleDropZone2}>
-            <h3>Drop Zone 2</h3>
-            {zone2Items.map(({ id, text }) => (
-              <EditableBox key={id} id={id} text={text} />
-            ))}
-          </DropZone>
-        </div>
+      <div className={style.editPortfolio}>
+        <Topbar />
+        <SideBar />
+        <EditZone />
       </div>
     </DndProvider>
   );
