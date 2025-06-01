@@ -1,14 +1,23 @@
-import React, { useState } from "react";
-import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import "./App.css"
-import EditPortfolio from "./Page/EditPortfolio/EditPortfolio";
-import Home from "./Page/Home/Home";
+import "./App.css";
+import publicRoutes from "./routes/routes";
 
 export default function App() {
   return (
-    <div className="app">
-      <Home />
-    </div>
-  )
+    <Router>
+      <div className="app">
+        <Routes>
+          {publicRoutes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={<route.element />}
+            />
+          ))}
+        </Routes>
+      </div>
+    </Router>
+  );
 }
