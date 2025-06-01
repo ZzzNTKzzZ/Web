@@ -4,10 +4,64 @@
   background-size: cover;
   width: 100%;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20; /* Đảm bảo ở trên Header2 */
+  transition: all 0.5s ease;
+  
   /* filter: brightness(50%);
   -webkit-filter: brightness(50%);
   -moz-filter: brightness(50%); */
 }
+
+.shrink {
+  position: absolute;
+  width: 250px;
+  height: 80px;
+  top: 300px;
+  left: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 20;
+}
+
+.shrunk {
+  height: 300px;
+  background-size: contain;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 40px;
+}
+
+.innerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  transition: transform 0.4s ease;
+}
+
+.shrunk .innerContent {
+  align-items: flex-start;
+  text-align: left;
+  transform: scale(0.7) translateY(-30px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .header {
   display: flex;
@@ -24,24 +78,53 @@
   text-align: center;
   line-height: 1.5;
   width: 100%;
-  padding-top: 100px;
-  padding-bottom: 120px;
+  padding-top: 120px;
+  padding-bottom: 70px;
 }
 
 .content h1 {
-  font-size: 100px;
+  font-size: 80px;
   color: #ffffff;
-  margin-top: 10px;
+  font-weight: bold;
 }
 
 .content h2 {
   font-size: 40px;
   color: #ffffff;
-  margin-top: 20px;
 }
 
 .content h4 {
   font-size: 20px;
   color: #ffffff;
-  margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  */
+/*  */
+/* HEADER 2 */
+.header2 {
+  background-image: url("../../../assets/Img/ImgHeader2.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  position: fixed; /* Để nằm đúng vị trí dưới Header */
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  transform-origin: 33% 19%; /* Vị trí bắt đầu zoom theo % chiều ngang và dọc*/
+  will-change: transform;
 }

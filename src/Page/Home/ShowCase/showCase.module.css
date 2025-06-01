@@ -1,0 +1,13 @@
+.showCase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 1000px;
+  background-color: #f0f0f0;
+  text-align: center;
+  color: black;
+  position: relative;
+  z-index: 1;
+}
