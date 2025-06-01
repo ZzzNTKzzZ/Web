@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./ThemedText.module.css";
 import TitleType from "../../../Common/TitleType";
+import DraggAble from "../../../Dnd/DraggAble/DraggAble";
 
 export default function ThemedText() {
   const headings = [
@@ -15,10 +16,13 @@ export default function ThemedText() {
   return (
     <div className={style.container}>
       <TitleType content={"Themed Text"}/>
+
       {headings.map(({ text, tag: Tag, className }, index) => (
-        <Tag key={index} className={`${className} ${style.heading}` }>
-          {text}
-        </Tag>
+        <DraggAble id={className}>
+          <Tag key={index} className={`${className} ${style.heading}` }>
+            {text}
+          </Tag>
+        </DraggAble>
       ))}
     </div>
   );
