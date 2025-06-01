@@ -50,5 +50,5 @@
   border-radius: 0 12px 12px 0;
   margin-bottom: 80px;
   /* remove internal scroll */
-  overflow-y: scroll;
+  overflow-y: auto;      /* allow vertical scroll */
 }

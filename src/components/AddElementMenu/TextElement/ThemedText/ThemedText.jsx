@@ -19,6 +19,7 @@ export default function ThemedText() {
         <Tag key={index} className={`${className} ${style.heading}` }>
           {text}
         </Tag>
+          
       ))}
     </div>
   );
