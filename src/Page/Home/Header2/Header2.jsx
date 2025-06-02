@@ -1,8 +1,9 @@
 import React from "react";
 import style from "../Header/header.module.css";
+import ShowCase from "../ShowCase/ShowCase";
 
 const Header2 = ({ scrollY }) => {
-  const maxScroll = 300;
+  const maxScroll = 100;
   const startScale = 5;
 
   const scale =
@@ -18,7 +19,6 @@ const Header2 = ({ scrollY }) => {
         transition: "transform 0.2s ease-out",
       }}
     >
-      {/* Nội dung Header2 */}
     </div>
   );
 };
