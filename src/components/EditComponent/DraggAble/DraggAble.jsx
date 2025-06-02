@@ -21,6 +21,7 @@ export default function DraggAble({ id, label }) {
     setEdit(true);
   };
 
+  
   // Click outside detection
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -51,8 +52,10 @@ export default function DraggAble({ id, label }) {
       {...listeners}
       onDoubleClick={handleDoubleClick}
     >
-      {label}
-      {/* <TiptapEditor content={label} edit={edit} /> */}
+      {/* {label} */}
+      <div>
+        <TiptapEditor content={label} edit={edit} />
+      </div>
     </div>
   );
 }

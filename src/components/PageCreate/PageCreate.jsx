@@ -9,7 +9,6 @@ export default function PageCreate() {
 
   const handleCreate = (sectionKey, event) => {
     if (sectionKey === "navbar-section") {
-      console.log("Create clicked in section:", sectionKey);
       setOnCreate(event);
     }
   };
