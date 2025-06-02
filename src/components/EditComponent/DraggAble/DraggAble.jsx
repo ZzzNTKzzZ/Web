@@ -51,7 +51,8 @@ export default function DraggAble({ id, label }) {
       {...listeners}
       onDoubleClick={handleDoubleClick}
     >
-      <TiptapEditor content={label} edit={edit} />
+      {label}
+      {/* <TiptapEditor content={label} edit={edit} /> */}
     </div>
   );
 }

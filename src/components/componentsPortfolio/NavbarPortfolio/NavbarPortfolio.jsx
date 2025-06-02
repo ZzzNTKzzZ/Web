@@ -21,7 +21,10 @@ export default function NavbarPortfolio({ onCreate }) {
       const newId = `droppable${countContainer}`;
       const newItemId = `newItem${countContainer}`;
       const newLabel = `New ${countContainer - 3}`; // Number new items starting from 1
-      setContainers((prev) => [...prev, { id: newId, item: newItemId, label: newLabel }]);
+      setContainers((prev) => [
+        ...prev,
+        { id: newId, item: newItemId, label: newLabel },
+      ]);
     }
   }, [onCreate]);
 
@@ -61,12 +64,23 @@ export default function NavbarPortfolio({ onCreate }) {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-around", padding: 20, flexWrap: "wrap", maxWidth: "100%"}}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-around",
+        padding: 20,
+        flexWrap: "wrap",
+        maxWidth: "100%",
+      }}
+    >
       <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         {containers.map((container) => (
           <Droppable key={container.id} id={container.id}>
             {container.item && (
-              <DraggAble id={container.item} label={container.label || container.item} />
+              <DraggAble
+                id={container.item}
+                label={container.label || container.item}
+              />
             )}
           </Droppable>
         ))}

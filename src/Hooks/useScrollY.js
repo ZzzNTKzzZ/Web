@@ -1,7 +1,3 @@
-// Home
-// Home
-
-
 import { useState, useEffect } from 'react';
 
 function useScrollY() {
