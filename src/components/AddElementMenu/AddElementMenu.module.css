@@ -9,6 +9,7 @@
   font-family: "Segoe UI", sans-serif;
   overflow: hidden;
   position: relative;
+  overflow-x: hidden;
 }
 
 .menu > div:first-child {
