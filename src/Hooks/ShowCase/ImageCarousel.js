@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import style from "../../Page/Home/ShowCase/showCase.module.css";
 
 const images = [
-  "../../assets/Images/ImgShowCase1.jpg",
-  "../../assets/Images/ImgShowCase2.jpg",
-  "../../assets/Images/ImgShowCase3.jpg",
+  "../../assets/Img/ImgShowCase1.svg",
+  "../../assets/Img/ImgShowCase2.svg",
+  "../../assets/Img/ImgShowCase3.svg",
+  // Thêm nhiều hình ảnh hơn nếu cần cho mộtphù hợp
 ];
 
 const ImageCarousel = () => {
@@ -12,7 +13,9 @@ const ImageCarousel = () => {
 
   const totalImages = images.length;
 
+  // Hàm lấy chỉ số ảnh trước đó, đảm bảo vòng lặp
   const getPreviousIndex = (index) => (index - 1 + totalImages) % totalImages;
+  // Hàm lấy chỉ số ảnh tiếp theo, đảm bảo vòng lặp
   const getNextIndex = (index) => (index + 1) % totalImages;
 
   const handlePrevClick = () => {
@@ -31,31 +34,39 @@ const ImageCarousel = () => {
   return (
     <div className={style.carouselContainer}>
       <div className={style.carouselWrapper}>
-        <div className={style.carouselItemLeftItem}>
+        <div className={`${style.carouselItem} ${style.leftItem}`}>
           <img
             src={images[leftImageIndex]}
-            alt={`Carousel ${leftImageIndex + 1}`}
+            alt={`Hình ảnh${leftImageIndex + 1}`}
           />
         </div>
-        <div className={style.carouselItemCenterItem}>
+        <div className={`${style.carouselItem} ${style.centerItem}`}>
           <img
             src={images[centerImageIndex]}
-            alt={`Carousel ${centerImageIndex + 1}`}
+            alt={`Hình ảnh${centerImageIndex + 1}`}
           />
         </div>
-        <div className={style.carouselItemRightItem}>
+        <div className={`${style.carouselItem} ${style.rightItem}`}>
           <img
             src={images[rightImageIndex]}
-            alt={`Carousel ${rightImageIndex + 1}`}
+            alt={`Hình ảnh${rightImageIndex + 1}`}
           />
         </div>
       </div>
 
-      <button className={style.carouselButtonPrev} onClick={handlePrevClick}>
-        &lt;
+      {/* Nút Previous */}
+      <button
+        className={`${style.carouselButton} ${style.carouselButtonPrev}`}
+        onClick={handlePrevClick}
+      >
+        &lt; {/* Ký tự HTML cho dấu nhỏ hơn */}
       </button>
-      <button className={style.carouselButtonNext} onClick={handleNextClick}>
-        &gt;
+      {/* Nút Next */}
+      <button
+        className={`${style.carouselButton} ${style.carouselButtonNext}`}
+        onClick={handleNextClick}
+      >
+        &gt; {/* Ký tự HTML cho dấu lớn hơn */}
       </button>
     </div>
   );

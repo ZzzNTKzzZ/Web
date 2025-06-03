@@ -5,30 +5,37 @@ function useScrollDirection(threshold = 10) {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    let ticking = false;
 
-      if (currentScrollY === 0) {
-        setScrollDirection("up");
-        setLastScrollY(0);
+    const updateScrollDir = () => {
+      const scrollY = window.scrollY;
+
+      if (Math.abs(scrollY - lastScrollY) < threshold) {
+        ticking = false;
         return;
       }
-      if (
-        Math.abs(currentScrollY - lastScrollY) > threshold ||
-        currentScrollY < lastScrollY
-      ) {
-        const direction = currentScrollY > lastScrollY ? "down" : "up";
 
-        if (direction !== scrollDirection) {
-          setScrollDirection(direction);
-        }
-        setLastScrollY(currentScrollY);
+      const direction = scrollY > lastScrollY ? "down" : "up";
+
+      if (direction !== scrollDirection) {
+        setScrollDirection(direction);
+      }
+
+      setLastScrollY(scrollY);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollDir);
+        ticking = true;
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, threshold, scrollDirection]);
+  }, [lastScrollY, scrollDirection, threshold]);
 
   return scrollDirection;
 }
