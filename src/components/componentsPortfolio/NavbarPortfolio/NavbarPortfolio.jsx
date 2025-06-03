@@ -2,11 +2,11 @@ import { DndContext } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
 import Droppable from "../../EditComponent/Droppable/Droppable";
 import DraggAble from "../../EditComponent/DraggAble/DraggAble";
+import TiptapEditor from "../../EditComponent/TiptapEditor/TiptapEditor";
 
 let countContainer = 3;
 
 export default function NavbarPortfolio({ onCreate }) {
-  // Initial containers with unique draggable items
   const [containers, setContainers] = useState([
     { id: "droppable1", item: "home", label: "Home" },
     { id: "droppable2", item: "about", label: "About" },
@@ -20,7 +20,7 @@ export default function NavbarPortfolio({ onCreate }) {
       countContainer += 1;
       const newId = `droppable${countContainer}`;
       const newItemId = `newItem${countContainer}`;
-      const newLabel = `New ${countContainer - 3}`; // Number new items starting from 1
+      const newLabel = `New ${countContainer - 3}`;
       setContainers((prev) => [
         ...prev,
         { id: newId, item: newItemId, label: newLabel },
@@ -47,20 +47,28 @@ export default function NavbarPortfolio({ onCreate }) {
 
     setContainers((prev) => {
       const updated = [...prev];
-      // Swap items between source and target droppables
-      const temp = updated[targetIndex].item;
-      updated[targetIndex].item = draggedId;
-      updated[sourceIndex].item = temp;
-
-      // Also swap labels to keep in sync
+      const tempItem = updated[targetIndex].item;
       const tempLabel = updated[targetIndex].label;
+
+      updated[targetIndex].item = updated[sourceIndex].item;
       updated[targetIndex].label = updated[sourceIndex].label;
+
+      updated[sourceIndex].item = tempItem;
       updated[sourceIndex].label = tempLabel;
 
       return updated;
     });
 
     setActiveId(null);
+  };
+
+  // ✅ FIXED: Update label using `item` as key (not index)
+  const handleUpdateLabel = (itemId, newLabel) => {
+    setContainers((prev) =>
+      prev.map((container) =>
+        container.item === itemId ? { ...container, label: newLabel } : container
+      )
+    );
   };
 
   return (
@@ -76,12 +84,18 @@ export default function NavbarPortfolio({ onCreate }) {
       <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         {containers.map((container) => (
           <Droppable key={container.id} id={container.id}>
-            {container.item && (
-              <DraggAble
-                id={container.item}
-                label={container.label || container.item}
+            <DraggAble
+              id={container.item}
+              label={container.label}
+              activeId={activeId}
+            >
+              <TiptapEditor
+                content={container.label}
+                onChange={(newContent) =>
+                  handleUpdateLabel(container.item, newContent)
+                }
               />
-            )}
+            </DraggAble>
           </Droppable>
         ))}
       </DndContext>

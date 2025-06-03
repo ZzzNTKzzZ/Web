@@ -27,7 +27,7 @@ export default function PageCreate() {
         ref={sectionRef}
         sectionKey="navbar-section"
         onCreate={handleCreate}
-      >
+      > 
         <NavbarPortfolio onCreate={onCreate} />
       </SectionPortfolio>
     </div>

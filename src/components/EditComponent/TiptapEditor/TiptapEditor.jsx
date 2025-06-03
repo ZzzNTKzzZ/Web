@@ -1,24 +1,28 @@
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
-export default function TiptapEditor({ content, edit }) {
+export default function TiptapEditor({ content, onChange, editable }) {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: content,
-    editable: edit,
+    content,
+    onUpdate({ editor }) {
+      onChange?.(editor.getText());
+    },
+    editorProps: {
+      attributes: {
+        class: "prose border border-gray-300 p-2 rounded",
+        spellCheck: "false",
+      },
+    },
+    editable: editable
   });
-  
-  // Update edit mode dynamically
+
   useEffect(() => {
-    if (editor) {
-      editor.setEditable(edit);
+    if (editor && content !== editor.getText()) {
+      editor.commands.setContent(content, false);
     }
-  }, [edit, editor]);
-  // Update content
-  useEffect(() => {
-    editor.commands.setContent(content)
-  }, [content])
+  }, [content, editor]);
 
   return <EditorContent editor={editor} />;
 }

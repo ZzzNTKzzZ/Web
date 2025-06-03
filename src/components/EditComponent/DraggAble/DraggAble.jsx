@@ -1,60 +1,40 @@
+import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
-import TiptapEditor from "../TiptapEditor/TiptapEditor";
-import { useState, useRef, useEffect } from "react";
 
-export default function DraggAble({ id, label }) {
+export default function DraggAble({ id, label, children, activeId }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
-  const [edit, setEdit] = useState(false);
-  const wrapperRef = useRef(null); // ref for click detection
+  const [isEditing, setIsEditing] = useState(false);
 
   const style = {
-    transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : '',
-    padding: '10px 20px',
-    backgroundColor: '#6366f1',
-    color: '#fff',
-    margin: '5px',
-    borderRadius: '8px',
-    cursor: 'grab',
+    transform: transform
+      ? `translate(${transform.x}px, ${transform.y}px)`
+      : undefined,
+    border: activeId === id ? "2px solid blue" : "1px solid gray",
+    padding: 10,
+    margin: 10,
+    borderRadius: 8,
+    background: "#f4f4f4",
+    minWidth: 150,
+    userSelect: "none",
+    cursor: "grab",
   };
-
-  const handleDoubleClick = () => {
-    setEdit(true);
-  };
-
-  
-  // Click outside detection
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-        setEdit(false);
-      }
-    };
-
-    if (edit) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [edit]);
 
   return (
     <div
-      ref={(node) => {
-        setNodeRef(node);
-        wrapperRef.current = node;
-      }}
+      ref={setNodeRef}
       style={style}
-      {...attributes}
       {...listeners}
-      onDoubleClick={handleDoubleClick}
+      {...attributes}
+      onClick={() => setIsEditing(true)}
     >
-      {/* {label} */}
-      <div>
-        <TiptapEditor content={label} edit={edit} />
+      <div
+        style={{ pointerEvents: "auto", userSelect: "text", cursor: "text" }}
+        onPointerDown={(e) => e.stopPropagation()}
+      >
+        {isEditing
+          ? React.cloneElement(children, { editable: true })
+          : <div>{label}</div>
+        }
       </div>
     </div>
   );
