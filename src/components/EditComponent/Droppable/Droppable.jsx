@@ -1,15 +1,10 @@
 import { useDroppable } from "@dnd-kit/core";
 
-export default function Droppable({ id, children, label }) {
+export default function Droppable({ id, children }) {
   const { setNodeRef } = useDroppable({ id });
 
-  const style = {
-    
-  };
-
   return (
-    <div ref={setNodeRef} style={style}>
-      <strong>{label}</strong>
+    <div ref={setNodeRef} >
       {children}
     </div>
   );

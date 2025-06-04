@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-export default function TiptapEditor({ content, onChange, editable, editStyle }) {
+export default function TiptapEditor({ content, onChange, editable }) {
   const editor = useEditor({
     extensions: [StarterKit],
     content,
@@ -14,7 +14,7 @@ export default function TiptapEditor({ content, onChange, editable, editStyle })
         spellCheck: "false",
       },
     },
-    editable: editable
+    editable: editable,
   });
 
   useEffect(() => {
@@ -23,11 +23,5 @@ export default function TiptapEditor({ content, onChange, editable, editStyle })
     }
   }, [content, editor]);
 
-  return (
-    // <div style={{fontFamily : editStyle.fontFamily}}>
-      <EditorContent editor={editor} />
-
-    // </div>
-
-  )
+  return <EditorContent editor={editor} />;
 }

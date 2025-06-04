@@ -9,18 +9,19 @@ let countContainer = 3;
 
 export default function NavbarPortfolio({ onCreate }) {
   const [containers, setContainers] = useState([
-  { id: "droppable1", item: "home", label: "Home", style: { fontFamily: "Times New Roman" } },
-  { id: "droppable2", item: "about", label: "About", style: { fontFamily: "Times New Roman" } },
-  { id: "droppable3", item: "contact", label: "Contact", style: { fontFamily: "Times New Roman" } },
-]);
-  const menuRef = useRef();
+    { id: "droppable1", item: "home", label: "Home", style: { fontFamily: "Times New Roman" } },
+    { id: "droppable2", item: "about", label: "About", style: { fontFamily: "Times New Roman" } },
+    { id: "droppable3", item: "contact", label: "Contact", style: { fontFamily: "Times New Roman" } },
+  ]);
   const [editStyle, setEditStyle] = useState({
     fontFamily: "Times New Romand",
     fontSize: "inherit",
     fontStyle: "normal",
     fontWeight: "normal",
     textDecoration: "none",
+    backgroundColor: "#fff"
   });
+  const menuRef = useRef();
   const [activeId, setActiveId] = useState(null);
   const [contextMenu, setContextMenu] = useState({
     visible: false,
@@ -32,9 +33,9 @@ export default function NavbarPortfolio({ onCreate }) {
   useEffect(() => {
     if (onCreate) {
       countContainer += 1;
-      const newId = `droppable${countContainer}`;
+      const newId =`droppable${countContainer}`;
       const newItemId = `newItem${countContainer}`;
-      const newLabel = `New ${countContainer - 3}`;
+      const newLabel = `new${countContainer - 3}`;
       setContainers((prev) => [
         ...prev,
         { id: newId, item: newItemId, label: newLabel },
@@ -59,7 +60,6 @@ export default function NavbarPortfolio({ onCreate }) {
   const handleDragStart = (event) => {
     setActiveId(event.active.id);
   };
-
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (!over) return;
@@ -120,6 +120,7 @@ export default function NavbarPortfolio({ onCreate }) {
               activeId={activeId}
               onRightClick={handleRightClick}
               editStyle={editStyle}
+              setActiveId={setActiveId}
             >
               <TiptapEditor
                 content={container.label}
@@ -127,7 +128,6 @@ export default function NavbarPortfolio({ onCreate }) {
                   handleUpdateLabel(container.item, newContent)
                 }
                 editable={true}
-                editStyle={editStyle}
               />
             </DraggAble>
           </Droppable>

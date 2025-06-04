@@ -7,15 +7,16 @@ export default function DraggAble({
   label,
   children,
   activeId,
+  setActiveId,
   onRightClick,
   editStyle,
 }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
 
-
   const handleClick = (e) => {
     e.stopPropagation(); // Prevent event bubbling
+    setActiveId(id);
     setIsEditing(true);
   };
 
@@ -23,6 +24,7 @@ export default function DraggAble({
     e.preventDefault(); // Prevent the browser’s default context menu
     e.stopPropagation();
     if (onRightClick) {
+      setActiveId(id);
       onRightClick(e, id); // Pass both the event and id for flexibility
     }
   };
@@ -36,6 +38,8 @@ export default function DraggAble({
           ? `translate(${transform.x}px, ${transform.y}px)`
           : undefined,
         border: activeId === id ? "2px solid blue" : "1px solid gray",
+        backgroundColor:
+          activeId === id ? editStyle.backgroundColor : "inherit",
       }}
       {...listeners}
       {...attributes}
@@ -43,10 +47,15 @@ export default function DraggAble({
       onContextMenu={handleContextMenu}
     >
       <div
-        style={{ pointerEvents: "auto", userSelect: "text", cursor: "text", 
-          fontFamily: activeId === id ? editStyle.fontFamily: "initial"
-
-         }}
+        style={{
+          pointerEvents: "auto",
+          userSelect: "text",
+          cursor: "text",
+          fontFamily: activeId === id ? editStyle.fontFamily : "initial",
+          fontWeight: activeId === id ? editStyle.fontWeight : "normal",
+          fontStyle: activeId === id ? editStyle.fontStyle : "normal",
+          textDecoration: activeId === id ? editStyle.textDecoration : "none",
+        }}
         onPointerDown={(e) => e.stopPropagation()}
       >
         {isEditing ? (
