@@ -128,7 +128,7 @@ export default function NavbarPortfolio({ onCreate }) {
         ))}
       </DndContext>
       {contextMenu.visible && (
-        <ContextMenu position={contextMenu} setContextMenu={setContextMenu} />
+        <ContextMenu position={contextMenu} setContextMenu={setContextMenu} editor/>
       )}
     </div>
   );

@@ -1,35 +1,43 @@
-export default function ContextMenu({ position, setContextMenu }) {
-  const style = {
-    position: "fixed",
-    top: position.y,
-    left: position.x,
-    backgroundColor: "white",
-    border: "1px solid #ccc",
-    borderRadius: 4,
-    padding: "4px 0",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-    zIndex: 1000,
-    minWidth: 120,
-  };
+import style from "./ContextMenu.module.css";
+
+export default function ContextMenu({ position, setContextMenu, editor}) {
+  const style = {};
 
   return (
-    <ul style={style}>
-      <li
-        style={{ padding: "8px 12px", cursor: "pointer" }}
+    <div
+      className={style.contextMenu}
+      style={{ position: "fixed", top: position.y, left: position.x }}
+    >
+      <p>Text Setting</p>
+      <div
         onClick={() => {
           setContextMenu({ ...position, visible: false });
         }}
       >
-        Edit
-      </li>
-      <li
-        style={{ padding: "8px 12px", cursor: "pointer" }}
-        onClick={() => {
-          setContextMenu({ ...position, visible: false });
-        }}
-      >
-        Delete
-      </li>
-    </ul>
+        X
+      </div>
+      <ul className={style.menu}>
+        <li
+          style={{ padding: "8px 12px", cursor: "pointer" }}
+          onClick={() => {
+            setContextMenu({ ...position, visible: false });
+          }}
+        >
+          <select name="font" id="font">
+            <option value="Times New Romand">Times New Romand</option>
+            <option value="Arial">Arial</option>
+            <option value="Sans Srief">Sans Srief</option>
+          </select>
+        </li>
+        <li
+          style={{ padding: "8px 12px", cursor: "pointer" }}
+          onClick={() => {
+            setContextMenu({ ...position, visible: false });
+          }}
+        >
+          Delete
+        </li>
+      </ul>
+    </div>
   );
 }
