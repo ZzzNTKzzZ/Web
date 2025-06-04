@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./AddElementMenu.module.css";
+import CloseButton from "../Common/CloseButton/CloseButton";
 
-import CloseIcon from "../../assets/icon/Close.svg";
 
 export default function AddElementMenu({contents ,onClick }) {
  
@@ -13,9 +13,7 @@ export default function AddElementMenu({contents ,onClick }) {
       {/* Header */}
       <div>
         <p>Add new element</p>
-        <div className={style.close} onClick={onClick}>
-          <img src={CloseIcon} alt="Close" />
-        </div>
+        <CloseButton onClick={onClick}/>
       </div>
 
       <div className={style.content}>

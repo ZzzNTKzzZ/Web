@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 
-export default function DraggAble({ id, label, children, activeId, onRightClick }) {
+import style from "./DraggAble.module.css";
+export default function DraggAble({
+  id,
+  label,
+  children,
+  activeId,
+  onRightClick,
+  editStyle,
+}) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
 
-  const style = {
-    transform: transform
-      ? `translate(${transform.x}px, ${transform.y}px)`
-      : undefined,
-    border: activeId === id ? "2px solid blue" : "1px solid gray",
-    padding: 10,
-    margin: 10,
-    borderRadius: 8,
-    background: "#f4f4f4",
-    minWidth: 150,
-    userSelect: "none",
-    cursor: "grab",
-  };
 
   const handleClick = (e) => {
     e.stopPropagation(); // Prevent event bubbling
@@ -34,21 +29,31 @@ export default function DraggAble({ id, label, children, activeId, onRightClick 
 
   return (
     <div
+      className={style.draggAble}
       ref={setNodeRef}
-      style={style}
+      style={{
+        transform: transform
+          ? `translate(${transform.x}px, ${transform.y}px)`
+          : undefined,
+        border: activeId === id ? "2px solid blue" : "1px solid gray",
+      }}
       {...listeners}
       {...attributes}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
     >
       <div
-        style={{ pointerEvents: "auto", userSelect: "text", cursor: "text" }}
+        style={{ pointerEvents: "auto", userSelect: "text", cursor: "text", 
+          fontFamily: activeId === id ? editStyle.fontFamily: "initial"
+
+         }}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        {isEditing
-          ? React.cloneElement(children, { editable: true })
-          : <div>{label}</div>
-        }
+        {isEditing ? (
+          React.cloneElement(children, { editable: true })
+        ) : (
+          <div>{label}</div>
+        )}
       </div>
     </div>
   );

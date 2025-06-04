@@ -1,5 +1,5 @@
 import { DndContext } from "@dnd-kit/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Droppable from "../../EditComponent/Droppable/Droppable";
 import DraggAble from "../../EditComponent/DraggAble/DraggAble";
 import TiptapEditor from "../../EditComponent/TiptapEditor/TiptapEditor";
@@ -9,11 +9,18 @@ let countContainer = 3;
 
 export default function NavbarPortfolio({ onCreate }) {
   const [containers, setContainers] = useState([
-    { id: "droppable1", item: "home", label: "Home" },
-    { id: "droppable2", item: "about", label: "About" },
-    { id: "droppable3", item: "contact", label: "Contact" },
-  ]);
-
+  { id: "droppable1", item: "home", label: "Home", style: { fontFamily: "Times New Roman" } },
+  { id: "droppable2", item: "about", label: "About", style: { fontFamily: "Times New Roman" } },
+  { id: "droppable3", item: "contact", label: "Contact", style: { fontFamily: "Times New Roman" } },
+]);
+  const menuRef = useRef();
+  const [editStyle, setEditStyle] = useState({
+    fontFamily: "Times New Romand",
+    fontSize: "inherit",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    textDecoration: "none",
+  });
   const [activeId, setActiveId] = useState(null);
   const [contextMenu, setContextMenu] = useState({
     visible: false,
@@ -86,16 +93,12 @@ export default function NavbarPortfolio({ onCreate }) {
   const handleUpdateLabel = (itemId, newLabel) => {
     setContainers((prev) =>
       prev.map((container) =>
-        container.item === itemId ? { ...container, label: newLabel } : container
+        container.item === itemId
+          ? { ...container, label: newLabel }
+          : container
       )
     );
   };
-
-  useEffect(() => {
-    const closeMenu = () => setContextMenu((prev) => ({ ...prev, visible: false }));
-    window.addEventListener("click", closeMenu);
-    return () => window.removeEventListener("click", closeMenu);
-  }, []);
 
   return (
     <div
@@ -116,19 +119,29 @@ export default function NavbarPortfolio({ onCreate }) {
               label={container.label}
               activeId={activeId}
               onRightClick={handleRightClick}
+              editStyle={editStyle}
             >
               <TiptapEditor
                 content={container.label}
                 onChange={(newContent) =>
                   handleUpdateLabel(container.item, newContent)
                 }
+                editable={true}
+                editStyle={editStyle}
               />
             </DraggAble>
           </Droppable>
         ))}
       </DndContext>
       {contextMenu.visible && (
-        <ContextMenu position={contextMenu} setContextMenu={setContextMenu} editor/>
+        <ContextMenu
+          ref={menuRef}
+          position={contextMenu}
+          setContextMenu={setContextMenu}
+          editor
+          editStyle={editStyle}
+          setEditStyle={setEditStyle}
+        />
       )}
     </div>
   );

@@ -1,43 +1,67 @@
+import React, { useEffect } from "react";
 import style from "./ContextMenu.module.css";
 
-export default function ContextMenu({ position, setContextMenu, editor}) {
-  const style = {};
+import CloseButton from "../../Common/CloseButton/CloseButton";
+import FontColorIcon from "../../../assets/icon/FontColor.svg";
 
-  return (
-    <div
-      className={style.contextMenu}
-      style={{ position: "fixed", top: position.y, left: position.x }}
-    >
-      <p>Text Setting</p>
+const ContextMenu = React.forwardRef(
+  ({ position, setContextMenu, editStyle, setEditStyle }, ref) => {
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setContextMenu((prev) => ({ ...prev, visible: false }));
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref, setContextMenu]);
+
+    const handleFontChange = (e) => {
+      const newFont = e.target.value;
+      setEditStyle((prev) => ({ ...prev, fontFamily: newFont }));
+    };
+
+    return (
       <div
-        onClick={() => {
-          setContextMenu({ ...position, visible: false });
-        }}
+        ref={ref}
+        className={style.contextMenu}
+        style={{ position: "fixed", top: position.y, left: position.x }}
       >
-        X
+        <div className={style.header}>
+          <p>Text Setting</p>
+          <CloseButton
+            onClick={() =>
+              setContextMenu((prev) => ({ ...prev, visible: false }))
+            }
+          />
+        </div>
+
+        <ul className={style.menu}>
+          <li>
+            <div className={style.fontType}>
+              <select
+                name="font"
+                id="font"
+                value={editStyle.fontFamily}
+                onChange={handleFontChange}
+              >
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="monospace">monospace</option>
+              </select>
+
+              <div className={style.fontColor}>
+                <img src={FontColorIcon} alt="Font color icon" />
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
-      <ul className={style.menu}>
-        <li
-          style={{ padding: "8px 12px", cursor: "pointer" }}
-          onClick={() => {
-            setContextMenu({ ...position, visible: false });
-          }}
-        >
-          <select name="font" id="font">
-            <option value="Times New Romand">Times New Romand</option>
-            <option value="Arial">Arial</option>
-            <option value="Sans Srief">Sans Srief</option>
-          </select>
-        </li>
-        <li
-          style={{ padding: "8px 12px", cursor: "pointer" }}
-          onClick={() => {
-            setContextMenu({ ...position, visible: false });
-          }}
-        >
-          Delete
-        </li>
-      </ul>
-    </div>
-  );
-}
+    );
+  }
+);
+
+export default ContextMenu;
