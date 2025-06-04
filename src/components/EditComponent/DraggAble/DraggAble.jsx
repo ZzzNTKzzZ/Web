@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 
-export default function DraggAble({ id, label, children, activeId }) {
+export default function DraggAble({ id, label, children, activeId, onRightClick }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
 
@@ -19,13 +19,27 @@ export default function DraggAble({ id, label, children, activeId }) {
     cursor: "grab",
   };
 
+  const handleClick = (e) => {
+    e.stopPropagation(); // Prevent event bubbling
+    setIsEditing(true);
+  };
+
+  const handleContextMenu = (e) => {
+    e.preventDefault(); // Prevent the browser’s default context menu
+    e.stopPropagation();
+    if (onRightClick) {
+      onRightClick(e, id); // Pass both the event and id for flexibility
+    }
+  };
+
   return (
     <div
       ref={setNodeRef}
       style={style}
       {...listeners}
       {...attributes}
-      onClick={() => setIsEditing(true)}
+      onClick={handleClick}
+      onContextMenu={handleContextMenu}
     >
       <div
         style={{ pointerEvents: "auto", userSelect: "text", cursor: "text" }}

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Droppable from "../../EditComponent/Droppable/Droppable";
 import DraggAble from "../../EditComponent/DraggAble/DraggAble";
 import TiptapEditor from "../../EditComponent/TiptapEditor/TiptapEditor";
+import ContextMenu from "../../EditComponent/ContextMenu/ContextMenu";
 
 let countContainer = 3;
 
@@ -14,6 +15,12 @@ export default function NavbarPortfolio({ onCreate }) {
   ]);
 
   const [activeId, setActiveId] = useState(null);
+  const [contextMenu, setContextMenu] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    targetId: null,
+  });
 
   useEffect(() => {
     if (onCreate) {
@@ -27,6 +34,20 @@ export default function NavbarPortfolio({ onCreate }) {
       ]);
     }
   }, [onCreate]);
+
+  const handleRightClick = (e, id) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    setContextMenu({
+      visible: true,
+      x: rect.right + 4,
+      y: rect.top,
+      targetId: id,
+    });
+  };
 
   const handleDragStart = (event) => {
     setActiveId(event.active.id);
@@ -62,7 +83,6 @@ export default function NavbarPortfolio({ onCreate }) {
     setActiveId(null);
   };
 
-  // ✅ FIXED: Update label using `item` as key (not index)
   const handleUpdateLabel = (itemId, newLabel) => {
     setContainers((prev) =>
       prev.map((container) =>
@@ -70,6 +90,12 @@ export default function NavbarPortfolio({ onCreate }) {
       )
     );
   };
+
+  useEffect(() => {
+    const closeMenu = () => setContextMenu((prev) => ({ ...prev, visible: false }));
+    window.addEventListener("click", closeMenu);
+    return () => window.removeEventListener("click", closeMenu);
+  }, []);
 
   return (
     <div
@@ -79,6 +105,7 @@ export default function NavbarPortfolio({ onCreate }) {
         padding: 20,
         flexWrap: "wrap",
         maxWidth: "100%",
+        position: "relative",
       }}
     >
       <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
@@ -88,6 +115,7 @@ export default function NavbarPortfolio({ onCreate }) {
               id={container.item}
               label={container.label}
               activeId={activeId}
+              onRightClick={handleRightClick}
             >
               <TiptapEditor
                 content={container.label}
@@ -99,6 +127,9 @@ export default function NavbarPortfolio({ onCreate }) {
           </Droppable>
         ))}
       </DndContext>
+      {contextMenu.visible && (
+        <ContextMenu position={contextMenu} setContextMenu={setContextMenu} />
+      )}
     </div>
   );
 }
