@@ -8,39 +8,37 @@ import { ReactComponent as BoldIcon } from "../../../assets/icon/Bold.svg";
 import { ReactComponent as ItalicIcon } from "../../../assets/icon/Italic.svg";
 import { ReactComponent as UnderlineIcon } from "../../../assets/icon/Underline.svg";
 
-import debounceUtils from "../../../Utils/debounceUtils";
-
 const ContextMenu = React.forwardRef(
   ({ position, setContextMenu, editStyle, setEditStyle }, ref) => {
     const [showPicker, setShowPicker] = useState(false);
-    const [color, setColor] = useState("#000");
-    const [activeStyle, setActiveStyle] = useState(Object.values(editStyle));
+    const [color, setColor] = useState(editStyle.backgroundColor || "#000");
 
-    // Keep activeStyle in sync with editStyle
     useEffect(() => {
-      setActiveStyle(Object.values(editStyle));
-    }, [editStyle]);
+      setColor(editStyle.backgroundColor || "#fff");
+    }, [editStyle.backgroundColor]);
 
-    // Handle color picker toggle
     const togglePicker = () => {
       setShowPicker(!showPicker);
     };
 
-    // Handle font dropdown
     const handleFontChange = (e) => {
       const newFont = e.target.value;
-      setEditStyle((prev) => ({ ...prev, fontFamily: newFont }));
+      setEditStyle({fontFamily: newFont});
     };
 
-    // Handle font color change with debounce
     const handleColorChange = (newColor) => {
-      const hexColor = newColor.hex;
-      setColor(hexColor);
-      debounceUtils(
-        setEditStyle((prev) => ({ ...prev, backgroundColor: hexColor })),
-        300
-      );
+      setColor(newColor.hex);
     };
+
+    // Debounce background color update
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        console.log(editStyle.style.fontWeight);
+        setEditStyle({ backgroundColor: color });
+      }, 300);
+
+      return () => clearTimeout(timeout);
+    }, [color]);
 
     // Close context menu when clicking outside
     useEffect(() => {
@@ -104,13 +102,13 @@ const ContextMenu = React.forwardRef(
             {/* Bold Button */}
             <div
               className={`${style.styleBtn} ${
-                editStyle.fontWeight === "bold" ? style.active : ""
+                editStyle.style.fontWeight === "bold" ? style.active : ""
               }`}
               onClick={() => {
-                setEditStyle((prev) => ({
-                  ...prev,
-                  fontWeight: prev.fontWeight === "bold" ? "normal" : "bold",
-                }));
+                setEditStyle({
+                  fontWeight:
+                    editStyle.style.fontWeight === "bold" ? "normal" : "bold",
+                });
               }}
               style={{ fontWeight: "bold" }}
             >
@@ -120,14 +118,14 @@ const ContextMenu = React.forwardRef(
             {/* Italic Button */}
             <div
               className={`${style.styleBtn} ${
-                editStyle.fontStyle === "italic" ? style.active : ""
+                editStyle.style.fontStyle === "italic" ? style.active : ""
               }`}
-              onClick={() => {
-                setEditStyle((prev) => ({
-                  ...prev,
-                  fontStyle: prev.fontStyle === "italic" ? "normal" : "italic",
-                }));
-              }}
+              onClick={() =>
+                setEditStyle({
+                  fontStyle:
+                    editStyle.style.fontStyle === "italic" ? "normal" : "italic",
+                })
+              }
               style={{ fontStyle: "italic" }}
             >
               <ItalicIcon />
@@ -136,15 +134,16 @@ const ContextMenu = React.forwardRef(
             {/* Underline Button */}
             <div
               className={`${style.styleBtn} ${
-                editStyle.textDecoration === "underline" ? style.active : ""
+                editStyle.style.textDecoration === "underline"
+                  ? style.active
+                  : ""
               }`}
-              onClick={() => {
-                setEditStyle((prev) => ({
-                  ...prev,
+              onClick={() =>
+                setEditStyle({
                   textDecoration:
-                    prev.textDecoration === "underline" ? "none" : "underline",
-                }));
-              }}
+                    editStyle.style.textDecoration === "underline" ? "none" : "underline",
+                })
+              }
               style={{ textDecoration: "underline" }}
             >
               <UnderlineIcon />

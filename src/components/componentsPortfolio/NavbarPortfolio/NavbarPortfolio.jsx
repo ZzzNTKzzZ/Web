@@ -9,20 +9,48 @@ let countContainer = 3;
 
 export default function NavbarPortfolio({ onCreate }) {
   const [containers, setContainers] = useState([
-    { id: "droppable1", item: "home", label: "Home", style: { fontFamily: "Times New Roman" } },
-    { id: "droppable2", item: "about", label: "About", style: { fontFamily: "Times New Roman" } },
-    { id: "droppable3", item: "contact", label: "Contact", style: { fontFamily: "Times New Roman" } },
+    {
+      id: "home",
+      item: "home",
+      label: "Home",
+      style: {
+        fontFamily: "Times New Roman",
+        fontSize: "inherit",
+        fontStyle: "normal",
+        fontWeight: "normal",
+        textDecoration: "none",
+        backgroundColor: "#fff",
+      },
+    },
+    {
+      id: "about",
+      item: "about",
+      label: "About",
+      style: {
+        fontFamily: "Times New Roman",
+        fontSize: "inherit",
+        fontStyle: "normal",
+        fontWeight: "normal",
+        textDecoration: "none",
+        backgroundColor: "#fff",
+      },
+    },
+    {
+      id: "contact",
+      item: "contact",
+      label: "Contact",
+      style: {
+        fontFamily: "Times New Roman",
+        fontSize: "inherit",
+        fontStyle: "normal",
+        fontWeight: "normal",
+        textDecoration: "none",
+        backgroundColor: "#fff",
+      },
+    },
   ]);
-  const [editStyle, setEditStyle] = useState({
-    fontFamily: "Times New Romand",
-    fontSize: "inherit",
-    fontStyle: "normal",
-    fontWeight: "normal",
-    textDecoration: "none",
-    backgroundColor: "#fff"
-  });
   const menuRef = useRef();
-  const [activeId, setActiveId] = useState(null);
+  const [activeId, setActiveId] = useState(containers[0]?.id || null);
   const [contextMenu, setContextMenu] = useState({
     visible: false,
     x: 0,
@@ -33,12 +61,27 @@ export default function NavbarPortfolio({ onCreate }) {
   useEffect(() => {
     if (onCreate) {
       countContainer += 1;
-      const newId =`droppable${countContainer}`;
+      const newId = `droppable${countContainer}`;
       const newItemId = `newItem${countContainer}`;
       const newLabel = `new${countContainer - 3}`;
+
+      const defaultStyle = {
+        fontFamily: "Times New Roman",
+        fontSize: "inherit",
+        fontStyle: "normal",
+        fontWeight: "normal",
+        textDecoration: "none",
+        backgroundColor: "#fff",
+      };
+
       setContainers((prev) => [
         ...prev,
-        { id: newId, item: newItemId, label: newLabel },
+        {
+          id: newId,
+          item: newItemId,
+          label: newLabel,
+          style: defaultStyle,
+        },
       ]);
     }
   }, [onCreate]);
@@ -58,6 +101,7 @@ export default function NavbarPortfolio({ onCreate }) {
   };
 
   const handleDragStart = (event) => {
+    console.log(event)
     setActiveId(event.active.id);
   };
   const handleDragEnd = (event) => {
@@ -119,7 +163,7 @@ export default function NavbarPortfolio({ onCreate }) {
               label={container.label}
               activeId={activeId}
               onRightClick={handleRightClick}
-              editStyle={editStyle}
+              editStyle={container.style}
               setActiveId={setActiveId}
             >
               <TiptapEditor
@@ -139,8 +183,16 @@ export default function NavbarPortfolio({ onCreate }) {
           position={contextMenu}
           setContextMenu={setContextMenu}
           editor
-          editStyle={editStyle}
-          setEditStyle={setEditStyle}
+          editStyle={containers.find((c) => c.id === activeId)}
+          setEditStyle={(newStyle) => {
+            setContainers((prev) =>
+              prev.map((container) =>
+                container.id === activeId
+                  ? { ...container, style: { ...container.style, ...newStyle } }
+                  : container
+              )
+            );
+          }}
         />
       )}
     </div>

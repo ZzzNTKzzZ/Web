@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 
 import style from "./DraggAble.module.css";
+
 export default function DraggAble({
   id,
   label,
@@ -13,19 +14,26 @@ export default function DraggAble({
 }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
+  const safeStyle = {
+    fontFamily: editStyle.fontFamily || "initial",
+    fontWeight: editStyle.fontWeight || "normal",
+    fontStyle: editStyle.fontStyle || "normal",
+    textDecoration: editStyle.textDecoration || "none",
+    backgroundColor: editStyle.backgroundColor || "inherit",
+  };
 
   const handleClick = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
+    e.stopPropagation();
     setActiveId(id);
     setIsEditing(true);
   };
 
   const handleContextMenu = (e) => {
-    e.preventDefault(); // Prevent the browser’s default context menu
+    e.preventDefault();
     e.stopPropagation();
     if (onRightClick) {
       setActiveId(id);
-      onRightClick(e, id); // Pass both the event and id for flexibility
+      onRightClick(e, id);
     }
   };
 
@@ -38,8 +46,7 @@ export default function DraggAble({
           ? `translate(${transform.x}px, ${transform.y}px)`
           : undefined,
         border: activeId === id ? "2px solid blue" : "1px solid gray",
-        backgroundColor:
-          activeId === id ? editStyle.backgroundColor : "inherit",
+        backgroundColor: activeId === id ? safeStyle.backgroundColor : "inherit",
       }}
       {...listeners}
       {...attributes}
@@ -51,14 +58,14 @@ export default function DraggAble({
           pointerEvents: "auto",
           userSelect: "text",
           cursor: "text",
-          fontFamily: activeId === id ? editStyle.fontFamily : "initial",
-          fontWeight: activeId === id ? editStyle.fontWeight : "normal",
-          fontStyle: activeId === id ? editStyle.fontStyle : "normal",
-          textDecoration: activeId === id ? editStyle.textDecoration : "none",
+          fontFamily: safeStyle.fontFamily ,
+          fontWeight: safeStyle.fontWeight,
+          fontStyle: safeStyle.fontStyle,
+          textDecoration: safeStyle.textDecoration,
         }}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        {isEditing ? (
+        {isEditing && React.isValidElement(children) ? (
           React.cloneElement(children, { editable: true })
         ) : (
           <div>{label}</div>
