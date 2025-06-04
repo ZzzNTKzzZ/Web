@@ -3,7 +3,7 @@ import style from "./button.module.css";
 
 function BtnStart({ Content, onClick }) {
   return (
-    <div className={style.btnStart}>
+    <div className={style.btnStartContainer}>
       <button
         type="button"
         className={style.btnStart}

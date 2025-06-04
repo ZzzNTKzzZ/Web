@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 1000px;
+  min-height: 800px; /* Đảm bảo đủ không gian */
   background-color: #ffffff;
   text-align: center;
   color: black;
@@ -18,6 +18,7 @@
 .content h2 {
   font-size: 40px;
   font-weight: bold;
+  line-height: 1.5;
   color: #000000;
 }
 
@@ -25,72 +26,110 @@
   font-size: 16px;
   color: #000000;
   padding-top: 20px;
+  line-height: 1.5;
 }
 
-/* Thêm kiểu cho phần carousel tổng thể trong ShowCase */
 .carousel {
-  width: 100%; /* Đảm bảo carousel chiếm hết chiều rộng của .showCase */
-  margin-top: 50px; /* Khoảng cách từ nội dung phía trên */
+  width: 100%;
+  margin-top: 50px;
 }
 
 .carouselContainer {
   position: relative;
   width: 100%;
-  max-width: 1200px; /* Điều chỉnh chiều rộng tối đa theo ý muốn */
+  max-width: 1200px; /* Chiều rộng tối đa của toàn bộ khu vực carousel */
   margin: 50px auto;
-  overflow: hidden; /* Quan trọng để ẩn các phần ảnh tràn ra ngoài */
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Giữ các ảnh ở giữa */
-  padding: 0 50px; /* Khoảng cách cho các nút */
-  box-sizing: border-box; /* Bao gồm padding trong chiều rộng */
+  overflow: hidden; /* Quan trọng để ẩn các ảnh không hiển thị */
+  /* Loại bỏ display, align-items, justify-content ở đây */
+  padding: 0 50px; /* Khoảng cách cho các nút (nút nằm trong padding) */
+  box-sizing: border-box;
+  height: 450px; /* Chiều cao cố định của carousel */
+  display: flex; /* Dùng flex để giữ wrapper và nút ở vị trí tương đối */
+  justify-content: center; /* Căn giữa nội dung */
+  align-items: center; /* Căn giữa theo chiều dọc */
 }
 
 .carouselWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 20px; /* Khoảng cách giữa các ảnh */
+  position: relative; /* Giữ relative để carouselItem absolute hoạt động */
+  width: calc(100% - 100px); /* Lấy 100% trừ đi padding hai bên của container */
+  height: 100%;
+  /* Không cần display flex hay gap ở đây nữa vì các item là absolute */
 }
 
 .carouselItem {
-  flex-shrink: 0; /* Ngăn không cho các item co lại */
-  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out,
-    opacity 0.3s ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute; /* RẤT QUAN TRỌNG: để định vị ảnh tự do */
+  top: 50%; /* Căn giữa theo chiều dọc */
+  transform: translateY(-50%); /* Dịch lên 50% chiều cao của chính nó */
+  opacity: 0; /* Mặc định ẩn */
+  pointer-events: none; /* Không cho phép click vào các ảnh không hiển thị */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
-  display: flex; /* Dùng flex để căn giữa ảnh bên trong */
+  display: flex;
   justify-content: center;
   align-items: center;
+
+  /* Hiệu ứng mượt mà hơn */
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), /* Ease-out-quad */
+              width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              right 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              z-index 0.3s steps(1, end); /* Z-index thay đổi nhanh hơn */
 }
 
 .carouselItem img {
   display: block;
   width: 100%;
-  height: auto;
-  object-fit: cover; /* Đảm bảo ảnh vừa vặn */
+  height: 100%;
+  object-fit: cover; /* Đảm bảo ảnh vừa vặn và không bị biến dạng */
 }
 
-/* Các ảnh bên trái và phải */
-.leftItem,
+/* Các ảnh bên trái và phải (nhỏ hơn) */
+.leftItem {
+  left: 0; /* Đặt sát mép trái của wrapper */
+  width: 30%; /* Chiều rộng ảnh nhỏ */
+  height: 75%; /* Chiều cao ảnh nhỏ */
+  opacity: 0.7; /* Làm mờ ảnh phụ */
+  transform: translateY(-50%) scale(0.85); /* Thu nhỏ và dịch lên */
+  z-index: 5;
+  pointer-events: auto; /* Cho phép click */
+}
+
 .rightItem {
-  width: 30%; /* Chiều rộng nhỏ hơn cho ảnh phụ */
-  opacity: 0.6; /* Làm mờ ảnh phụ */
-  transform: scale(0.9); /* Thu nhỏ ảnh phụ */
+  right: 0; /* Đặt sát mép phải của wrapper */
+  width: 30%; /* Chiều rộng ảnh nhỏ */
+  height: 75%; /* Chiều cao ảnh nhỏ */
+  opacity: 0.7; /* Làm mờ ảnh phụ */
+  transform: translateY(-50%) scale(0.85); /* Thu nhỏ và dịch lên */
+  z-index: 5;
+  pointer-events: auto; /* Cho phép click */
 }
 
-/* Ảnh chính giữa */
+/* Ảnh chính giữa (lớn hơn) */
 .centerItem {
-  width: 50%; /* Chiều rộng lớn hơn cho ảnh trung tâm */
+  left: 50%; /* Căn giữa theo chiều ngang của wrapper */
+  width: 60%; /* Chiều rộng ảnh lớn */
+  height: 100%; /* Chiều cao đầy đủ */
   opacity: 1;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1); /* Căn giữa cả ngang và dọc, không thu nhỏ */
   z-index: 10; /* Đảm bảo ảnh trung tâm ở trên */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Đổ bóng nổi bật */
+  pointer-events: auto; /* Cho phép click */
 }
 
-/* Các nút điều hướng */
+/* Class để ẩn các ảnh không hiển thị */
+.hiddenItem {
+  left: -200%; /* Đẩy ra rất xa về bên trái */
+  opacity: 0;
+  visibility: hidden; /* Đảm bảo nó không tương tác */
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.7); /* Giữ kích thước nhỏ hơn khi ẩn */
+}
+
+/* Nút điều hướng */
 .carouselButton {
   position: absolute;
   top: 50%;
@@ -100,9 +139,9 @@
   border: none;
   padding: 15px 10px;
   cursor: pointer;
-  z-index: 20; /* Đảm bảo nút nằm trên ảnh */
+  z-index: 20;
   font-size: 1.5rem;
-  border-radius: 5px;
+  border-radius: 50px;
   transition: background-color 0.3s ease;
 }
 
@@ -111,10 +150,9 @@
 }
 
 .carouselButtonPrev {
-  left: 10px;
+  left: 0;
 }
 
-/* Sửa lỗi chính tả: carouse-buttonNext thành carouselButtonNext */
 .carouselButtonNext {
-  right: 10px;
+  right: 0;
 }

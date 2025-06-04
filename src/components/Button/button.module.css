@@ -1,12 +1,14 @@
-.btnStart{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    background-color: #F54D0B;
-    color: white;
-    border-radius: 63px;
-    font-size: 50px;
-    font-weight: bold;
-    padding: 18px 64px ;
+.btnStart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background-color: #f54d0b;
+  color: white;
+
+  font-size: 50px;
+  font-weight: bold;
+  padding: 18px 64px;
+  border-radius: 63px;
+  border: none;
 }
