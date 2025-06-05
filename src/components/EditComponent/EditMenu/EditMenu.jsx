@@ -38,6 +38,7 @@ function NavbarEdit() {
       </div>
         <div>
           {designActive && <EditMenuComponent.MenuDesignNavbar />}
+          {textActive && <EditMenuComponent.MenuTextNavbar />}
         </div>
     </div>
   );

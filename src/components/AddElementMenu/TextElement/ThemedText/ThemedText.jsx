@@ -17,11 +17,9 @@ export default function ThemedText() {
     <div className={style.container}>
       <TitleType content={"Themed Text"}/>
       {headings.map(({ text, tag: Tag, className }, index) => (
-        <DraggAble id={className}>
-          <Tag key={index} className={`${className} ${style.heading}` }>
+          <Tag key={index}  className={`${className} ${style.heading}` }>
             {text}
           </Tag>
-        </DraggAble>
       ))}
     </div>
   );

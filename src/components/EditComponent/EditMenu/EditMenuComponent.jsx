@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ToggleButton from "../../Common/ToggleButton/ToggleButton";
-import fixedSet from "./EditMenuComponentStyle/fixedSet.module.css";
 import menuSet from "./EditMenuComponentStyle/menuSet.module.css";
 import editMenuComponent from "./editMenuComponent.module.css";
+import debounceUtils from "../../../Utils/debounceUtils";
 
 import { ReactComponent as AlignLeft } from "../../../assets/icon/AlignLeft.svg";
 import { ReactComponent as AlignRight } from "../../../assets/icon/AlignRight.svg";
 import { ReactComponent as AlignCenter } from "../../../assets/icon/AlignCenter.svg";
+import { SketchPicker } from "react-color";
 
 function FixedSet({ onChange }) {
   return (
@@ -99,7 +100,7 @@ function LogoSet({ open, setOpen, handleToggle }) {
       </div>
       <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
         <div className={editMenuComponent.control}>
-          <p>Logo</p>
+          <p>Show Logo</p>
           <div>
             <ToggleButton />
           </div>
@@ -109,12 +110,47 @@ function LogoSet({ open, setOpen, handleToggle }) {
   );
 }
 
-function BackgroundSet({}) {
-    return (
-        <div className={menuSet}>
-            
+function ColorPickerSet({ label, value, onChange }) {
+  const [showPicker, setShowPicker] = useState(false);
+  const pickerRef = useRef(null);
+
+  const handleClickOutside = (e) => {
+    if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+      setShowPicker(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleColorChange = (color) => {
+    debounceUtils(onChange(color.hex), 300);
+  };
+
+  return (
+    <div className={editMenuComponent.control}>
+      <p>{label}</p>
+      <div
+        className={editMenuComponent.controlColor}
+        onClick={() => setShowPicker(true)}
+      >
+        <div
+          className={editMenuComponent.boxColor}
+          style={{ backgroundColor: value }}
+          ref={pickerRef}
+        >
+          <span className={editMenuComponent.colorValue}>{value}</span>
+          {showPicker && (
+            <div className={editMenuComponent.colorPickerPopup}>
+              <SketchPicker color={value} onChange={handleColorChange} />
+            </div>
+          )}
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
 function MenuDesignNavbar({ style }) {
@@ -138,14 +174,35 @@ function MenuDesignNavbar({ style }) {
     </div>
   );
 }
-
 function MenuTextNavbar({ style }) {
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [menuColor, setMenuColor] = useState("#000000");
+  const [hoverColor, setHoverColor] = useState("#ff0000");
 
+  return (
+    <div>
+      <ColorPickerSet
+        label="Background Color"
+        value={backgroundColor}
+        onChange={setBackgroundColor}
+      />
+      <ColorPickerSet
+        label="Menu Color"
+        value={menuColor}
+        onChange={setMenuColor}
+      />
+      <ColorPickerSet
+        label="Hover Color"
+        value={hoverColor}
+        onChange={setHoverColor}
+      />
+    </div>
+  );
 }
 
 const EditMenuComponent = {
   MenuDesignNavbar: MenuDesignNavbar,
-  MenuTextNavbar : MenuTextNavbar,
+  MenuTextNavbar: MenuTextNavbar,
 };
 
 export default EditMenuComponent;

@@ -15,7 +15,7 @@ export default function DraggAble({
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
   const safeStyle = {
-    fontFamily: editStyle.fontFamily || "initial",
+    fontFamily: editStyle.fontFamily || "inherit",
     fontWeight: editStyle.fontWeight || "normal",
     fontStyle: editStyle.fontStyle || "normal",
     textDecoration: editStyle.textDecoration || "none",
