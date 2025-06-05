@@ -1,0 +1,26 @@
+/* ToggleButton.module.css */
+.button {
+  width: 40px; /* fixed width */
+  text-align: center;
+  padding: 4px 8px;
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.on {
+  background-color: #3492f8;
+  color: white;
+}
+
+.off {
+  background-color: #848484;
+  color: white;
+}
+
+.button:active {
+  transform: scale(0.95);
+}

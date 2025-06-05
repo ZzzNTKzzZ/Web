@@ -1,0 +1,13 @@
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control p {
+    font-weight: bold;
+}
+
+.control div {
+}
+

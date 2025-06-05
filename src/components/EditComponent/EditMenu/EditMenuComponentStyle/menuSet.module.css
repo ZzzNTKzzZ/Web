@@ -1,0 +1,43 @@
+.menuWrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.menuButton {
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #eee;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.menuButton:hover {
+    background-color: #ddd;
+}
+
+.dropdown {
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 4px;
+    z-index: 10;
+
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}

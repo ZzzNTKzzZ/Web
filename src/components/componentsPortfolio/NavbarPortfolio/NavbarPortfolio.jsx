@@ -176,7 +176,7 @@ export default function NavbarPortfolio({ onCreate }) {
           </Droppable>
         ))}
       </DndContext>
-      {contextMenu.visible && (
+      {/* {contextMenu.visible && (
         <ContextMenu
           ref={menuRef}
           position={contextMenu}
@@ -193,7 +193,7 @@ export default function NavbarPortfolio({ onCreate }) {
             );
           }}
         />
-      )}
+      )} */}
     </div>
   );
 }

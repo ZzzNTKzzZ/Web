@@ -5,13 +5,14 @@
   height: calc(100vh - 70px);
   min-width: 260px;
   padding: 16px;
-  border-left: 1px solid #ddd;
   box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.03);
   background: #f5f7fa;
   z-index: 999;
   overflow-y: auto;
   transition: opacity 0.3s ease;
   font-family: Arial, sans-serif;
+  border-top: 6px solid #71b8ff;
+  border-radius: 4px;
 }
 
 .control {

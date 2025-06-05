@@ -1,7 +1,7 @@
-import style from "./EditMenu.module.css";
+import style from "./editMenu.module.css";
 import { useState } from "react";
-import ContextMenu from "../ContextMenu/ContextMenu";
 
+import EditMenuComponent from "./EditMenuComponent";
 function ContentEdit() {
   return (
     <div className={style.editMenu}>
@@ -12,7 +12,7 @@ function ContentEdit() {
 
 function NavbarEdit() {
   const [textActive, setTextActive] = useState(false);
-  const [designActive, setDesignActive] = useState(false);
+  const [designActive, setDesignActive] = useState(true);
 
   return (
     <div className={style.editMenu}>
@@ -35,13 +35,13 @@ function NavbarEdit() {
         >
           Text
         </div>
-
-        {textActive && <ContextMenu />}
       </div>
+        <div>
+          {designActive && <EditMenuComponent.MenuDesignNavbar />}
+        </div>
     </div>
   );
 }
-
 const EditMenu = {
   NavbarSection: NavbarEdit,
   ContentSection: ContentEdit,
