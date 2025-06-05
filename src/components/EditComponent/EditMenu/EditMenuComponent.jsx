@@ -7,9 +7,7 @@ import editMenuComponent from "./editMenuComponent.module.css";
 import { ReactComponent as AlignLeft } from "../../../assets/icon/AlignLeft.svg";
 import { ReactComponent as AlignRight } from "../../../assets/icon/AlignRight.svg";
 import { ReactComponent as AlignCenter } from "../../../assets/icon/AlignCenter.svg";
-const EditMenuComponent = {
-  MenuDesignNavbar: MenuDesignNavbar,
-};
+
 function FixedSet({ onChange }) {
   return (
     <div>
@@ -111,6 +109,14 @@ function LogoSet({ open, setOpen, handleToggle }) {
   );
 }
 
+function BackgroundSet({}) {
+    return (
+        <div className={menuSet}>
+            
+        </div>
+    )
+}
+
 function MenuDesignNavbar({ style }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoOpen, setLogoOpen] = useState(false);
@@ -132,5 +138,14 @@ function MenuDesignNavbar({ style }) {
     </div>
   );
 }
+
+function MenuTextNavbar({ style }) {
+
+}
+
+const EditMenuComponent = {
+  MenuDesignNavbar: MenuDesignNavbar,
+  MenuTextNavbar : MenuTextNavbar,
+};
 
 export default EditMenuComponent;
