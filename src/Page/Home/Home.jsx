@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 
+
+import Navbar from "../../components/Navbar/Navbar";
 import Header from "./Header/Header";
 import Header2 from "./Header2/Header2";
-import Navbar from "../../components/Navbar/Navbar";
 import ShowCase from "./ShowCase/ShowCase";
+import StartSteps from "./StartSteps/StartSteps";
 import Footer from "../../components/Footer/Footer";
 
 import style from "./home.module.css";
 
 import useScrollY from "../../Hooks/useScrollY";
 import useScrollDirection from "../../Hooks/Navbar/useScrollDirection"
+
 
 
 function Home() {
@@ -23,6 +26,7 @@ function Home() {
 
       <Header scrollY={scrollY} shrink={shrink} />
       <ShowCase />
+      <StartSteps />
       <Footer />
       
     </div>

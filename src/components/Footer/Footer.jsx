@@ -18,8 +18,9 @@ function Footer() {
             <div className={style.logoFooter}></div>
             <p>Portlify</p>
           </div>
-          <p>Provision</p>
-          <p>Privacy policy</p>
+
+          <a href="/provision">Provision</a>
+          <a href="/rivacy policy">Privacy policy</a>
         </div>
         <div className={style.itemCenter}>
           <h4>Contact information</h4>

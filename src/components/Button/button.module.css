@@ -5,10 +5,51 @@
   height: 100px;
   background-color: #f54d0b;
   color: white;
-
   font-size: 50px;
   font-weight: bold;
   padding: 18px 64px;
   border-radius: 63px;
   border: none;
+}
+
+.btnStart:hover{
+  background-color: #f76c3c;
+  box-shadow: 0 0 10px rgba(245, 77, 11, 0.5);
+}
+
+.btnStepStart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background-color: #f54d0b;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 18px 64px;
+  border-radius: 63px;
+  border: none;
+}
+
+.btnStepStart:hover{
+  background-color: #f76c3c;
+  box-shadow: 0 0 10px rgba(245, 77, 11, 0.5);
+}
+
+.btnLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 40px;
+  font-size: 24px;
+  background-color: #f54d0b;
+  color: #ffffff;
+  border-radius: 50px;
+  border: none;
+}
+
+.btnLogin:hover {
+  background-color: #f76c3c;
+  box-shadow: 0 0 10px rgba(245, 77, 11, 0.5);
 }

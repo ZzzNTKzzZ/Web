@@ -1,9 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import style from "./navbar.module.css";
 import useScrollDirection from "../../Hooks/Navbar/useScrollDirection";
+import BtnLogin from "../Button/BtnLogin";
 
 function Navbar() {
   const scrollDirection = useScrollDirection();
+  const navigate = useNavigate(); // ✅ sửa đúng hook
+
+  const handleLoginAccountClick = () => {
+    // Chuyển hướng kèm state để hiển thị tab login
+    navigate("/loginForm", { state: { tab: "login" } });
+  };
 
   return (
     <div
@@ -16,12 +25,12 @@ function Navbar() {
         <p>Portlify</p>
       </div>
       <div className={style.navbarMenu}>
-        <a href="/">Home</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+        <a href="/" className={style.navbarItem}>Home</a>
+        <a href="/portfolio" className={style.navbarItem}>Portfolio</a>
+        <a href="/about" className={style.navbarItem}>About</a>
+        <a href="/contact" className={style.navbarItem}>Contact</a>
       </div>
-      <div className={style.ItemLogin}>Login</div>
+      <BtnLogin Content={"Login"} onClick={handleLoginAccountClick} />
     </div>
   );
 }
