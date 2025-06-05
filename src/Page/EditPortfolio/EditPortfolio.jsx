@@ -1,26 +1,33 @@
-import React, { useState } from "react";
-import { DndContext } from "@dnd-kit/core"; // ✅ correct import
+import React, { useEffect, useState } from "react";
 
 import SideBar from "../../components/Sidebar/Sidebar";
 import Topbar from "../../components/Topbar/Topbar";
 import EditZone from "../../components/EditZone/EditZone";
 
 import style from "./EditPortfolio.module.css";
+import EditMenu from "../../components/EditComponent/EditMenu/EditMenu";
 
 export default function EditPortfolio() {
-  const [parent, setParent] = useState(null); // <- you were missing this state
-
-  function handleDragEnd({ over }) {
-    setParent(over ? over.id : null);
-  }
-
+  const [editMenu, setEditMenu] = useState(false);
+  const [menu, setMenu] = useState();
+  useEffect(() => {
+    switch (editMenu) {
+      case "navbar-section":
+        setMenu(<EditMenu.NavbarSection />);
+        break;
+      case "content-section":
+        setMenu(<EditMenu.ContentSection />);
+        break;
+      default:
+        break;
+    }
+  }, [editMenu]);
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      <div className={style.editPortfolio}>
-        <Topbar />
-        <SideBar />
-        <EditZone parent={parent} /> 
-      </div>
-    </DndContext>
+    <div className={style.editPortfolio}>
+      <Topbar />
+      <SideBar />
+      <EditZone setEditMenu={setEditMenu} editMenu={editMenu} />
+      {editMenu ? menu : ""}
+    </div>
   );
 }

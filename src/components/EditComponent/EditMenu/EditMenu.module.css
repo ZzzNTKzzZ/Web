@@ -1,0 +1,49 @@
+.editMenu {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  height: calc(100vh - 70px);
+  min-width: 260px;
+  padding: 16px;
+  border-left: 1px solid #ddd;
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.03);
+  background: #f5f7fa;
+  z-index: 999;
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.control {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.controlDesign,
+.controlText {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  border-radius: 6px;
+  user-select: none;
+  border: 1.5px solid transparent;
+  background-color: #e1e5eb;
+  color: #333;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.controlDesign:hover,
+.controlText:hover {
+  background-color: #cfd6e4;
+}
+
+.controlDesign.active,
+.controlText.active {
+  background-color: #4a90e2;
+  color: white;
+  border-color: #357abd;
+  font-weight: 600;
+}

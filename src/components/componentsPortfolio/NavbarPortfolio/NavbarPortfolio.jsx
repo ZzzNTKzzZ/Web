@@ -19,7 +19,7 @@ export default function NavbarPortfolio({ onCreate }) {
         fontStyle: "normal",
         fontWeight: "normal",
         textDecoration: "none",
-        backgroundColor: "#fff",
+        backgroundColor: "#000",
       },
     },
     {
@@ -32,7 +32,7 @@ export default function NavbarPortfolio({ onCreate }) {
         fontStyle: "normal",
         fontWeight: "normal",
         textDecoration: "none",
-        backgroundColor: "#fff",
+        backgroundColor: "#000",
       },
     },
     {
@@ -45,7 +45,7 @@ export default function NavbarPortfolio({ onCreate }) {
         fontStyle: "normal",
         fontWeight: "normal",
         textDecoration: "none",
-        backgroundColor: "#fff",
+        backgroundColor: "#000",
       },
     },
   ]);
@@ -71,7 +71,7 @@ export default function NavbarPortfolio({ onCreate }) {
         fontStyle: "normal",
         fontWeight: "normal",
         textDecoration: "none",
-        backgroundColor: "#fff",
+        color: "#000",
       };
 
       setContainers((prev) => [
@@ -101,7 +101,6 @@ export default function NavbarPortfolio({ onCreate }) {
   };
 
   const handleDragStart = (event) => {
-    console.log(event)
     setActiveId(event.active.id);
   };
   const handleDragEnd = (event) => {

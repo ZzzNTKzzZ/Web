@@ -3,15 +3,12 @@ import SectionPortfolio from "../Common/SectionPortfolio/SectionPortfolio";
 import NavbarPortfolio from "../componentsPortfolio/NavbarPortfolio/NavbarPortfolio";
 import style from "./PageCreate.module.css";
 
-export default function PageCreate() {
+export default function PageCreate({ setEditMenu }) {
   const sectionRef = useRef(null);
   const [onCreate, setOnCreate] = useState(null);
 
-  const handleCreate = (sectionKey, event) => {
-    if (sectionKey === "navbar-section") {
-      setOnCreate(event);
-    }
-  };
+  // activeSection holds the key of the active SectionPortfolio
+  const [activeSection, setActiveSection] = useState(null);
 
   useEffect(() => {
     if (onCreate) {
@@ -25,8 +22,19 @@ export default function PageCreate() {
       <SectionPortfolio
         ref={sectionRef}
         sectionKey="navbar-section"
-        onCreate={handleCreate}
-      > 
+        setEditMenu={setEditMenu}
+        active={activeSection === "navbar-section"}
+        setIsActive={() => setActiveSection("navbar-section")}
+      >
+        <NavbarPortfolio onCreate={onCreate} />
+      </SectionPortfolio>
+      <SectionPortfolio
+        ref={sectionRef}
+        sectionKey="content-section"
+        setEditMenu={setEditMenu}
+        active={activeSection === "content-section"}
+        setIsActive={() => setActiveSection("content-section")}
+      >
         <NavbarPortfolio onCreate={onCreate} />
       </SectionPortfolio>
     </div>

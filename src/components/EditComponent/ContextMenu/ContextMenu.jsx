@@ -11,11 +11,19 @@ import { ReactComponent as UnderlineIcon } from "../../../assets/icon/Underline.
 const ContextMenu = React.forwardRef(
   ({ position, setContextMenu, editStyle, setEditStyle }, ref) => {
     const [showPicker, setShowPicker] = useState(false);
-    const [color, setColor] = useState(editStyle.backgroundColor || "#000");
+    const [fontColor, setFontColor] = useState(editStyle.fontColor || "#000");
+
+    const fonts = [
+      "Times New Roman",
+      "Arial",
+      "Helvetica",
+      "Georgia",
+      "Calibri",
+    ];
 
     useEffect(() => {
-      setColor(editStyle.backgroundColor || "#fff");
-    }, [editStyle.backgroundColor]);
+      setFontColor(editStyle.fontColor);
+    }, [editStyle.fontColor]);
 
     const togglePicker = () => {
       setShowPicker(!showPicker);
@@ -23,22 +31,20 @@ const ContextMenu = React.forwardRef(
 
     const handleFontChange = (e) => {
       const newFont = e.target.value;
-      setEditStyle({fontFamily: newFont});
+      setEditStyle({ fontFamily: newFont });
     };
 
     const handleColorChange = (newColor) => {
-      setColor(newColor.hex);
+      setFontColor(newColor.hex);
     };
 
-    // Debounce background color update
     useEffect(() => {
       const timeout = setTimeout(() => {
-        console.log(editStyle.style.fontWeight);
-        setEditStyle({ backgroundColor: color });
+        setEditStyle({ color: fontColor });
       }, 300);
 
       return () => clearTimeout(timeout);
-    }, [color]);
+    }, [fontColor]);
 
     // Close context menu when clicking outside
     useEffect(() => {
@@ -47,7 +53,6 @@ const ContextMenu = React.forwardRef(
           setContextMenu((prev) => ({ ...prev, visible: false }));
         }
       };
-
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
@@ -78,8 +83,11 @@ const ContextMenu = React.forwardRef(
                 value={editStyle.fontFamily}
                 onChange={handleFontChange}
               >
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="monospace">monospace</option>
+                {fonts.map((font) => (
+                  <option value={font} key={font}>
+                    {font}
+                  </option>
+                ))}
               </select>
 
               <div className={style.fontColor}>
@@ -91,7 +99,10 @@ const ContextMenu = React.forwardRef(
                 />
                 {showPicker && (
                   <div style={{ position: "absolute", zIndex: 2 }}>
-                    <SketchPicker color={color} onChange={handleColorChange} />
+                    <SketchPicker
+                      color={fontColor}
+                      onChange={handleColorChange}
+                    />
                   </div>
                 )}
               </div>
@@ -123,7 +134,9 @@ const ContextMenu = React.forwardRef(
               onClick={() =>
                 setEditStyle({
                   fontStyle:
-                    editStyle.style.fontStyle === "italic" ? "normal" : "italic",
+                    editStyle.style.fontStyle === "italic"
+                      ? "normal"
+                      : "italic",
                 })
               }
               style={{ fontStyle: "italic" }}
@@ -141,7 +154,9 @@ const ContextMenu = React.forwardRef(
               onClick={() =>
                 setEditStyle({
                   textDecoration:
-                    editStyle.style.textDecoration === "underline" ? "none" : "underline",
+                    editStyle.style.textDecoration === "underline"
+                      ? "none"
+                      : "underline",
                 })
               }
               style={{ textDecoration: "underline" }}

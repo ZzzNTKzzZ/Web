@@ -19,7 +19,7 @@ export default function DraggAble({
     fontWeight: editStyle.fontWeight || "normal",
     fontStyle: editStyle.fontStyle || "normal",
     textDecoration: editStyle.textDecoration || "none",
-    backgroundColor: editStyle.backgroundColor || "inherit",
+    color: editStyle.color || "#000",
   };
 
   const handleClick = (e) => {
@@ -46,7 +46,9 @@ export default function DraggAble({
           ? `translate(${transform.x}px, ${transform.y}px)`
           : undefined,
         border: activeId === id ? "2px solid blue" : "1px solid gray",
-        backgroundColor: activeId === id ? safeStyle.backgroundColor : "inherit",
+        color: activeId === id ? safeStyle.color : "#000",
+        cursor: "grab",
+        backgroundColor: "#fff"
       }}
       {...listeners}
       {...attributes}

@@ -3,4 +3,11 @@
   padding: 84px 72px 0;
   height: 100vh;
   background-color: #ccc;
+  transition: margin-left 0.3s ease;
+  font-size: clamp(12px, 2vw, 24px); 
+}
+
+.editZone.menuOpen {
+  width: calc(100% - 332px);
+  padding: 84px 12px 0;
 }
