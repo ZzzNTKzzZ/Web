@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import ToggleButton from "../../Common/ToggleButton/ToggleButton";
 import menuSet from "./EditMenuComponentStyle/menuSet.module.css";
-import editMenuComponent from "./editMenuComponent.module.css";
+import editMenuComponent from "./EditMenuComponent.module.css";
 import debounceUtils from "../../../Utils/debounceUtils";
 
 import { ReactComponent as Bold } from "../../../assets/icon/Bold.svg";
