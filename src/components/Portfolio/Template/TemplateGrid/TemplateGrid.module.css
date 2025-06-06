@@ -1,0 +1,11 @@
+.templateGrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.templateCard{
+    background-color: #6e6767;
+    border-radius: 10px;
+    height: 120px;
+}

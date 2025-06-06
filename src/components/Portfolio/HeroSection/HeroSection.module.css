@@ -1,0 +1,45 @@
+.heroSection {
+    background-image: url('/src/assets/Img/HeroSection.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.heroContent{
+    text-align: center;
+    color: white;
+    z-index: 1;
+}
+
+.heroContent h1{
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.heroContent h2{
+    font-size: 5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.heroContent p {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}

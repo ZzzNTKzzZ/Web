@@ -1,0 +1,29 @@
+.sidebar{
+    width: 180px;
+    border-right: 1px solid #ccc;
+}
+
+.searchBox{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+.categoryList{
+    list-style: none;
+    padding-left: 0;
+}
+
+.categoryList li{
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.categoryList li:hover,
+.categoryList li.active{
+    background-color: #ff6b3d;
+    color: white;
+}
