@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "../../Template/TemplatePage/TemplatePage.module.css";
 import Sidebar from "../Sidebar/Sidebar";
 import TemplateGrid from "../TemplateGrid/TemplateGrid";
 import Pagination from "../../Template/Pagination/Pagination";
-function TemplatePage(){
+
+function TemplatePage() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 10;
+
     return (
         <div className={style.templatePage}>
-            <Sidebar/>
+            <Sidebar />
             <div className={style.mainContent}>
-                <h2 className={style.title}>Tạo nhanh các website từ các template chuyên nghiệp</h2>                
-                <TemplateGrid/>
-                <Pagination/>
+                <h2 className={style.title}>Tạo nhanh các website từ các template chuyên nghiệp</h2>
+                <TemplateGrid page={currentPage} />
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={(page) => setCurrentPage(page)}
+                />
             </div>
         </div>
     );
 }
+
 export default TemplatePage;

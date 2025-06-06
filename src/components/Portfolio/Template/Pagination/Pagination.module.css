@@ -1,20 +1,33 @@
-.pagination {
+.pagination{
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 20px;
     align-items: center;
 }
 
 .pagination button {
     border: none;
     background-color: transparent;
-    padding: 6px 12px;
+    font-size: 16px;
     cursor: pointer;
-    border-radius: 6px;
+    padding: 8px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    transition: background-color 0.3s ease;
 }
 
-.pagination button.active {
-    background-color: black;
-    color: white;
+.pagination button:hover{
+    background-color: #f0f0f0;
+}
+
+.pagination .active {
+    background-color: #d9d9d9;
+    font-weight: bold;
+}
+
+.ellipsis{
+    font-size: 16px;
+    padding: 0 5px;
 }
