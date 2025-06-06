@@ -3,7 +3,7 @@ import SectionPortfolio from "../Common/SectionPortfolio/SectionPortfolio";
 import NavbarPortfolio from "../componentsPortfolio/NavbarPortfolio/NavbarPortfolio";
 import style from "./PageCreate.module.css";
 
-export default function PageCreate({ setEditMenu }) {
+export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle }) {
   const sectionRef = useRef(null);
   const [onCreate, setOnCreate] = useState(null);
 
@@ -26,7 +26,7 @@ export default function PageCreate({ setEditMenu }) {
         active={activeSection === "navbar-section"}
         setIsActive={() => setActiveSection("navbar-section")}
       >
-        <NavbarPortfolio onCreate={onCreate} />
+        <NavbarPortfolio onCreate={onCreate} setStyle={setNavbarStyle} navbarStyle={navbarStyle}/>
       </SectionPortfolio>
       <SectionPortfolio
         ref={sectionRef}

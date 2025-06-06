@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import Droppable from "../../EditComponent/Droppable/Droppable";
 import DraggAble from "../../EditComponent/DraggAble/DraggAble";
 import TiptapEditor from "../../EditComponent/TiptapEditor/TiptapEditor";
-import ContextMenu from "../../EditComponent/ContextMenu/ContextMenu";
 
+import style from "./NavbarPortfolio.module.css";
 let countContainer = 3;
 
-export default function NavbarPortfolio({ onCreate }) {
+export default function NavbarPortfolio({ onCreate, setStyle, navbarStyle }) {
+  const navbarRef = useRef(null);
   const [containers, setContainers] = useState([
     {
       id: "home",
@@ -49,7 +50,7 @@ export default function NavbarPortfolio({ onCreate }) {
       },
     },
   ]);
-  const menuRef = useRef();
+
   const [activeId, setActiveId] = useState(containers[0]?.id || null);
   const [contextMenu, setContextMenu] = useState({
     visible: false,
@@ -59,33 +60,28 @@ export default function NavbarPortfolio({ onCreate }) {
   });
 
   useEffect(() => {
-    if (onCreate) {
-      countContainer += 1;
-      const newId = `droppable${countContainer}`;
-      const newItemId = `newItem${countContainer}`;
-      const newLabel = `new${countContainer - 3}`;
+    if (navbarRef.current) {
+      const computedStyles = window.getComputedStyle(navbarRef.current);
+      // same as your code...
 
-      const defaultStyle = {
-        fontFamily: "Times New Roman",
-        fontSize: "inherit",
-        fontStyle: "normal",
-        fontWeight: "normal",
-        textDecoration: "none",
-        color: "#000",
+      const filteredStyles = {
+        backgroundColor: computedStyles.getPropertyValue("background-color"),
+        color: computedStyles.getPropertyValue("color"),
+        fontSize: computedStyles.getPropertyValue("font-size"),
+        fontFamily: computedStyles.getPropertyValue("font-family"),
+        textShadow: computedStyles.getPropertyValue("text-shadow"),
+        paddingLeft: computedStyles.getPropertyValue("padding-left"),
+        paddingRight: computedStyles.getPropertyValue("padding-right"),
+        paddingTop: computedStyles.getPropertyValue("padding-top"),
+        paddingBottom: computedStyles.getPropertyValue("padding-bottom"),
+        display: computedStyles.getPropertyValue("display"),
+        gap: computedStyles.getPropertyValue("gap"),
       };
 
-      setContainers((prev) => [
-        ...prev,
-        {
-          id: newId,
-          item: newItemId,
-          label: newLabel,
-          style: defaultStyle,
-        },
-      ]);
     }
-  }, [onCreate]);
+  }, [setStyle, navbarStyle]);
 
+  // Các hàm xử lý drag, update label... giữ nguyên như cũ
   const handleRightClick = (e, id) => {
     e.preventDefault();
     e.stopPropagation();
@@ -145,18 +141,17 @@ export default function NavbarPortfolio({ onCreate }) {
 
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        padding: 20,
-        flexWrap: "wrap",
-        maxWidth: "100%",
-        position: "relative",
-      }}
+      className={style.containerWrapper}
+      ref={navbarRef}
+      style={{ ...navbarStyle }}
     >
       <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         {containers.map((container) => (
-          <Droppable key={container.id} id={container.id}>
+          <Droppable
+            key={container.id}
+            id={container.id}
+            className={style.droppable}
+          >
             <DraggAble
               id={container.item}
               label={container.label}
@@ -164,6 +159,7 @@ export default function NavbarPortfolio({ onCreate }) {
               onRightClick={handleRightClick}
               editStyle={container.style}
               setActiveId={setActiveId}
+              className={style.draggable}
             >
               <TiptapEditor
                 content={container.label}
@@ -171,29 +167,12 @@ export default function NavbarPortfolio({ onCreate }) {
                   handleUpdateLabel(container.item, newContent)
                 }
                 editable={true}
+                className={style.editorContent}
               />
             </DraggAble>
           </Droppable>
         ))}
       </DndContext>
-      {/* {contextMenu.visible && (
-        <ContextMenu
-          ref={menuRef}
-          position={contextMenu}
-          setContextMenu={setContextMenu}
-          editor
-          editStyle={containers.find((c) => c.id === activeId)}
-          setEditStyle={(newStyle) => {
-            setContainers((prev) =>
-              prev.map((container) =>
-                container.id === activeId
-                  ? { ...container, style: { ...container.style, ...newStyle } }
-                  : container
-              )
-            );
-          }}
-        />
-      )} */}
     </div>
   );
 }

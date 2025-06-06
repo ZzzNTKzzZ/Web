@@ -10,10 +10,14 @@ import EditMenu from "../../components/EditComponent/EditMenu/EditMenu";
 export default function EditPortfolio() {
   const [editMenu, setEditMenu] = useState(false);
   const [menu, setMenu] = useState();
+
+  const [styleNavbarSection, setStyleNavbarSection] = useState();
+  useEffect(() => {
+  }, [styleNavbarSection])
   useEffect(() => {
     switch (editMenu) {
       case "navbar-section":
-        setMenu(<EditMenu.NavbarSection />);
+        setMenu(<EditMenu.NavbarSection styleNavbar={styleNavbarSection} setStyleNavbar={setStyleNavbarSection}/>);
         break;
       case "content-section":
         setMenu(<EditMenu.ContentSection />);
@@ -26,7 +30,7 @@ export default function EditPortfolio() {
     <div className={style.editPortfolio}>
       <Topbar />
       <SideBar />
-      <EditZone setEditMenu={setEditMenu} editMenu={editMenu} />
+      <EditZone setEditMenu={setEditMenu} editMenu={editMenu} setNavbarStyle={setStyleNavbarSection} navbarStyle={styleNavbarSection}/>
       {editMenu ? menu : ""}
     </div>
   );

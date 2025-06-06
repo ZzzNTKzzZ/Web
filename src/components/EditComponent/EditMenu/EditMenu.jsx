@@ -10,10 +10,9 @@ function ContentEdit() {
   );
 }
 
-function NavbarEdit() {
+function NavbarEdit( {styleNavbar, setStyleNavbar}) {
   const [textActive, setTextActive] = useState(false);
   const [designActive, setDesignActive] = useState(true);
-
   return (
     <div className={style.editMenu}>
       <div className={style.control}>
@@ -37,8 +36,8 @@ function NavbarEdit() {
         </div>
       </div>
         <div>
-          {designActive && <EditMenuComponent.MenuDesignNavbar />}
-          {textActive && <EditMenuComponent.MenuTextNavbar />}
+          {designActive && <EditMenuComponent.MenuDesignNavbar value={styleNavbar} onChange={setStyleNavbar}/>}
+          {textActive && <EditMenuComponent.MenuTextNavbar value={styleNavbar} onChange={setStyleNavbar}/>}
         </div>
     </div>
   );
