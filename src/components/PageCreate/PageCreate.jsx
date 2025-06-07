@@ -2,13 +2,29 @@ import { useRef, useState, useEffect } from "react";
 import SectionPortfolio from "../Common/SectionPortfolio/SectionPortfolio";
 import NavbarPortfolio from "../componentsPortfolio/NavbarPortfolio/NavbarPortfolio";
 import style from "./PageCreate.module.css";
+import HeroBannerPortfolio from "../componentsPortfolio/HeroBannerPortfolio/HeroBannerPortfolio";
 
-export default function PageCreate({ setEditMenu }) {
+export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle }) {
   const sectionRef = useRef(null);
   const [onCreate, setOnCreate] = useState(null);
 
-  // activeSection holds the key of the active SectionPortfolio
   const [activeSection, setActiveSection] = useState(null);
+
+  // Track which sections are visible
+  const [visibleSections, setVisibleSections] = useState({
+    navbar: true,
+    content: true,
+  });
+
+  const handleDelete = (sectionKey) => {
+    if (sectionKey === "navbar-section") {
+      setVisibleSections((prev) => ({ ...prev, navbar: false }));
+    }
+    if (sectionKey === "content-section") {
+      setVisibleSections((prev) => ({ ...prev, content: false }));
+    }
+    setActiveSection(null);
+  };
 
   useEffect(() => {
     if (onCreate) {
@@ -19,24 +35,33 @@ export default function PageCreate({ setEditMenu }) {
 
   return (
     <div className={style.pageCreate}>
-      <SectionPortfolio
-        ref={sectionRef}
-        sectionKey="navbar-section"
-        setEditMenu={setEditMenu}
-        active={activeSection === "navbar-section"}
-        setIsActive={() => setActiveSection("navbar-section")}
-      >
-        <NavbarPortfolio onCreate={onCreate} />
-      </SectionPortfolio>
-      <SectionPortfolio
-        ref={sectionRef}
-        sectionKey="content-section"
-        setEditMenu={setEditMenu}
-        active={activeSection === "content-section"}
-        setIsActive={() => setActiveSection("content-section")}
-      >
-        <NavbarPortfolio onCreate={onCreate} />
-      </SectionPortfolio>
+      {visibleSections.navbar && (
+        <SectionPortfolio
+          ref={sectionRef}
+          sectionKey="navbar-section"
+          setEditMenu={setEditMenu}
+          active={activeSection === "navbar-section"}
+          setIsActive={() => setActiveSection("navbar-section")}
+          backgroundColor={navbarStyle.backgroundColor}
+          handleDelete={() => handleDelete("navbar-section")}
+        >
+          <NavbarPortfolio onCreate={onCreate} setStyle={setNavbarStyle} navbarStyle={navbarStyle} />
+        </SectionPortfolio>
+      )}
+
+      {visibleSections.content && (
+        <SectionPortfolio
+          ref={sectionRef}
+          sectionKey="content-section"
+          setEditMenu={setEditMenu}
+          active={activeSection === "content-section"}
+          setIsActive={() => setActiveSection("content-section")}
+          handleDelete={() => handleDelete("content-section")}
+        >
+          {/* Your content here */}
+          <HeroBannerPortfolio />
+        </SectionPortfolio>
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import BtnLogin from "../Button/BtnLogin";
 
 function Navbar() {
   const scrollDirection = useScrollDirection();
-  const navigate = useNavigate(); // ✅ sửa đúng hook
+  const navigate = useNavigate();
 
   const handleLoginAccountClick = () => {
     // Chuyển hướng kèm state để hiển thị tab login

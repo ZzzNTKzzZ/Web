@@ -1,0 +1,16 @@
+.templateGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5%;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.templateCard {
+    width: 90%;
+    aspect-ratio: 291 / 229;
+    background-color: #746D6D;
+    border-radius: 28px;
+}

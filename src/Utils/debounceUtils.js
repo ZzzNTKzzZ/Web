@@ -1,4 +1,5 @@
-function debounceUtils(func, delay) {
+
+export default  function debounceUtils(func, delay) {
   let timeoutId;
 
   return function (...args) {
@@ -8,5 +9,3 @@ function debounceUtils(func, delay) {
     }, delay);
   };
 }
-
-export default debounceUtils

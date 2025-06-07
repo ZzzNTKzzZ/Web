@@ -1,0 +1,136 @@
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.control p {}
+
+.control div {}
+
+
+.controlSelect {
+    display: flex;
+    gap: 8px;
+    background-color: #f0f0f0;
+    padding: 6px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.controlSelect>div {
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.controlSelect>div:hover {
+    background-color: #3492f8;
+}
+
+.controlSelect>div.active {
+    background-color: #3492f8;
+}
+
+.controlSelect div.active path {
+    stroke: #fff;
+    fill: #fff;
+}
+
+.controlProgess {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 8px;
+}
+
+.controlProgess input[type="range"] {
+    width: 100%;
+    accent-color: #4a90e2;
+    /* modern browsers */
+    cursor: pointer;
+    flex: 1;
+}
+
+.controlProgessValue {
+    font-size: 16px;
+    color: #555;
+    white-space: nowrap;
+    min-width: 40px;
+    text-align: right;
+    border: 1px solid #ccc;
+    padding: 4px 12px;
+    border-radius: 4px;
+    display: flex;
+}
+
+.controlProgessValue:hover {
+    border: 1px solid #72acee;
+}
+
+.controlProgessInput {
+    padding: 4px 8px;
+    border: none;
+    outline: none;
+    width: 60px;
+    font-size: 14px;
+}
+
+.controlProgessValue:focus-within {
+    border: 1px solid #72acee;
+}
+
+.controlProgessUntil {
+    padding: 4px 8px;
+    border-left: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.controlColor {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.boxColor {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 4px 8px 4px 4px;
+    border: 0.5px solid #ccc;
+    border-radius: 4px;
+}
+
+.colorValue {
+    width: 160px;
+    padding: 4px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    margin-left: 8px;
+    font-family: monospace;
+    background: white;
+}
+
+
+
+.colorPickerPopup {
+    top: 32px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+

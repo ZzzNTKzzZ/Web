@@ -2,26 +2,36 @@ import { useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-export default function TiptapEditor({ content, onChange, editable }) {
+export default function TiptapEditor({ content, onChange, editable = true, className }) {
+  const fallbackContent = "<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>"; // visible spaces when empty
+  const safeContent = content || fallbackContent;
+
   const editor = useEditor({
     extensions: [StarterKit],
-    content,
+    content: safeContent,
     onUpdate({ editor }) {
-      onChange?.(editor.getText());
+      onChange?.(editor.getHTML()); // send updated HTML back
     },
     editorProps: {
       attributes: {
         spellCheck: "false",
       },
     },
-    editable: editable,
   });
 
   useEffect(() => {
-    if (editor && content !== editor.getText()) {
-      editor.commands.setContent(content, false);
+    if (!editor) return;
+
+    if ((content || fallbackContent) !== editor.getHTML()) {
+      editor.commands.setContent(safeContent, false);
     }
   }, [content, editor]);
 
-  return <EditorContent editor={editor} />;
+  useEffect(() => {
+    if (editor) {
+      editor.setEditable(editable);
+    }
+  }, [editable, editor]);
+
+  return <EditorContent editor={editor} className={className} />;
 }

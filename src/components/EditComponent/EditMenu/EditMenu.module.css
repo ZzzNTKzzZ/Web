@@ -3,48 +3,77 @@
   top: 70px;
   right: 0;
   height: calc(100vh - 70px);
-  min-width: 260px;
+  max-width: 360px;
+  width: 100%; /* ensure it takes full width */
   padding: 16px;
-  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.03);
-  background: #f5f7fa;
+  box-sizing: border-box; /* include padding/borders in width */
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.05); /* Slightly stronger shadow for depth */
+  background: #f9fbfd; /* Slightly lighter background */
   z-index: 999;
   overflow-y: auto;
-  transition: opacity 0.3s ease;
-  font-family: Arial, sans-serif;
-  border-top: 6px solid #71b8ff;
-  border-radius: 4px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-top: 6px solid #4a90e2; /* Use same blue as active */
+  border-radius: 4px 0 0 4px; /* Rounded only on left side for panel */
+}
+
+.closeButtonZone {
+  display: flex;
+  justify-content: flex-end; /* Align close button to the right */
+  padding-bottom: 12px;      /* Space below the button */
+  border-bottom: 1px solid #ddd; /* subtle separator line */
+  margin-bottom: 16px;       /* space below the zone */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .control {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 12px;
-  gap: 8px;
+  justify-content: space-between; /* Better spacing */
+  margin-bottom: 16px;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .controlDesign,
 .controlText {
   flex: 1;
+  min-width: 0; /* prevents overflow in flex */
   text-align: center;
   padding: 10px 0;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 0; /* remove border-radius for cleaner line */
   user-select: none;
-  border: 1.5px solid transparent;
-  background-color: #e1e5eb;
+  border: none;
+  background-color: transparent; /* no background color */
   color: #333;
-  transition: background-color 0.25s ease, border-color 0.25s ease;
+  font-weight: 500;
+  position: relative; /* needed for pseudo element */
+  transition: color 0.25s ease;
+  box-sizing: border-box;
 }
 
 .controlDesign:hover,
 .controlText:hover {
-  background-color: #cfd6e4;
+  color: #4a90e2;
 }
 
 .controlDesign.active,
 .controlText.active {
+  color: #4a90e2;
+  font-weight: 700;
+}
+
+/* Bottom border line on active */
+.controlDesign.active::after,
+.controlText.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 60%;
+  height: 3px;
   background-color: #4a90e2;
-  color: white;
-  border-color: #357abd;
-  font-weight: 600;
+  border-radius: 2px 2px 0 0;
 }

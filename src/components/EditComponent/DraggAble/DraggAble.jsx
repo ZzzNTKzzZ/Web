@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
-
 import style from "./DraggAble.module.css";
 
 export default function DraggAble({
@@ -9,18 +8,13 @@ export default function DraggAble({
   children,
   activeId,
   setActiveId,
-  onRightClick,
   editStyle,
+  navbarStyle,
+  image,
 }) {
+  const [isHover, setIsHover] = useState(false);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
-  const safeStyle = {
-    fontFamily: editStyle.fontFamily || "initial",
-    fontWeight: editStyle.fontWeight || "normal",
-    fontStyle: editStyle.fontStyle || "normal",
-    textDecoration: editStyle.textDecoration || "none",
-    color: editStyle.color || "#000",
-  };
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -31,10 +25,6 @@ export default function DraggAble({
   const handleContextMenu = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (onRightClick) {
-      setActiveId(id);
-      onRightClick(e, id);
-    }
   };
 
   return (
@@ -46,28 +36,33 @@ export default function DraggAble({
           ? `translate(${transform.x}px, ${transform.y}px)`
           : undefined,
         border: activeId === id ? "2px solid blue" : "1px solid gray",
-        color: activeId === id ? safeStyle.color : "#000",
         cursor: "grab",
-        backgroundColor: "#fff"
+        color: isHover ? navbarStyle?.hoverColor : "inherit",
       }}
       {...listeners}
       {...attributes}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
       <div
         style={{
           pointerEvents: "auto",
           userSelect: "text",
           cursor: "text",
-          fontFamily: safeStyle.fontFamily ,
-          fontWeight: safeStyle.fontWeight,
-          fontStyle: safeStyle.fontStyle,
-          textDecoration: safeStyle.textDecoration,
+          fontFamily: navbarStyle?.fontFamily,
+          fontWeight: navbarStyle?.typography?.fontWeight,
+          fontStyle: navbarStyle?.typography?.fontStyle,
+          textDecoration: navbarStyle?.typography?.textDecoration,
         }}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        {isEditing && React.isValidElement(children) ? (
+        {image ? (
+          <div className={style.image}>
+            <img src={image} alt="Preview" className={style.imagePreview} />
+          </div>
+        ) : isEditing && React.isValidElement(children) ? (
           React.cloneElement(children, { editable: true })
         ) : (
           <div>{label}</div>
