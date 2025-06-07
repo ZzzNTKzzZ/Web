@@ -12,6 +12,7 @@ import { ReactComponent as AlignRight } from "../../../assets/icon/AlignRight.sv
 import { ReactComponent as AlignCenter } from "../../../assets/icon/AlignCenter.svg";
 import { SketchPicker } from "react-color";
 
+// --- Common Controls ---
 function ToggleSet({ label, onChange, value }) {
   return (
     <div className={editMenuComponent.control}>
@@ -124,6 +125,7 @@ function ColorPickerSet({ label, value = "#000000", onChange }) {
   );
 }
 
+// --- Typography ---
 function TypographySet({ value, onChange }) {
   const toggle = (key, expected) => {
     onChange({
@@ -171,6 +173,7 @@ function TypographySet({ value, onChange }) {
   );
 }
 
+// --- Shadow Settings ---
 function ShadowSet({
   label = "Cast shadow",
   value,
@@ -251,8 +254,9 @@ function ShadowSet({
   );
 }
 
-function MenuSet({ open, handleToggle }) {
-  const [align, setAlign] = useState("left");
+// --- Menu & Logo UI Toggles ---
+function MenuSet({ open, handleToggle, aglin }) {
+  const [align, setAlign] = useState(aglin);
   const [spacing, setSpacing] = useState(12);
   const [spacingTB, setSpacingTB] = useState(12);
 
@@ -313,97 +317,114 @@ function LogoSet({ open, handleToggle, value, onChange }) {
   );
 }
 
-function MenuDesignNavbar({ style, onChange }) {
-  const fixed = style?.fixed || false;
-  const menuOpen = style?.menuOpen || false;
-  const logoOpen = style?.logoOpen || false;
-  const logo = style?.logo || false;
+function MenuDesignNavbar({ value, onChange  }) {
+  console.log(value)
+  const { position, menuOpen, logoOpen, logo, align } = value;
+  const fixed = position === "fixed";
+
+  const toggleFixed = () => {
+    onChange({ ...value, position: fixed ? "relative" : "fixed" });
+  };
+
+  const toggleMenuOpen = () => {
+    onChange({ ...value, menuOpen: !menuOpen, logoOpen: false });
+  };
+
+  const toggleLogoOpen = () => {
+    onChange({ ...value, logoOpen: !logoOpen, menuOpen: false });
+  };
 
   return (
     <div>
-      <ToggleSet
-        label={"Fixed"}
-        value={fixed}
-        onChange={() => onChange({ ...style, fixed: !fixed })}
-      />
-      <MenuSet
-        open={menuOpen}
-        handleToggle={() =>
-          onChange({ ...style, menuOpen: !menuOpen, logoOpen: false })
-        }
-      />
+      <ToggleSet label="Fixed" value={fixed} onChange={toggleFixed} />
+      <MenuSet open={menuOpen} handleToggle={toggleMenuOpen} align={align} />
       <LogoSet
         open={logoOpen}
-        handleToggle={() =>
-          onChange({ ...style, logoOpen: !logoOpen, menuOpen: false })
-        }
+        handleToggle={toggleLogoOpen}
         value={logo}
-        onChange={(val) => onChange({ ...style, logo: val })}
+        onChange={(val) => onChange({ ...value, logo: val })}
       />
     </div>
   );
 }
 
 function MenuTextNavbar({ value, onChange }) {
-  const backgroundColor = value?.backgroundColor;
-  const menuColor = value?.menuColor;
-  const hoverColor = value?.hoverColor;
-  const fontSize = value?.fontSize ?? 12;
-  const typography = value?.typography || {
-    fontWeight: "normal",
-    fontStyle: "normal",
-    textDecoration: "none",
+  const {
+    backgroundColor,
+    color,
+    fontFamily,
+    fontSize,
+    paddingBottom,
+    paddingTop,
+    paddingLeft,
+    paddingRight,
+    boxShadow,
+    hoverColor,
+    typography,
+    shadowOpen,
+  } = value;
+  const setVal = (key, val) => {
+    if (value[key] !== val) {
+      onChange({ ...value, [key]: val });
+    }
   };
-  const shadowBox =
-    value?.shadowBox || "-65px -81px 10px 0px rgba(0, 0, 0, 0.2)";
-  const shadowOpen = value?.shadowOpen || false;
-  const padding = value?.padding ?? 24;
-
-  const setBackgroundColor = (val) =>
-    onChange({ ...value, backgroundColor: val });
-  const setMenuColor = (val) => onChange({ ...value, menuColor: val });
-  const setHoverColor = (val) => onChange({ ...value, hoverColor: val });
-  const setFontSize = (val) => onChange({ ...value, fontSize: val });
-  const setTypography = (val) => onChange({ ...value, typography: val });
-  const setShadowBox = (val) => onChange({ ...value, shadowBox: val });
-  const setShadowOpen = (val) => onChange({ ...value, shadowOpen: val });
-  const setPadding = (val) => onChange({ ...value, padding: val });
 
   return (
     <div>
       <ColorPickerSet
         label="Background Color"
         value={backgroundColor}
-        onChange={setBackgroundColor}
+        onChange={(val) => setVal("backgroundColor", val)}
       />
       <ColorPickerSet
         label="Menu Color"
-        value={menuColor}
-        onChange={setMenuColor}
+        value={color}
+        onChange={(val) => setVal("color", val)}
       />
       <ColorPickerSet
         label="Hover Color"
         value={hoverColor}
-        onChange={setHoverColor}
+        onChange={(val) => setVal("hoverColor", val)}
       />
       <ProgessSet
-        label={"Font size menu"}
+        label="Font size menu"
         max={64}
         value={fontSize}
-        onChange={setFontSize}
+        onChange={(val) => setVal("fontSize", val)}
       />
-      <TypographySet value={typography} onChange={setTypography} />
+      <TypographySet
+        value={typography}
+        onChange={(val) => setVal("typography", val)}
+      />
       <ShadowSet
-        value={shadowBox.trim()}
+        value={boxShadow}
         open={shadowOpen}
-        onChange={setShadowBox}
-        handleToggle={() => setShadowOpen(!shadowOpen)}
+        onChange={(val) => setVal("boxShadow", val)}
+        handleToggle={() => setVal("shadowOpen", !shadowOpen)}
       />
       <ProgessSet
-        label={"Spacing between components"}
+        label="Padding Top"
         max={128}
-        value={padding}
-        onChange={setPadding}
+        value={paddingTop}
+        onChange={(val) => setVal("paddingTop", val)}
+      />
+      <ProgessSet
+        label="Padding Bottom"
+        max={128}
+        value={paddingBottom}
+        onChange={(val) => setVal("paddingBottom", val)}
+      />
+      <ProgessSet
+        label="Padding Left"
+        max={128}
+        value={paddingLeft}
+        onChange={(val) => setVal("paddingLeft", val)}
+      />
+      <ProgessSet
+        label="Padding Right"
+        max={128}
+        value={paddingRight}
+        onChange={(val) => setVal("paddingRight", val)}
       />
     </div>
   );

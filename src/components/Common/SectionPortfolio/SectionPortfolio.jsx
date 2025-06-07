@@ -15,6 +15,7 @@ const SectionPortfolio = forwardRef(function SectionPortfolio(props, ref) {
     <div
       ref={ref || nodeRef}
       className={`${props.active ? style.active : ""} ${style.sectionPortfolio}`}
+      style={{backgroundColor: props.backgroundColor}}
     >
       {props.children}
       <div className={style.settingMenu}>
