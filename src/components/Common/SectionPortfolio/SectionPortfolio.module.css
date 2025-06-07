@@ -36,5 +36,9 @@ button {
     outline: none;
     border: none;
     padding: 0;
-    margin: 0;
+    margin: 0 12px;
+}
+
+button:hover path {
+    fill: #72acee;
 }
