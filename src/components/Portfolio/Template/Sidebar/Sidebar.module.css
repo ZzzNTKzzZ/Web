@@ -1,29 +1,36 @@
 .sidebar{
     width: 180px;
-    border-right: 1px solid #ccc;
+    padding: 10px;
 }
 
-.searchBox{
+.searchBox {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #aaa;
+    padding: 6px 10px;
+    border: 1px soild #ccc;
     border-radius: 6px;
+    margin-bottom: 12px;
 }
 
 .categoryList{
     list-style: none;
-    padding-left: 0;
+    padding: 0;
+    margin: 0;
 }
 
-.categoryList li{
-    padding: 8px;
+.categoryItem{
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 4px;
+    transition: background 0.2s;
 }
 
-.categoryList li:hover,
-.categoryList li.active{
-    background-color: #ff6b3d;
+.categoryItem:hover{
+    background-color: #f2f2f2;
+}
+
+.active {
+    background-color: #ff713f;
     color: white;
+    font-weight: 500;
 }
