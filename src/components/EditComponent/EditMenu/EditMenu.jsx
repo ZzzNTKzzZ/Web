@@ -1,4 +1,4 @@
-import style from "./editMenu.module.css";
+import style from "./EditMenu.module.css";
 import { useState } from "react";
 
 import EditMenuComponent from "./EditMenuComponent";

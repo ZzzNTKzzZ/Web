@@ -1,0 +1,92 @@
+.termsOfUseContainer {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  padding-top: 50px;
+}
+
+.mainTitle {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.paragraph {
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+
+.principleList {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.principleItem {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 0.95em;
+}
+
+.principleItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  color: #333;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .mainTitle {
+    font-size: 2em;
+    margin-bottom: 30px;
+  }
+  .sectionTitle {
+    font-size: 1.3em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+  .termsOfUseContainer {
+    margin: 40px auto;
+    padding: 0 15px;
+  }
+  .paragraph,
+  .principleItem {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+  }
+  .sectionTitle {
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  .termsOfUseContainer {
+    margin: 30px auto;
+    padding: 0 10px;
+  }
+}

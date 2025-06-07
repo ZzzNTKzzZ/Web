@@ -1,11 +1,9 @@
 import React from "react";
 
-import {ReactComponent as IconFacebook} from "../../assets/icon/IconFacebook.svg";
-import {ReactComponent as IconGithub} from "../../assets/icon/IconGithub.svg";
-import {ReactComponent as IconIg} from "../../assets/icon/IconIg.svg";
-import {ReactComponent as IconYoutube} from "../../assets/icon/IconYoutube.svg";
-
-
+import { ReactComponent as IconFacebook } from "../../assets/icon/IconFacebook.svg";
+import { ReactComponent as IconGithub } from "../../assets/icon/IconGithub.svg";
+import { ReactComponent as IconIg } from "../../assets/icon/IconIg.svg";
+import { ReactComponent as IconYoutube } from "../../assets/icon/IconYoutube.svg";
 
 import style from "./footer.module.css";
 
@@ -19,8 +17,8 @@ function Footer() {
             <p>Portlify</p>
           </div>
 
-          <a href="/provision">Provision</a>
-          <a href="/rivacy policy">Privacy policy</a>
+          <a href="/termsOfUse">Terms of Use</a>
+          <a href="/privacyPolicy">Privacy policy</a>
         </div>
         <div className={style.itemCenter}>
           <h4>Contact information</h4>
@@ -32,16 +30,20 @@ function Footer() {
           </p>
           <div className={style.titleEmail}>Contact email:</div>
           <p>
-            anhnt.24ite@vku.udn.vn <br />
-            khanhnt.24ite@vku.udn.vn <br />
-            anhvq.24ite@vku.udn.vn
+            support@portlify.net
           </p>
         </div>
         <div className={style.itemRight}>
           <h4>AKA Team From VKU</h4>
           <div className={style.address}>
-            470 Tran Dai Nghia, Hoa Quy Ward, <br />
-            Ngu Hanh Son District, Da Nang City, Vietnam
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=470+Tran+Dai+Nghia,+Hoa+Quy+Ward,+Ngu+Hanh+Son+District,+Da+Nang+City,+Vietnam"
+              target="_blank" // Mở bản đồ trong tab mới
+              rel="noopener noreferrer"
+            >
+              470 Tran Dai Nghia, Hoa Quy Ward, <br />
+              Ngu Hanh Son District, Da Nang City, Vietnam
+            </a>
           </div>
           <div className={style.icon}>
             <IconFacebook />
