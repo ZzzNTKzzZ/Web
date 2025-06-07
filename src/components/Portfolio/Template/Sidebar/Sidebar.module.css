@@ -1,36 +1,31 @@
-.sidebar{
-    width: 180px;
-    padding: 10px;
-}
-
 .searchBox {
     width: 100%;
-    padding: 6px 10px;
-    border: 1px soild #ccc;
+    padding: 8px 12px;
     border-radius: 6px;
+    border: 1px solid #ccc;
     margin-bottom: 12px;
+    margin-top: 80px;
 }
 
-.categoryList{
+.categoryList {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.categoryItem{
-    padding: 8px 12px;
-    margin-bottom: 4px;
+.categoryList li {
+    padding: 10px 12px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background-color 0.2s;
 }
 
-.categoryItem:hover{
-    background-color: #f2f2f2;
+.categoryList li:hover {
+    background-color: #ffe1d1;
 }
 
 .active {
-    background-color: #ff713f;
+    background-color: #ff7741;
     color: white;
-    font-weight: 500;
+    font-weight: bold;
 }

@@ -1,5 +1,4 @@
-import react from "react";
-
+import React from "react";
 import style from "../../Template/TemplateGrid/TemplateGrid.module.css";
 
 function TemplateGrid() {
@@ -8,7 +7,7 @@ function TemplateGrid() {
     return (
         <div className={style.templateGrid}>
             {placeholder.map((_, idx) => (
-            <div key={idx} className={style.templateCard}/>
+                <div key={idx} className={style.templateCard} />
             ))}
         </div>
     );
