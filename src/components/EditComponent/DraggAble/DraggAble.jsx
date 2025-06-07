@@ -9,9 +9,10 @@ export default function DraggAble({
   children,
   activeId,
   setActiveId,
-  onRightClick,
   editStyle,
+  hoverColor
 }) {
+  const [isHover, setIsHover] = useState(false);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
   const safeStyle = {
@@ -31,10 +32,6 @@ export default function DraggAble({
   const handleContextMenu = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (onRightClick) {
-      setActiveId(id);
-      onRightClick(e, id);
-    }
   };
 
   return (
@@ -46,21 +43,22 @@ export default function DraggAble({
           ? `translate(${transform.x}px, ${transform.y}px)`
           : undefined,
         border: activeId === id ? "2px solid blue" : "1px solid gray",
-        color: activeId === id ? safeStyle.color : "#000",
         cursor: "grab",
-        backgroundColor: "#fff"
+        color: isHover ? hoverColor : "inherit",
       }}
       {...listeners}
       {...attributes}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
       <div
         style={{
           pointerEvents: "auto",
           userSelect: "text",
           cursor: "text",
-          fontFamily: safeStyle.fontFamily ,
+          fontFamily: safeStyle.fontFamily,
           fontWeight: safeStyle.fontWeight,
           fontStyle: safeStyle.fontStyle,
           textDecoration: safeStyle.textDecoration,

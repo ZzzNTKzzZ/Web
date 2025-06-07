@@ -25,6 +25,7 @@ export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle })
         setEditMenu={setEditMenu}
         active={activeSection === "navbar-section"}
         setIsActive={() => setActiveSection("navbar-section")}
+        backgroundColor={navbarStyle.backgroundColor}
       >
         <NavbarPortfolio onCreate={onCreate} setStyle={setNavbarStyle} navbarStyle={navbarStyle}/>
       </SectionPortfolio>
@@ -35,7 +36,7 @@ export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle })
         active={activeSection === "content-section"}
         setIsActive={() => setActiveSection("content-section")}
       >
-        <NavbarPortfolio onCreate={onCreate} />
+        {/* <NavbarPortfolio onCreate={onCreate} /> */}
       </SectionPortfolio>
     </div>
   );
