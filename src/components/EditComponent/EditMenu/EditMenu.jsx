@@ -2,6 +2,7 @@ import style from "./EditMenu.module.css";
 import { useState } from "react";
 
 import EditMenuComponent from "./EditMenuComponent";
+import CloseButton from "../../Common/CloseButton/CloseButton";
 function ContentEdit() {
   return (
     <div className={style.editMenu}>
@@ -10,11 +11,16 @@ function ContentEdit() {
   );
 }
 
-function NavbarEdit( {styleNavbar, setStyleNavbar}) {
+function NavbarEdit({ styleNavbar, setStyleNavbar, setMenu }) {
   const [textActive, setTextActive] = useState(false);
   const [designActive, setDesignActive] = useState(true);
   return (
     <div className={style.editMenu}>
+      {/* Close button container */}
+      <div className={style.closeButtonZone}>
+        <CloseButton onClick={() => setMenu((prev) => !prev)} />
+      </div>
+
       <div className={style.control}>
         <div
           className={`${style.controlDesign} ${designActive ? style.active : ""}`}
@@ -35,10 +41,11 @@ function NavbarEdit( {styleNavbar, setStyleNavbar}) {
           Text
         </div>
       </div>
-        <div>
-          {designActive && <EditMenuComponent.MenuDesignNavbar value={styleNavbar} onChange={setStyleNavbar}/>}
-          {textActive && <EditMenuComponent.MenuTextNavbar value={styleNavbar} onChange={setStyleNavbar}/>}
-        </div>
+
+      <div>
+        {designActive && <EditMenuComponent.MenuDesignNavbar value={styleNavbar} onChange={setStyleNavbar} />}
+        {textActive && <EditMenuComponent.MenuTextNavbar value={styleNavbar} onChange={setStyleNavbar} />}
+      </div>
     </div>
   );
 }

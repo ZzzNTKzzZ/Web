@@ -100,7 +100,7 @@ export default function NavbarPortfolio({ onCreate, navbarStyle }) {
     <div
       className={style.containerWrapper}
       ref={navbarRef}
-      style={{ ...navbarStyle }}
+      style={{ ...navbarStyle, position: "relative" }}
     >
       <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         {containers.map((container) => (
@@ -116,7 +116,7 @@ export default function NavbarPortfolio({ onCreate, navbarStyle }) {
               editStyle={container.style}
               setActiveId={setActiveId}
               className={style.draggable}
-              hoverColor={navbarStyle.hoverColor}
+              navbarStyle={navbarStyle}
             >
               <TiptapEditor
                 content={container.label}

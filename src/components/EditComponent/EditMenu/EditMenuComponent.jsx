@@ -50,7 +50,7 @@ function ProgessSet({ label, min = 0, max = 64, value, onChange, step = 1 }) {
   );
 }
 
-function ColorPickerSet({ label, value = "#000000", onChange }) {
+function ColorPickerSet({ label, value, onChange }) {
   const [showPicker, setShowPicker] = useState(false);
   const [color, setColor] = useState(parseColor(value));
   const wrapperRef = useRef(null);
@@ -68,17 +68,34 @@ function ColorPickerSet({ label, value = "#000000", onChange }) {
     ctx.fillStyle = "#000";
     ctx.fillStyle = colorString;
     const rgba = ctx.fillStyle;
-    const match = rgba.match(
-      /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/
+
+    // Handle rgba(), rgb() with optional spaces
+    const rgbaMatch = rgba.match(
+      /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([\d.]+))?\s*\)$/
     );
-    return match
-      ? {
-          r: parseInt(match[1], 10),
-          g: parseInt(match[2], 10),
-          b: parseInt(match[3], 10),
-          a: match[4] !== undefined ? parseFloat(match[4]) : 1,
-        }
-      : { r: 0, g: 0, b: 0, a: 1 };
+    if (rgbaMatch) {
+      return {
+        r: parseInt(rgbaMatch[1], 10),
+        g: parseInt(rgbaMatch[2], 10),
+        b: parseInt(rgbaMatch[3], 10),
+        a: rgbaMatch[4] !== undefined ? parseFloat(rgbaMatch[4]) : 1,
+      };
+    }
+
+    // Handle hex colors like #ffffff
+    const hexMatch = rgba.match(/^#([a-fA-F0-9]{6})$/);
+    if (hexMatch) {
+      const hex = hexMatch[1];
+      return {
+        r: parseInt(hex.substring(0, 2), 16),
+        g: parseInt(hex.substring(2, 4), 16),
+        b: parseInt(hex.substring(4, 6), 16),
+        a: 1,
+      };
+    }
+
+    // fallback to black
+    return { r: 0, g: 0, b: 0, a: 1 };
   }
 
   function toRgbaString({ r, g, b, a }) {
@@ -185,7 +202,7 @@ function ShadowSet({
     /(-?\d+px)\s+(-?\d+px)\s+(\d+px)\s+(-?\d+px)\s+(rgba?\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\))/i
   );
 
-  const [enabled, setEnabled] = useState(value !== "none");
+  const [enabled, setEnabled] = useState(open);
   const [x, setX] = useState(match?.[1] || "0px");
   const [y, setY] = useState(match?.[2] || "0px");
   const [blur, setBlur] = useState(match?.[3] || "0px");
@@ -255,11 +272,16 @@ function ShadowSet({
 }
 
 // --- Menu & Logo UI Toggles ---
-function MenuSet({ open, handleToggle, aglin }) {
-  const [align, setAlign] = useState(aglin);
-  const [spacing, setSpacing] = useState(12);
-  const [spacingTB, setSpacingTB] = useState(12);
-
+function MenuSet({
+  open,
+  handleToggle,
+  paddingX,
+  setPaddingX,
+  gap,
+  setGap,
+  justifyContent,
+  setJustify,
+}) {
   return (
     <div className={menuSet.menuWrapper}>
       <div className={menuSet.menuButton} onClick={handleToggle}>
@@ -267,37 +289,45 @@ function MenuSet({ open, handleToggle, aglin }) {
       </div>
       <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
         <div className={editMenuComponent.control}>
-          <p>Display</p>
+          <p>Location menu</p>
           <div className={editMenuComponent.controlSelect}>
             <div
-              className={align === "left" ? editMenuComponent.active : ""}
-              onClick={() => setAlign("left")}
+              className={
+                justifyContent === "left" ? editMenuComponent.active : ""
+              }
+              onClick={() => setJustify("left")}
             >
               <AlignLeft />
             </div>
             <div
-              className={align === "center" ? editMenuComponent.active : ""}
-              onClick={() => setAlign("center")}
+              className={
+                justifyContent === "center" ? editMenuComponent.active : ""
+              }
+              onClick={() => setJustify("center")}
             >
               <AlignCenter />
             </div>
             <div
-              className={align === "right" ? editMenuComponent.active : ""}
-              onClick={() => setAlign("right")}
+              className={
+                justifyContent === "right" ? editMenuComponent.active : ""
+              }
+              onClick={() => setJustify("right")}
             >
               <AlignRight />
             </div>
           </div>
         </div>
+
         <ProgessSet
           label="Spacing between menus"
-          value={spacing}
-          onChange={setSpacing}
+          value={gap}
+          onChange={setGap}
         />
+
         <ProgessSet
-          label="Top/bottom menu spacing"
-          value={spacingTB}
-          onChange={setSpacingTB}
+          label="Left & Right padding"
+          value={paddingX}
+          onChange={setPaddingX}
         />
       </div>
     </div>
@@ -317,13 +347,28 @@ function LogoSet({ open, handleToggle, value, onChange }) {
   );
 }
 
-function MenuDesignNavbar({ value, onChange  }) {
-  console.log(value)
-  const { position, menuOpen, logoOpen, logo, align } = value;
+function MenuDesignNavbar({ value, onChange }) {
+  const {
+    position,
+    paddingLeft,
+    paddingRight,
+    gap,
+    justifyContent,
+    menuOpen,
+    logoOpen,
+    logo,
+  } = value;
+
   const fixed = position === "fixed";
 
   const toggleFixed = () => {
     onChange({ ...value, position: fixed ? "relative" : "fixed" });
+  };
+
+  const setVal = (key, val) => {
+    if (value[key] !== val) {
+      onChange({ ...value, [key]: val });
+    }
   };
 
   const toggleMenuOpen = () => {
@@ -334,15 +379,25 @@ function MenuDesignNavbar({ value, onChange  }) {
     onChange({ ...value, logoOpen: !logoOpen, menuOpen: false });
   };
 
+  const handlePaddingX = (val) => {
+    if (paddingLeft !== val || paddingRight !== val) {
+      onChange({ ...value, paddingLeft: val, paddingRight: val });
+    }
+  };
+
   return (
     <div>
       <ToggleSet label="Fixed" value={fixed} onChange={toggleFixed} />
-      <MenuSet open={menuOpen} handleToggle={toggleMenuOpen} align={align} />
-      <LogoSet
-        open={logoOpen}
-        handleToggle={toggleLogoOpen}
-        value={logo}
-        onChange={(val) => onChange({ ...value, logo: val })}
+
+      <MenuSet
+        open={menuOpen}
+        handleToggle={toggleMenuOpen}
+        paddingX={paddingLeft} // assuming both sides are same
+        gap={gap}
+        justifyContent={justifyContent}
+        setPaddingX={handlePaddingX}
+        setGap={(val) => setVal("gap", val)}
+        setJustify={(val) => setVal("justifyContent", val)}
       />
     </div>
   );
@@ -354,8 +409,8 @@ function MenuTextNavbar({ value, onChange }) {
     color,
     fontFamily,
     fontSize,
-    paddingBottom,
     paddingTop,
+    paddingBottom,
     paddingLeft,
     paddingRight,
     boxShadow,
@@ -363,11 +418,30 @@ function MenuTextNavbar({ value, onChange }) {
     typography,
     shadowOpen,
   } = value;
+  // Helper to update value
   const setVal = (key, val) => {
     if (value[key] !== val) {
       onChange({ ...value, [key]: val });
     }
   };
+
+  // Combined setters for padding Y (top + bottom) and padding X (left + right)
+  const setPaddingY = (val) => {
+    if (paddingTop !== val || paddingBottom !== val) {
+      onChange({ ...value, paddingTop: val, paddingBottom: val });
+    }
+  };
+
+  const setPaddingX = (val) => {
+    if (paddingLeft !== val || paddingRight !== val) {
+      onChange({ ...value, paddingLeft: val, paddingRight: val });
+    }
+  };
+
+  // Calculate current combined padding values for sliders
+  // If they are different, fallback to 0 or paddingTop/paddingLeft
+  const paddingY = paddingTop === paddingBottom ? paddingTop : 0;
+  const paddingX = paddingLeft === paddingRight ? paddingLeft : 0;
 
   return (
     <div>
@@ -402,34 +476,17 @@ function MenuTextNavbar({ value, onChange }) {
         onChange={(val) => setVal("boxShadow", val)}
         handleToggle={() => setVal("shadowOpen", !shadowOpen)}
       />
+
+      {/* Combined vertical padding */}
       <ProgessSet
-        label="Padding Top"
+        label="Padding Top & Bottom"
         max={128}
-        value={paddingTop}
-        onChange={(val) => setVal("paddingTop", val)}
-      />
-      <ProgessSet
-        label="Padding Bottom"
-        max={128}
-        value={paddingBottom}
-        onChange={(val) => setVal("paddingBottom", val)}
-      />
-      <ProgessSet
-        label="Padding Left"
-        max={128}
-        value={paddingLeft}
-        onChange={(val) => setVal("paddingLeft", val)}
-      />
-      <ProgessSet
-        label="Padding Right"
-        max={128}
-        value={paddingRight}
-        onChange={(val) => setVal("paddingRight", val)}
+        value={paddingY}
+        onChange={setPaddingY}
       />
     </div>
   );
 }
-
 const EditMenuComponent = {
   MenuDesignNavbar,
   MenuTextNavbar,

@@ -5,6 +5,7 @@
   background-color: #ccc;
   transition: margin-left 0.3s ease;
   font-size: clamp(12px, 2vw, 24px); 
+  position: relative;
 }
 
 .editZone.menuOpen {

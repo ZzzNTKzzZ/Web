@@ -10,19 +10,11 @@ export default function DraggAble({
   activeId,
   setActiveId,
   editStyle,
-  hoverColor
+  navbarStyle
 }) {
   const [isHover, setIsHover] = useState(false);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
-  const safeStyle = {
-    fontFamily: editStyle.fontFamily || "inherit",
-    fontWeight: editStyle.fontWeight || "normal",
-    fontStyle: editStyle.fontStyle || "normal",
-    textDecoration: editStyle.textDecoration || "none",
-    color: editStyle.color || "#000",
-  };
-
   const handleClick = (e) => {
     e.stopPropagation();
     setActiveId(id);
@@ -44,7 +36,7 @@ export default function DraggAble({
           : undefined,
         border: activeId === id ? "2px solid blue" : "1px solid gray",
         cursor: "grab",
-        color: isHover ? hoverColor : "inherit",
+        color: isHover ? navbarStyle.hoverColor : "inherit",
       }}
       {...listeners}
       {...attributes}
@@ -58,10 +50,10 @@ export default function DraggAble({
           pointerEvents: "auto",
           userSelect: "text",
           cursor: "text",
-          fontFamily: safeStyle.fontFamily,
-          fontWeight: safeStyle.fontWeight,
-          fontStyle: safeStyle.fontStyle,
-          textDecoration: safeStyle.textDecoration,
+          fontFamily: navbarStyle.fontFamily,
+          fontWeight: navbarStyle.typography.fontWeight,
+          fontStyle: navbarStyle.typography.fontStyle,
+          textDecoration: navbarStyle.typography.textDecoration,
         }}
         onPointerDown={(e) => e.stopPropagation()}
       >
