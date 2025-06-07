@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import SectionPortfolio from "../Common/SectionPortfolio/SectionPortfolio";
 import NavbarPortfolio from "../componentsPortfolio/NavbarPortfolio/NavbarPortfolio";
 import style from "./PageCreate.module.css";
+import HeroBannerPortfolio from "../componentsPortfolio/HeroBannerPortfolio/HeroBannerPortfolio";
 
 export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle }) {
   const sectionRef = useRef(null);
@@ -58,7 +59,7 @@ export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle })
           handleDelete={() => handleDelete("content-section")}
         >
           {/* Your content here */}
-          <div>Content Section</div>
+          <HeroBannerPortfolio />
         </SectionPortfolio>
       )}
     </div>

@@ -33,6 +33,7 @@ export default function EditPortfolio() {
     justifyContent: "right",
   });
 
+  const [styleContentSection, setStyleContentSection] = useState()
   function renderMenu() {
     switch (editMenu) {
       case "navbar-section":

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
-
 import style from "./DraggAble.module.css";
 
 export default function DraggAble({
@@ -10,11 +9,13 @@ export default function DraggAble({
   activeId,
   setActiveId,
   editStyle,
-  navbarStyle
+  navbarStyle,
+  image,
 }) {
   const [isHover, setIsHover] = useState(false);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
+
   const handleClick = (e) => {
     e.stopPropagation();
     setActiveId(id);
@@ -36,7 +37,7 @@ export default function DraggAble({
           : undefined,
         border: activeId === id ? "2px solid blue" : "1px solid gray",
         cursor: "grab",
-        color: isHover ? navbarStyle.hoverColor : "inherit",
+        color: isHover ? navbarStyle?.hoverColor : "inherit",
       }}
       {...listeners}
       {...attributes}
@@ -50,14 +51,18 @@ export default function DraggAble({
           pointerEvents: "auto",
           userSelect: "text",
           cursor: "text",
-          fontFamily: navbarStyle.fontFamily,
-          fontWeight: navbarStyle.typography.fontWeight,
-          fontStyle: navbarStyle.typography.fontStyle,
-          textDecoration: navbarStyle.typography.textDecoration,
+          fontFamily: navbarStyle?.fontFamily,
+          fontWeight: navbarStyle?.typography?.fontWeight,
+          fontStyle: navbarStyle?.typography?.fontStyle,
+          textDecoration: navbarStyle?.typography?.textDecoration,
         }}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        {isEditing && React.isValidElement(children) ? (
+        {image ? (
+          <div className={style.image}>
+            <img src={image} alt="Preview" className={style.imagePreview} />
+          </div>
+        ) : isEditing && React.isValidElement(children) ? (
           React.cloneElement(children, { editable: true })
         ) : (
           <div>{label}</div>

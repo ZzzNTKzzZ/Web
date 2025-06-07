@@ -5,3 +5,10 @@
     min-width: 20%; 
     user-select: "none"; 
 }
+
+.image img {
+    width: 400px;        /* Fixed size is better for profile pictures */
+    height: 500px;
+    object-fit: cover;   /* Prevent distortion, crop nicely */
+    display: block;
+}
