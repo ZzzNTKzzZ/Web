@@ -49,9 +49,36 @@ function NavbarEdit({ styleNavbar, setStyleNavbar, setMenu }) {
     </div>
   );
 }
+
+function HeroBannerEdit({ styleHeroBanner, setStyleHeroBanner, setMenu}) {
+  const [designActive, setDesignActive] = useState(true);
+  return (
+    <div className={style.editMenu}>
+        <div className={style.closeButtonZone}>
+        <CloseButton onClick={() => setMenu((prev) => !prev)} />
+      </div>
+      <div className={style.control}>
+        <div
+          className={`${style.controlDesign} ${designActive ? style.active : ""}`}
+          onClick={() => {
+            setDesignActive(true);
+          }}
+        >
+          Design
+        </div>
+        
+      </div>
+      <div>
+        {designActive && <EditMenuComponent.MenuBanner value={styleHeroBanner} onChange={setStyleHeroBanner} />}
+      </div>
+    </div>
+  )
+}
 const EditMenu = {
   NavbarSection: NavbarEdit,
+  HeroBannerSection: HeroBannerEdit,
   ContentSection: ContentEdit,
+
 };
 
 export default EditMenu;

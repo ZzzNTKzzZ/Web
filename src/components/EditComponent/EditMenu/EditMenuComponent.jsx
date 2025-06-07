@@ -10,6 +10,10 @@ import { ReactComponent as Underline } from "../../../assets/icon/Underline.svg"
 import { ReactComponent as AlignLeft } from "../../../assets/icon/AlignLeft.svg";
 import { ReactComponent as AlignRight } from "../../../assets/icon/AlignRight.svg";
 import { ReactComponent as AlignCenter } from "../../../assets/icon/AlignCenter.svg";
+import { ReactComponent as Upload } from "../../../assets/icon/Upload.svg";
+import { ReactComponent as Line } from "../../../assets/icon/Line.svg"
+import { ReactComponent as Dashed } from "../../../assets/icon/Dashed.svg"
+import { ReactComponent as Dot } from "../../../assets/icon/Dot.svg"
 import { SketchPicker } from "react-color";
 
 // --- Common Controls ---
@@ -347,6 +351,57 @@ function LogoSet({ open, handleToggle, value, onChange }) {
   );
 }
 
+function ImageSet({ open, handleToggle, value, onChange }) {
+  return (
+    <div className={menuSet.menuWrapper}>
+      <div className={menuSet.menuButton} onClick={handleToggle}>
+        Background Image
+      </div>
+      <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
+        Image
+        <div className={menuSet.downLoadImage}>
+          <Upload />
+          Upload photo
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BorderSet({ open, handleToggle, value, onChange }) {
+  return (
+    <div className={menuSet.menuWrapper}>
+      <div className={menuSet.menuButton} onClick={handleToggle}>
+        Boder
+      </div>
+      <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
+        <ProgessSet label={"Border"} />
+
+        <div className={editMenuComponent.control}>
+          <p>Location menu</p>
+          <div className={editMenuComponent.controlSelect}>
+            <div
+            
+            >
+              <Line />
+            </div>
+            <div
+             
+            >
+              <Dashed />
+            </div>
+            <div
+            
+            >
+              <Dot />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MenuDesignNavbar({ value, onChange }) {
   const {
     position,
@@ -487,9 +542,66 @@ function MenuTextNavbar({ value, onChange }) {
     </div>
   );
 }
+
+function MenuBanner({ value = {}, onChange }) {
+  const {
+    backgroundColor = "rgba(255,255,255,1)",
+    backgroundImage = "",
+    alignItem = "center",
+    border = "none",
+  } = value;
+
+  const [imageOpen, setImageOpen] = useState(false);
+  const [borderOpen, setBorderOpen] = useState(false);
+
+  const setVal = (key, val) => {
+    if (value[key] !== val) {
+      onChange({ ...value, [key]: val });
+    }
+  };
+
+  const toggleImageOpen = () => {
+    setImageOpen((prev) => {
+      if (!prev) setBorderOpen(false); // Close border when opening image
+      return !prev;
+    });
+  };
+
+  const toggleBorderOpen = () => {
+    setBorderOpen((prev) => {
+      if (!prev) setImageOpen(false); // Close image when opening border
+      return !prev;
+    });
+  };
+
+  return (
+    <div>
+      <ColorPickerSet
+        label="Background Color"
+        value={backgroundColor}
+        onChange={(val) => setVal("backgroundColor", val)}
+      />
+
+      <ImageSet
+        open={imageOpen}
+        handleToggle={toggleImageOpen}
+        value={backgroundImage}
+        onChange={(val) => setVal("backgroundImage", val)}
+      />
+      <BorderSet
+        open={borderOpen}
+        handleToggle={toggleBorderOpen}
+        value={border}
+        onChange={(val) => setVal("border", val)}
+      />
+    </div>
+  );
+}
+
 const EditMenuComponent = {
   MenuDesignNavbar,
   MenuTextNavbar,
+  MenuBanner,
 };
 
 export default EditMenuComponent;

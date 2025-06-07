@@ -4,7 +4,7 @@ import NavbarPortfolio from "../componentsPortfolio/NavbarPortfolio/NavbarPortfo
 import style from "./PageCreate.module.css";
 import HeroBannerPortfolio from "../componentsPortfolio/HeroBannerPortfolio/HeroBannerPortfolio";
 
-export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle }) {
+export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle, herobannerStyle, setHerobannerStyle }) {
   const sectionRef = useRef(null);
   const [onCreate, setOnCreate] = useState(null);
 
@@ -52,14 +52,14 @@ export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle })
       {visibleSections.content && (
         <SectionPortfolio
           ref={sectionRef}
-          sectionKey="content-section"
+          sectionKey="herobanner-section"
           setEditMenu={setEditMenu}
-          active={activeSection === "content-section"}
-          setIsActive={() => setActiveSection("content-section")}
-          handleDelete={() => handleDelete("content-section")}
+          active={activeSection === "herobanner-section"}
+          setIsActive={() => setActiveSection("herobanner-section")}
+          handleDelete={() => handleDelete("herobanner-section")}
         >
           {/* Your content here */}
-          <HeroBannerPortfolio />
+          <HeroBannerPortfolio setStyle = {setHerobannerStyle} herobannerStyle={herobannerStyle}/>
         </SectionPortfolio>
       )}
     </div>

@@ -33,7 +33,14 @@ export default function EditPortfolio() {
     justifyContent: "right",
   });
 
-  const [styleContentSection, setStyleContentSection] = useState()
+  const [herobannerStyle, setHerobannerStyle] = useState({
+    backgroundColor: "rgba(255,255,255,1)",
+    backgroundImage: "",
+    alignItem: "center",
+    border: { width: "0px", style: "none", color: "#000000" },
+  });
+
+  const [styleContentSection, setStyleContentSection] = useState();
   function renderMenu() {
     switch (editMenu) {
       case "navbar-section":
@@ -46,6 +53,14 @@ export default function EditPortfolio() {
         );
       case "content-section":
         return <EditMenu.ContentSection />;
+      case "herobanner-section":
+        return (
+          <EditMenu.HeroBannerSection
+            setHerobannerStyle={setHerobannerStyle}
+            styleHeroBanner={herobannerStyle}
+            setMenu={setEditMenu}
+          />
+        );
       default:
         return null;
     }
@@ -60,6 +75,8 @@ export default function EditPortfolio() {
         editMenu={editMenu}
         setNavbarStyle={setStyleNavbarSection}
         navbarStyle={styleNavbarSection}
+        setHerobannerStyle={setHerobannerStyle}
+        herobannerStyle={herobannerStyle}
       />
       {editMenu && renderMenu()}
     </div>

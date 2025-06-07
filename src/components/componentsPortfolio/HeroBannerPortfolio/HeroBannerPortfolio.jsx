@@ -7,7 +7,7 @@ import TiptapEditor from "../../EditComponent/TiptapEditor/TiptapEditor";
 import style from "./HeroBannerPortfolio.module.css";
 import Image from "../../../assets/Img/DemoUser.jpg";
 
-export default function HeroBannerPortfolio({ herobannerStyle, navbarStyle }) {
+export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
   const bannerRef = useRef();
 
   const [activeId, setActiveId] = useState(null);
