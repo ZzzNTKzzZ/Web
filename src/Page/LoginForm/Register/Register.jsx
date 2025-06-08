@@ -22,7 +22,7 @@ function Register() {
         <div className={style.agreement}>
           <input type="checkbox" id="agreement" />
           <label htmlFor="agreement">
-            I agree to the privacy policy of the developer CodeAlg
+            I agree to the privacy policy of the developer Portlify
           </label>
         </div>
         <button className={style.registerButton}>Sign Up</button>
