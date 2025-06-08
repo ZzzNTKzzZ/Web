@@ -12,26 +12,52 @@ const SectionPortfolio = forwardRef(function SectionPortfolio(props, ref) {
     props.setIsActive(); // Notify parent this section is active
   };
 
+  // Check if background is an image (URL or blob)
+  const isImage =
+    typeof props.background === "string" &&
+    (props.background.startsWith("http") ||
+      props.background.startsWith("blob:") ||
+      props.background.startsWith("data:image"));
+
+  const backgroundStyle = isImage
+    ? {
+        backgroundImage: `url(${props.background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }
+    : {
+        background: props.background,
+      };
+
   return (
     <div
       ref={ref || nodeRef}
-      className={`${props.active ? style.active : ""} ${style.sectionPortfolio}`}
-      style={{ backgroundColor: props.backgroundColor }}
+      className={`${props.active ? style.active : ""} ${
+        style.sectionPortfolio
+      }`}
+      style={{
+        ...backgroundStyle,
+        border: props.border,
+      }}
       onClick={props.setIsActive}
     >
       {props.children}
       <div className={style.settingMenu}>
-        <button onClick={(e) => {
-          e.stopPropagation();
-          handleSettingsClick();
-        }}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSettingsClick();
+          }}
+        >
           <SettingIcon />
         </button>
 
-        <button onClick={(e) => {
-          e.stopPropagation();
-          props.handleDelete();
-        }}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            props.handleDelete();
+          }}
+        >
           <TrashIcon />
         </button>
       </div>

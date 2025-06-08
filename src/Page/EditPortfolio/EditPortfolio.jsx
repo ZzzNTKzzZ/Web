@@ -37,7 +37,7 @@ export default function EditPortfolio() {
     backgroundColor: "rgba(255,255,255,1)",
     backgroundImage: "",
     alignItem: "center",
-    border: { width: "0px", style: "none", color: "#000000" },
+    border: "0px none #000",
   });
 
   const [styleContentSection, setStyleContentSection] = useState();
@@ -56,7 +56,7 @@ export default function EditPortfolio() {
       case "herobanner-section":
         return (
           <EditMenu.HeroBannerSection
-            setHerobannerStyle={setHerobannerStyle}
+            setStyleHeroBanner={setHerobannerStyle}
             styleHeroBanner={herobannerStyle}
             setMenu={setEditMenu}
           />

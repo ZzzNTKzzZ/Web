@@ -4,7 +4,13 @@ import NavbarPortfolio from "../componentsPortfolio/NavbarPortfolio/NavbarPortfo
 import style from "./PageCreate.module.css";
 import HeroBannerPortfolio from "../componentsPortfolio/HeroBannerPortfolio/HeroBannerPortfolio";
 
-export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle, herobannerStyle, setHerobannerStyle }) {
+export default function PageCreate({
+  setEditMenu,
+  setNavbarStyle,
+  navbarStyle,
+  herobannerStyle,
+  setHerobannerStyle,
+}) {
   const sectionRef = useRef(null);
   const [onCreate, setOnCreate] = useState(null);
 
@@ -42,10 +48,14 @@ export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle, h
           setEditMenu={setEditMenu}
           active={activeSection === "navbar-section"}
           setIsActive={() => setActiveSection("navbar-section")}
-          backgroundColor={navbarStyle.backgroundColor}
+          background={navbarStyle.backgroundColor}
           handleDelete={() => handleDelete("navbar-section")}
         >
-          <NavbarPortfolio onCreate={onCreate} setStyle={setNavbarStyle} navbarStyle={navbarStyle} />
+          <NavbarPortfolio
+            onCreate={onCreate}
+            setStyle={setNavbarStyle}
+            navbarStyle={navbarStyle}
+          />
         </SectionPortfolio>
       )}
 
@@ -54,12 +64,17 @@ export default function PageCreate({ setEditMenu, setNavbarStyle, navbarStyle, h
           ref={sectionRef}
           sectionKey="herobanner-section"
           setEditMenu={setEditMenu}
+          background={herobannerStyle?.backgroundImage || herobannerStyle.backgroundColor }
+          border={herobannerStyle.border}
           active={activeSection === "herobanner-section"}
           setIsActive={() => setActiveSection("herobanner-section")}
           handleDelete={() => handleDelete("herobanner-section")}
         >
           {/* Your content here */}
-          <HeroBannerPortfolio setStyle = {setHerobannerStyle} herobannerStyle={herobannerStyle}/>
+          <HeroBannerPortfolio
+            setStyle={setHerobannerStyle}
+            herobannerStyle={herobannerStyle}
+          />
         </SectionPortfolio>
       )}
     </div>

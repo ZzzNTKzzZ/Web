@@ -66,7 +66,6 @@ function HeroBannerEdit({ styleHeroBanner, setStyleHeroBanner, setMenu}) {
         >
           Design
         </div>
-        
       </div>
       <div>
         {designActive && <EditMenuComponent.MenuBanner value={styleHeroBanner} onChange={setStyleHeroBanner} />}

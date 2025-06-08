@@ -14,6 +14,7 @@ import { ReactComponent as Upload } from "../../../assets/icon/Upload.svg";
 import { ReactComponent as Line } from "../../../assets/icon/Line.svg"
 import { ReactComponent as Dashed } from "../../../assets/icon/Dashed.svg"
 import { ReactComponent as Dot } from "../../../assets/icon/Dot.svg"
+import { ReactComponent as Trash } from "../../../assets/icon/Trash.svg"
 import { SketchPicker } from "react-color";
 
 // --- Common Controls ---
@@ -352,51 +353,136 @@ function LogoSet({ open, handleToggle, value, onChange }) {
 }
 
 function ImageSet({ open, handleToggle, value, onChange }) {
+  const fileInputRef = useRef();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      onChange?.(imageURL);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleDeleteImage = (e) => {
+    e.stopPropagation();
+    onChange(""); // Clear the image
+  };
+
   return (
     <div className={menuSet.menuWrapper}>
       <div className={menuSet.menuButton} onClick={handleToggle}>
         Background Image
       </div>
       <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
-        Image
-        <div className={menuSet.downLoadImage}>
-          <Upload />
-          Upload photo
+        <div className={menuSet.downLoadImage} onClick={triggerFileInput}>
+          {value ? (
+            <div className={menuSet.imagePreviewWrapper}>
+              <img
+                src={value}
+                alt="Uploaded preview"
+                className={menuSet.imagePreview}
+              />
+              <button
+                className={menuSet.deleteButton}
+                onClick={handleDeleteImage}
+              >
+                <Trash />
+              </button>
+            </div>
+          ) : (
+            <>
+              <Upload />
+              Upload photo
+            </>
+          )}
         </div>
+
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
       </div>
     </div>
   );
 }
 
-function BorderSet({ open, handleToggle, value, onChange }) {
+function BorderSet({ open, handleToggle, value = "", onChange }) {
+  // Parse border value into width, style, color
+  const match = value.match(/^(\d+)px\s+(solid|dashed|dotted)\s+(rgba?\(.+\))$/);
+  const [width, setWidth] = useState(match?.[1] ? parseInt(match[1]) : 1);
+  const [style, setStyle] = useState(match?.[2] || "solid");
+  const [color, setColor] = useState(match?.[3] || "rgba(0,0,0,1)");
+
+  const updateBorder = (newWidth = width, newStyle = style, newColor = color) => {
+    const border = `${newWidth}px ${newStyle} ${newColor}`;
+    onChange?.(border);
+  };
+
+  const handleWidthChange = (val) => {
+    setWidth(val);
+    updateBorder(val, style, color);
+  };
+
+  const handleStyleChange = (val) => {
+    setStyle(val);
+    updateBorder(width, val, color);
+  };
+
+  const handleColorChange = (val) => {
+    setColor(val);
+    updateBorder(width, style, val);
+  };
+
   return (
     <div className={menuSet.menuWrapper}>
       <div className={menuSet.menuButton} onClick={handleToggle}>
-        Boder
+        Border
       </div>
       <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
-        <ProgessSet label={"Border"} />
+        <ProgessSet
+          label="Border Width"
+          min={0}
+          max={20}
+          value={width}
+          onChange={handleWidthChange}
+        />
 
         <div className={editMenuComponent.control}>
-          <p>Location menu</p>
+          <p>Border Style</p>
           <div className={editMenuComponent.controlSelect}>
             <div
-            
+              className={style === "solid" ? editMenuComponent.active : ""}
+              onClick={() => handleStyleChange("solid")}
             >
               <Line />
             </div>
             <div
-             
+              className={style === "dashed" ? editMenuComponent.active : ""}
+              onClick={() => handleStyleChange("dashed")}
             >
               <Dashed />
             </div>
             <div
-            
+              className={style === "dotted" ? editMenuComponent.active : ""}
+              onClick={() => handleStyleChange("dotted")}
             >
               <Dot />
             </div>
           </div>
         </div>
+
+        <ColorPickerSet
+          label="Border Color"
+          value={color}
+          onChange={handleColorChange}
+        />
       </div>
     </div>
   );
@@ -543,14 +629,14 @@ function MenuTextNavbar({ value, onChange }) {
   );
 }
 
-function MenuBanner({ value = {}, onChange }) {
+function MenuBanner({ value , onChange }) {
   const {
-    backgroundColor = "rgba(255,255,255,1)",
-    backgroundImage = "",
-    alignItem = "center",
-    border = "none",
+    backgroundColor,
+    backgroundImage,
+    alignItem,
+    border,
   } = value;
-
+  console.log(value)
   const [imageOpen, setImageOpen] = useState(false);
   const [borderOpen, setBorderOpen] = useState(false);
 

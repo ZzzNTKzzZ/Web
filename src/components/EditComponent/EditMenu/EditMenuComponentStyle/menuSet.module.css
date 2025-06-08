@@ -56,3 +56,24 @@
 .downLoadImage:hover {
     border-color: #4a90e2;
 }
+
+.imagePreviewWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.imagePreview {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  cursor: pointer;
+}
