@@ -11,6 +11,8 @@ export default function DraggAble({
   editStyle,
   navbarStyle,
   image,
+  setMenuContent,
+  setMenuPosition
 }) {
   const [isHover, setIsHover] = useState(false);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
@@ -27,7 +29,9 @@ export default function DraggAble({
     e.stopPropagation();
 
     if (activeId === id) {
-      console.log(`Right-clicked on active item with id: ${id}`);
+      const rect = e.currentTarget.getBoundingClientRect()
+      setMenuPosition({x : rect.right + 12, y: rect.top  })
+      setMenuContent(true)
     }
   };
 

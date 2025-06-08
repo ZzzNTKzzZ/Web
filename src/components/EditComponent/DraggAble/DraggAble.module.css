@@ -6,6 +6,7 @@
     user-select: "none"; 
     display: inline-block;
     line-height: 32px;
+    position: relative;
 }
 
 

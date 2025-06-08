@@ -19,6 +19,7 @@ import { ReactComponent as JustifyTop } from "../../../assets/icon/JustifyTop.sv
 import { ReactComponent as JustifyBottom } from "../../../assets/icon/JustifyBottom.svg";
 import { ReactComponent as JustifyCenter } from "../../../assets/icon/JustifyCenter.svg";
 import { SketchPicker } from "react-color";
+import CloseButton from "../../Common/CloseButton/CloseButton";
 
 // --- Common Controls ---
 function ToggleSet({ label, onChange, value }) {
@@ -30,7 +31,15 @@ function ToggleSet({ label, onChange, value }) {
   );
 }
 
-function ProgressSet({ label, min = 0, max = 64, value, onChange, step = 1, unit = "px"}) {
+function ProgressSet({
+  label,
+  min = 0,
+  max = 64,
+  value,
+  onChange,
+  step = 1,
+  unit = "px",
+}) {
   return (
     <div className={editMenuComponent.control} style={{ display: "block" }}>
       <p style={{ marginBottom: 12 }}>{label}</p>
@@ -145,6 +154,14 @@ function ColorPickerSet({ label, value, onChange }) {
             <SketchPicker color={color} onChange={handleColorChange} />
           </div>
         )}
+        <CloseButton
+          onClick={() => {
+            const transparent = { r: 0, g: 0, b: 0, a: 0 };
+            setColor(transparent);
+            onChange?.(toRgbaString(transparent));
+            setShowPicker(false);
+          }}
+        />
       </div>
     </div>
   );
@@ -192,6 +209,136 @@ function TypographySet({ value, onChange }) {
           title="Underline"
         >
           <Underline />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TextSet({ value, onChange, open, handleToggle }) {
+  const fonts = [
+    "Arial",
+    "Georgia",
+    "Helvetica",
+    "Times New Roman",
+    "Courier New",
+    "Verdana",
+  ];
+  const fontsSize = [12, 14, 16, 18, 24, 32, 48, 64, 72];
+  const [fontFamilyOpen, setFontFamilyOpen] = useState(false);
+  const [fontSizeOpen, setFontSizeOpen] = useState(false);
+  const [fontTypeOpen, setFontTypeOpen] = useState(false);
+  const [fontWeightOpen, setFontWeightOpen] = useState(false);
+
+  const toggleFontFamilyOpen = () => {
+    setFontFamilyOpen((prev) => {
+      if (!prev) {
+        setFontSizeOpen(false);
+        setFontTypeOpen(false);
+        setFontWeightOpen(false);
+      }
+      return !prev;
+    });
+  };
+
+  const toggleFontSizeOpen = () => {
+    setFontSizeOpen((prev) => {
+      if (!prev) {
+        setFontFamilyOpen(false);
+        setFontTypeOpen(false);
+        setFontWeightOpen(false);
+      }
+      return !prev;
+    });
+  };
+
+  const toggleFontTypeOpen = () => {
+    setFontTypeOpen((prev) => {
+      if (!prev) {
+        setFontFamilyOpen(false);
+        setFontSizeOpen(false);
+        setFontWeightOpen(false);
+      }
+      return !prev;
+    });
+  };
+
+  const toggleFontWeightOpen = () => {
+    setFontWeightOpen((prev) => {
+      if (!prev) {
+        setFontFamilyOpen(false);
+        setFontSizeOpen(false);
+        setFontTypeOpen(false);
+      }
+      return !prev;
+    });
+  };
+
+  const handleFontFamily = (val) => {
+    onChange({ ...value, fontFamily: val });
+    setFontFamilyOpen(false);
+  };
+
+  return (
+    <div className={menuSet.menuWrapper}>
+      <div className={menuSet.menuButton} onClick={handleToggle}>
+        Text configuration
+      </div>
+
+      <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
+        <div className={editMenuComponent.control}>
+          <div className={editMenuComponent.textGroup}>
+            <div className={editMenuComponent.dropdownWrapper}>
+              <div
+                className={editMenuComponent.boxFontFamily}
+                onClick={toggleFontFamilyOpen}
+                style={{ fontFamily: value.fontFamily }}
+              >
+                {value.fontFamily}
+              </div>
+
+              <div
+                className={`${editMenuComponent.dropdownList} ${
+                  fontFamilyOpen ? editMenuComponent.show : ""
+                }`}
+              >
+                {fonts.map((font) => (
+                  <div
+                    key={font}
+                    className={editMenuComponent.fontFamily}
+                    onClick={() => handleFontFamily(font)}
+                    style={{ fontFamily: font }}
+                  >
+                    {font}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className={editMenuComponent.dropdownWrapper}>
+              <div
+                className={editMenuComponent.boxFontFamily}
+                onClick={toggleFontSizeOpen}
+              >
+                {value.fontSize}
+              </div>
+
+              <div
+                className={`${editMenuComponent.dropdownList} ${
+                  fontSizeOpen ? editMenuComponent.show : ""
+                }`}
+              >
+                {fontsSize.map((size) => (
+                  <div
+                    key={size}
+                    className={editMenuComponent.fontFamily}
+                    onClick={() => handleFontFamily(size)}
+                  >
+                    {size}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -588,7 +735,6 @@ function MenuTextNavbar({ value, onChange }) {
   const {
     backgroundColor,
     color,
-    fontFamily,
     fontSize,
     paddingTop,
     paddingBottom,
@@ -775,11 +921,37 @@ function MenuColumn({ value, onChange }) {
   );
 }
 
+function MenuContext({ value, onChange }) {
+  const [textOpen, setTextOpen] = useState(true);
+
+  const toggleTextOpen = () => {
+    setTextOpen((prev) => !prev);
+  };
+
+  const setVal = (key, val) => {
+    if (value[key] !== val) {
+      onChange({ ...value, [key]: val });
+    }
+  };
+
+  return (
+    <div>
+      <TextSet
+        value={value}
+        handleToggle={toggleTextOpen}
+        open={textOpen}
+        onChange={setVal}
+      />
+    </div>
+  );
+}
+
 const EditMenuComponent = {
   MenuDesignNavbar,
   MenuTextNavbar,
   MenuBanner,
   MenuColumn,
+  MenuContext,
 };
 
 export default EditMenuComponent;

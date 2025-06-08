@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import SideBar from "../../components/Sidebar/Sidebar";
 import Topbar from "../../components/Topbar/Topbar";
@@ -22,15 +22,16 @@ export default function EditPortfolio() {
     paddingTop: "20",
     boxShadow: "0px 0px 0px 0px rgba(0, 0, 0, 0.2)",
     hoverColor: "rgb(0, 0, 0)",
-    typography: {
-      fontWeight: "normal",
-      fontStyle: "normal",
-      textDecoration: "none",
-    },
+     
     shadowOpen: false,
     position: "relative",
     displayLogo: "block",
     justifyContent: "right",
+     typography: {
+      fontWeight: "normal",
+      fontStyle: "normal",
+      textDecoration: "none",
+    },
   });
   const [herobannerStyle, setHerobannerStyle] = useState({
     backgroundColor: "rgba(255,255,255,1)",
@@ -38,8 +39,11 @@ export default function EditPortfolio() {
     justify: "center",
     border: "0px none #000",
   });
+
   const [columnHeroBannerStyle, setColumnHeroBannerStyle ] = useState();
+  const [textStyle, setTextStyle] = useState();
   const [styleContentSection, setStyleContentSection] = useState();
+
   function renderMenu() {
     switch (editMenu) {
       case "navbar-section":
@@ -68,6 +72,14 @@ export default function EditPortfolio() {
             setMenu={setEditMenu}
           />
         )
+      case "text-section" :
+        return (
+          <EditMenu.TextSection
+            textStyle={textStyle}
+            setTextStyle={setTextStyle}
+            setMenu={setEditMenu}
+          />
+        )
       default:
         return null;
     }
@@ -86,6 +98,8 @@ export default function EditPortfolio() {
         herobannerStyle={herobannerStyle}
         columnHeroBannerStyle={columnHeroBannerStyle}
         setColumnHeroBannerStyle={setColumnHeroBannerStyle}
+        textStyle={textStyle}
+        setTextStyle={setTextStyle}
       />
       {editMenu && renderMenu()}
     </div>

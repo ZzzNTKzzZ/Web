@@ -98,11 +98,36 @@ function CloumnEdit({ styleColumn, setStyleColumn, setMenu}) {
   )
 }
 
+function TextEdit({ textStyle, setTextStyle, setMenu}) {
+  const [contentActive, setContentActive] = useState(true);
+  return (
+    <div className={style.editMenu}>
+        <div className={style.closeButtonZone}>
+        <CloseButton onClick={() => setMenu((prev) => !prev)} />
+      </div>
+      <div className={style.control}>
+        <div
+          className={`${style.controlDesign} ${contentActive ? style.active : ""}`}
+          onClick={() => {
+            setContentActive(true);
+          }}
+        >
+          Content
+        </div>
+      </div>
+      <div>
+        {contentActive && <EditMenuComponent.MenuContext value={textStyle} onChange={setTextStyle} />}
+      </div>
+    </div>
+  )
+}
+
 const EditMenu = {
   NavbarSection: NavbarEdit,
   HeroBannerSection: HeroBannerEdit,
   ContentSection: ContentEdit,
   ColumnSection: CloumnEdit,
+  TextSection: TextEdit, 
 };
 
 export default EditMenu;

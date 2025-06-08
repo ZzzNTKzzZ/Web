@@ -11,7 +11,9 @@ export default function PageCreate({
   herobannerStyle,
   setHerobannerStyle,
   columnHeroBannerStyle,
-  setColumnHeroBannerStyle
+  setColumnHeroBannerStyle,
+  textStyle,
+  setTextStyle
 }) {
   const sectionRef = useRef(null);
   const [onCreate, setOnCreate] = useState(null);
@@ -80,6 +82,8 @@ export default function PageCreate({
             herobannerStyle={herobannerStyle}
             setColumnStyle={setColumnHeroBannerStyle}
             columnHeroBannerStyle={columnHeroBannerStyle}
+            textStyle={textStyle}
+            setTextStyle={setTextStyle}
           />
         </SectionPortfolio>
       )}

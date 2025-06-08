@@ -10,6 +10,8 @@ export default function EditZone({
   setHerobannerStyle,
   columnHeroBannerStyle,
   setColumnHeroBannerStyle,
+  textStyle,
+  setTextStyle
 }) {
   return (
     <div
@@ -26,6 +28,8 @@ export default function EditZone({
         herobannerStyle={herobannerStyle}
         setColumnHeroBannerStyle={setColumnHeroBannerStyle}
         columnHeroBannerStyle={columnHeroBannerStyle}
+        textStyle={textStyle}
+        setTextStyle={setTextStyle}
       />
     </div>
   );
