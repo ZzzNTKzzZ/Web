@@ -44,6 +44,11 @@
     fill: #fff;
 }
 
+.controlSelect div.align.active path {
+    stroke: #fff;
+    fill: none;
+}
+
 .controlProgess {
     position: relative;
     width: 100%;

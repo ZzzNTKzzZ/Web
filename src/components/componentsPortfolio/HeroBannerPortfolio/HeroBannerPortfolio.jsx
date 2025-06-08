@@ -1,5 +1,5 @@
 import { DndContext } from "@dnd-kit/core";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Droppable from "../../EditComponent/Droppable/Droppable";
 import DraggAble from "../../EditComponent/DraggAble/DraggAble";
 import TiptapEditor from "../../EditComponent/TiptapEditor/TiptapEditor";
@@ -7,7 +7,12 @@ import TiptapEditor from "../../EditComponent/TiptapEditor/TiptapEditor";
 import style from "./HeroBannerPortfolio.module.css";
 import Image from "../../../assets/Img/DemoUser.jpg";
 
-export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
+export default function HeroBannerPortfolio({
+  herobannerStyle,
+  setEditMenu,
+  setColumnStyle,
+  columnHeroBannerStyle,
+}) {
   const bannerRef = useRef();
 
   const [activeId, setActiveId] = useState(null);
@@ -16,7 +21,7 @@ export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
     {
       id: "image",
       item: "image",
-      image: Image,
+      // image: Image,
       label: "",
     },
     {
@@ -31,6 +36,21 @@ export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
       contentOrder: ["applyPosition", "introductions", "mainContent"], // track order
     },
   ]);
+
+  const columnStyle = {
+    width: "max-content",
+    backgroundColor: "rgba(255, 255, 255, 1)",
+    backgroundImage: "",
+    border: "0px none #000",
+  };
+  const colStyle = columnHeroBannerStyle || columnStyle;
+  useEffect(() => {
+    setColumnStyle(columnStyle);
+  }, []);
+  const handleRightClick = (e) => {
+    e.preventDefault();
+    setEditMenu("column-section");
+  };
 
   const handleUpdateContent = (containerItem, key, newContent) => {
     setContainers((prev) =>
@@ -47,6 +67,26 @@ export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
       )
     );
   };
+
+  const isImage =
+    typeof colStyle.backgroundImage === "string" &&
+    (colStyle.backgroundImage.startsWith("http") ||
+      colStyle.backgroundImage.startsWith("blob:") ||
+      colStyle.backgroundImage.startsWith("data:image"));
+
+  // Compose the style for the banner content div:
+  const backgroundStyle = isImage
+    ? {
+        backgroundImage: `url(${colStyle.backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: undefined,
+      }
+    : {
+        backgroundImage: "none",
+        backgroundColor: colStyle.backgroundColor,
+      };
 
   const handleUpdateLabel = (itemId, newLabel) => {
     setContainers((prev) =>
@@ -88,7 +128,16 @@ export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
     <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <div className={style.containerWrapper} ref={bannerRef}>
         {/* 👉 Banner Content Group */}
-        <div className={style.contentGroup}>
+        <div
+          className={style.contentGroup}
+          onContextMenu={handleRightClick}
+          style={{
+            justifyContent: herobannerStyle?.justify || "flex-start",
+            width: `${colStyle.width}%`,
+            border: colStyle.border,
+            ...backgroundStyle,
+          }}
+        >
           {containers.map((container) => {
             if (container.item === "bannerContent") {
               return container.contentOrder.map((key) => (
@@ -104,7 +153,7 @@ export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
                     editStyle={container.style}
                     setActiveId={setActiveId}
                     className={style.draggable}
-                    navbarStyle={navbarStyle}
+                    herobannerStyle={herobannerStyle}
                   >
                     <TiptapEditor
                       content={container.content[key]}
@@ -139,7 +188,7 @@ export default function HeroBannerPortfolio({ setStyle, navbarStyle }) {
                     editStyle={container.style}
                     setActiveId={setActiveId}
                     className={style.draggable}
-                    navbarStyle={navbarStyle}
+                    herobannerStyle={herobannerStyle}
                     image={container?.image}
                   >
                     <TiptapEditor

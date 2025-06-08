@@ -10,6 +10,8 @@ export default function PageCreate({
   navbarStyle,
   herobannerStyle,
   setHerobannerStyle,
+  columnHeroBannerStyle,
+  setColumnHeroBannerStyle
 }) {
   const sectionRef = useRef(null);
   const [onCreate, setOnCreate] = useState(null);
@@ -58,13 +60,15 @@ export default function PageCreate({
           />
         </SectionPortfolio>
       )}
-
+      
       {visibleSections.content && (
         <SectionPortfolio
           ref={sectionRef}
           sectionKey="herobanner-section"
           setEditMenu={setEditMenu}
-          background={herobannerStyle?.backgroundImage || herobannerStyle.backgroundColor }
+          background={
+            herobannerStyle?.backgroundImage || herobannerStyle.backgroundColor
+          }
           border={herobannerStyle.border}
           active={activeSection === "herobanner-section"}
           setIsActive={() => setActiveSection("herobanner-section")}
@@ -72,8 +76,10 @@ export default function PageCreate({
         >
           {/* Your content here */}
           <HeroBannerPortfolio
-            setStyle={setHerobannerStyle}
+            setEditMenu={setEditMenu}
             herobannerStyle={herobannerStyle}
+            setColumnStyle={setColumnHeroBannerStyle}
+            columnHeroBannerStyle={columnHeroBannerStyle}
           />
         </SectionPortfolio>
       )}

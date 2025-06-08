@@ -73,11 +73,36 @@ function HeroBannerEdit({ styleHeroBanner, setStyleHeroBanner, setMenu}) {
     </div>
   )
 }
+
+function CloumnEdit({ styleColumn, setStyleColumn, setMenu}) {
+  const [designActive, setDesignActive] = useState(true);
+  return (
+    <div className={style.editMenu}>
+        <div className={style.closeButtonZone}>
+        <CloseButton onClick={() => setMenu((prev) => !prev)} />
+      </div>
+      <div className={style.control}>
+        <div
+          className={`${style.controlDesign} ${designActive ? style.active : ""}`}
+          onClick={() => {
+            setDesignActive(true);
+          }}
+        >
+          Design
+        </div>
+      </div>
+      <div>
+        {designActive && <EditMenuComponent.MenuColumn value={styleColumn} onChange={setStyleColumn} />}
+      </div>
+    </div>
+  )
+}
+
 const EditMenu = {
   NavbarSection: NavbarEdit,
   HeroBannerSection: HeroBannerEdit,
   ContentSection: ContentEdit,
-
+  ColumnSection: CloumnEdit,
 };
 
 export default EditMenu;

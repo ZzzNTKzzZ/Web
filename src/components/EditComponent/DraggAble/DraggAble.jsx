@@ -25,6 +25,10 @@ export default function DraggAble({
   const handleContextMenu = (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (activeId === id) {
+      console.log(`Right-clicked on active item with id: ${id}`);
+    }
   };
 
   return (

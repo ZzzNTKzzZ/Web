@@ -11,10 +11,13 @@ import { ReactComponent as AlignLeft } from "../../../assets/icon/AlignLeft.svg"
 import { ReactComponent as AlignRight } from "../../../assets/icon/AlignRight.svg";
 import { ReactComponent as AlignCenter } from "../../../assets/icon/AlignCenter.svg";
 import { ReactComponent as Upload } from "../../../assets/icon/Upload.svg";
-import { ReactComponent as Line } from "../../../assets/icon/Line.svg"
-import { ReactComponent as Dashed } from "../../../assets/icon/Dashed.svg"
-import { ReactComponent as Dot } from "../../../assets/icon/Dot.svg"
-import { ReactComponent as Trash } from "../../../assets/icon/Trash.svg"
+import { ReactComponent as Line } from "../../../assets/icon/Line.svg";
+import { ReactComponent as Dashed } from "../../../assets/icon/Dashed.svg";
+import { ReactComponent as Dot } from "../../../assets/icon/Dot.svg";
+import { ReactComponent as Trash } from "../../../assets/icon/Trash.svg";
+import { ReactComponent as JustifyTop } from "../../../assets/icon/JustifyTop.svg";
+import { ReactComponent as JustifyBottom } from "../../../assets/icon/JustifyBottom.svg";
+import { ReactComponent as JustifyCenter } from "../../../assets/icon/JustifyCenter.svg";
 import { SketchPicker } from "react-color";
 
 // --- Common Controls ---
@@ -27,7 +30,7 @@ function ToggleSet({ label, onChange, value }) {
   );
 }
 
-function ProgessSet({ label, min = 0, max = 64, value, onChange, step = 1 }) {
+function ProgressSet({ label, min = 0, max = 64, value, onChange, step = 1, unit = "px"}) {
   return (
     <div className={editMenuComponent.control} style={{ display: "block" }}>
       <p style={{ marginBottom: 12 }}>{label}</p>
@@ -48,7 +51,7 @@ function ProgessSet({ label, min = 0, max = 64, value, onChange, step = 1 }) {
             value={value}
             onChange={(e) => onChange(Number(e.target.value))}
           />
-          <div className={editMenuComponent.controlProgessUntil}>px</div>
+          <div className={editMenuComponent.controlProgessUntil}>{unit}</div>
         </div>
       </div>
     </div>
@@ -234,35 +237,35 @@ function ShadowSet({
       </div>
       {enabled && (
         <div className={`${menuSet.dropdown} ${enabled ? menuSet.open : ""}`}>
-          <ProgessSet
+          <ProgressSet
             label="X-axis"
             min={-100}
             max={100}
             value={parseInt(x)}
             onChange={(val) => setX(pxify(val))}
           />
-          <ProgessSet
+          <ProgressSet
             label="Y-axis"
             min={-100}
             max={100}
             value={parseInt(y)}
             onChange={(val) => setY(pxify(val))}
           />
-          <ProgessSet
+          <ProgressSet
             label="Blur"
             min={0}
             max={100}
             value={parseInt(blur)}
             onChange={(val) => setBlur(pxify(val))}
           />
-          <ProgessSet
+          <ProgressSet
             label="Spread"
             min={-100}
             max={100}
             value={parseInt(spread)}
             onChange={(val) => setSpread(pxify(val))}
           />
-          <ProgessSet
+          <ProgressSet
             label="Opacity"
             min={0}
             max={1}
@@ -323,17 +326,48 @@ function MenuSet({
           </div>
         </div>
 
-        <ProgessSet
+        <ProgressSet
           label="Spacing between menus"
           value={gap}
           onChange={setGap}
         />
 
-        <ProgessSet
+        <ProgressSet
           label="Left & Right padding"
           value={paddingX}
           onChange={setPaddingX}
         />
+      </div>
+    </div>
+  );
+}
+
+function AlignSet({ value, onChange }) {
+  return (
+    <div className={editMenuComponent.control}>
+      <p>Align content vertically</p>
+      <div className={editMenuComponent.controlSelect}>
+        <div
+          className={`${editMenuComponent.align}
+                ${value === "start" ? editMenuComponent.active : ""}`}
+          onClick={() => onChange("start")}
+        >
+          <JustifyTop />
+        </div>
+        <div
+          className={`${editMenuComponent.align}
+                ${value === "center" ? editMenuComponent.active : ""}`}
+          onClick={() => onChange("center")}
+        >
+          <JustifyCenter />
+        </div>
+        <div
+          className={`${editMenuComponent.align}
+                ${value === "end" ? editMenuComponent.active : ""}`}
+          onClick={() => onChange("end")}
+        >
+          <JustifyBottom />
+        </div>
       </div>
     </div>
   );
@@ -415,12 +449,18 @@ function ImageSet({ open, handleToggle, value, onChange }) {
 
 function BorderSet({ open, handleToggle, value = "", onChange }) {
   // Parse border value into width, style, color
-  const match = value.match(/^(\d+)px\s+(solid|dashed|dotted)\s+(rgba?\(.+\))$/);
+  const match = value.match(
+    /^(\d+)px\s+(solid|dashed|dotted)\s+(rgba?\(.+\))$/
+  );
   const [width, setWidth] = useState(match?.[1] ? parseInt(match[1]) : 1);
   const [style, setStyle] = useState(match?.[2] || "solid");
   const [color, setColor] = useState(match?.[3] || "rgba(0,0,0,1)");
 
-  const updateBorder = (newWidth = width, newStyle = style, newColor = color) => {
+  const updateBorder = (
+    newWidth = width,
+    newStyle = style,
+    newColor = color
+  ) => {
     const border = `${newWidth}px ${newStyle} ${newColor}`;
     onChange?.(border);
   };
@@ -446,7 +486,7 @@ function BorderSet({ open, handleToggle, value = "", onChange }) {
         Border
       </div>
       <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
-        <ProgessSet
+        <ProgressSet
           label="Border Width"
           min={0}
           max={20}
@@ -601,7 +641,7 @@ function MenuTextNavbar({ value, onChange }) {
         value={hoverColor}
         onChange={(val) => setVal("hoverColor", val)}
       />
-      <ProgessSet
+      <ProgressSet
         label="Font size menu"
         max={64}
         value={fontSize}
@@ -619,7 +659,7 @@ function MenuTextNavbar({ value, onChange }) {
       />
 
       {/* Combined vertical padding */}
-      <ProgessSet
+      <ProgressSet
         label="Padding Top & Bottom"
         max={128}
         value={paddingY}
@@ -629,17 +669,11 @@ function MenuTextNavbar({ value, onChange }) {
   );
 }
 
-function MenuBanner({ value , onChange }) {
-  const {
-    backgroundColor,
-    backgroundImage,
-    alignItem,
-    border,
-  } = value;
-  console.log(value)
+function MenuBanner({ value, onChange }) {
+  const { backgroundColor, backgroundImage, justify, border } = value;
   const [imageOpen, setImageOpen] = useState(false);
   const [borderOpen, setBorderOpen] = useState(false);
-
+  console.log(value);
   const setVal = (key, val) => {
     if (value[key] !== val) {
       onChange({ ...value, [key]: val });
@@ -667,6 +701,62 @@ function MenuBanner({ value , onChange }) {
         value={backgroundColor}
         onChange={(val) => setVal("backgroundColor", val)}
       />
+      <ImageSet
+        open={imageOpen}
+        handleToggle={toggleImageOpen}
+        value={backgroundImage}
+        onChange={(val) => setVal("backgroundImage", val)}
+      />
+      <BorderSet
+        open={borderOpen}
+        handleToggle={toggleBorderOpen}
+        value={border}
+        onChange={(val) => setVal("border", val)}
+      />
+      <AlignSet value={justify} onChange={(val) => setVal("justify", val)} />
+    </div>
+  );
+}
+
+function MenuColumn({ value, onChange }) {
+  const { width, backgroundColor, backgroundImage, border } = value;
+  const [imageOpen, setImageOpen] = useState(false);
+  const [borderOpen, setBorderOpen] = useState(false);
+
+  const setVal = (key, val) => {
+    if (value[key] !== val) {
+      onChange({ ...value, [key]: val });
+    }
+  };
+
+  const toggleImageOpen = () => {
+    setImageOpen((prev) => {
+      if (!prev) setBorderOpen(false); // Close border when image opens
+      return !prev;
+    });
+  };
+
+  const toggleBorderOpen = () => {
+    setBorderOpen((prev) => {
+      if (!prev) setImageOpen(false); // Close image when border opens
+      return !prev;
+    });
+  };
+
+  return (
+    <div>
+      <ProgressSet
+        label="Width"
+        value={width || 0}
+        onChange={(val) => setVal("width", val)}
+        max={100}
+      />
+
+      <ColorPickerSet
+        label="Background Color"
+        value={backgroundColor}
+        onChange={(val) => setVal("backgroundColor", val)}
+      />
 
       <ImageSet
         open={imageOpen}
@@ -674,6 +764,7 @@ function MenuBanner({ value , onChange }) {
         value={backgroundImage}
         onChange={(val) => setVal("backgroundImage", val)}
       />
+
       <BorderSet
         open={borderOpen}
         handleToggle={toggleBorderOpen}
@@ -688,6 +779,7 @@ const EditMenuComponent = {
   MenuDesignNavbar,
   MenuTextNavbar,
   MenuBanner,
+  MenuColumn,
 };
 
 export default EditMenuComponent;

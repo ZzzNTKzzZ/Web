@@ -6,8 +6,10 @@ export default function EditZone({
   setEditMenu,
   navbarStyle,
   setNavbarStyle,
-  setHerobannerStyle,
   herobannerStyle,
+  setHerobannerStyle,
+  columnHeroBannerStyle,
+  setColumnHeroBannerStyle,
 }) {
   return (
     <div
@@ -22,6 +24,8 @@ export default function EditZone({
         navbarStyle={navbarStyle}
         setHerobannerStyle={setHerobannerStyle}
         herobannerStyle={herobannerStyle}
+        setColumnHeroBannerStyle={setColumnHeroBannerStyle}
+        columnHeroBannerStyle={columnHeroBannerStyle}
       />
     </div>
   );
