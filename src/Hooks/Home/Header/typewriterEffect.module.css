@@ -1,0 +1,31 @@
+/* Container cho toàn bộ hiệu ứng chữ chạy, bao gồm tiền tố và phần động */
+.typewriterContainer {
+  font-family: sans-serif; /* Chọn font chữ bạn muốn */
+  font-size: 80px; /* Kích thước chữ lớn */
+  font-weight: bold;
+  color: #F54D0B; /* Màu chữ mặc định cho tiền tố (fixedPrefix), ví dụ chữ 'P' */
+  display: inline-block; /* Quan trọng để con trỏ hoạt động và không phá vỡ layout */
+  white-space: nowrap; /* Ngăn không cho chữ xuống dòng */
+  overflow: hidden; /* Quan trọng để ẩn phần chữ chưa được gõ/đã xóa */
+}
+
+.typewriterDynamicText {
+    color: #F54D0B;
+}
+
+/* Kiểu cho con trỏ nhấp nháy */
+.cursor {
+  display: inline-block;
+  background-color: #F54D0B; /* Màu con trỏ giống màu chữ động */
+  width: 3px; /* Độ rộng của con trỏ */
+  height: 1.1em; /* Chiều cao của con trỏ (tương đối với font-size của .typewriterContainer) */
+  vertical-align: middle; /* Căn chỉnh con trỏ với chữ */
+  margin-left: 2px; /* Khoảng cách nhỏ giữa chữ và con trỏ */
+  animation: blink-caret 0.75s step-end infinite; /* Áp dụng hiệu ứng nhấp nháy */
+}
+
+/* Keyframes cho hiệu ứng nhấp nháy của con trỏ */
+@keyframes blink-caret {
+  from, to { background-color: transparent; } /* Con trỏ trong suốt */
+  50% { background-color: #F54D0B; } /* Con trỏ hiển thị màu cam */
+}

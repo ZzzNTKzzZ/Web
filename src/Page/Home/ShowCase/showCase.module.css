@@ -1,5 +1,17 @@
 /* showCase.module.css */
+.content h2 {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #000000;
+}
 
+.content p {
+  font-size: 16px;
+  color: #000000;
+  padding-top: 20px;
+  line-height: 1.5;
+}
 .showCase {
   display: flex;
   flex-direction: column;
@@ -13,20 +25,6 @@
   z-index: 1;
   padding-top: 100px;
   font-family: sans-serif;
-}
-
-.content h2 {
-  font-size: 40px;
-  font-weight: bold;
-  line-height: 1.5;
-  color: #000000;
-}
-
-.content p {
-  font-size: 16px;
-  color: #000000;
-  padding-top: 20px;
-  line-height: 1.5;
 }
 
 .carousel {
@@ -51,72 +49,73 @@
 
 .carouselWrapper {
   position: relative; /* Giữ relative để carouselItem absolute hoạt động */
-  width: calc(100% - 100px); /* Lấy 100% trừ đi padding hai bên của container */
+  width: 100%;
   height: 100%;
-  /* Không cần display flex hay gap ở đây nữa vì các item là absolute */
 }
 
 .carouselItem {
-  position: absolute; /* RẤT QUAN TRỌNG: để định vị ảnh tự do */
+  position: absolute; /* Quan trọng: định vị tự do trong carouselWrapper */
   top: 50%; /* Căn giữa theo chiều dọc */
-  transform: translateY(-50%); /* Dịch lên 50% chiều cao của chính nó */
+   left: 50%; /*Tất cả item đều bắt đầu từ giữa, sau đó dùng translateX để dịch chuyển */
+  transform: translate(-50%, -50%) scale(0.1); /* Mặc định: nhỏ và ẩn đi ở trung tâm */
   opacity: 0; /* Mặc định ẩn */
-  pointer-events: none; /* Không cho phép click vào các ảnh không hiển thị */
+  pointer-events: none; /* Ngăn chặn click vào các ảnh ẩn */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   background-color: #fff;
   border-radius: 8px;
-  overflow: hidden;
-  display: flex;
+  overflow: hidden; /* Đảm bảo nội dung ảnh không tràn ra ngoài */
+  display: flex; /* Để căn giữa ảnh bên trong item */
   justify-content: center;
   align-items: center;
 
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), /* Ease-out-quad */
-              width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              right 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              z-index 0.3s steps(1, end); /* Z-index thay đổi nhanh hơn */
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    /* Elastic effect for transform */ opacity 0.6s ease-in-out,
+    /* Thay đổi độ trong suốt */ z-index 0.001s linear 0.7s; /* Đảm bảo z-index thay đổi sau khi transform bắt đầu */
+
+  width: 70%; /* Tăng chiều rộng cơ sở của item */
+  max-width: 600px; /* Tăng chiều rộng tối đa */
+  height: auto; /* Duy trì tỷ lệ khung hình */
 }
 
 .carouselItem img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Đảm bảo ảnh vừa vặn và không bị biến dạng */
+  object-fit: cover; /* Đã thay đổi từ 'contain' thành 'cover' */
+  border-radius: 8px; /* Giữ bo tròn góc cho ảnh */
 }
 
 /* Các ảnh bên trái và phải (nhỏ hơn) */
 .leftItem {
-  left: 0; /* Đặt sát mép trái của wrapper */
-  width: 30%; /* Chiều rộng ảnh nhỏ */
-  height: 75%; /* Chiều cao ảnh nhỏ */
-  opacity: 0.7; /* Làm mờ ảnh phụ */
-  transform: translateY(-50%) scale(0.85); /* Thu nhỏ và dịch lên */
-  z-index: 5;
-  pointer-events: auto; /* Cho phép click */
+  transform: translate(-100%, -50%) scale(0.8); /* Đã TĂNG KÍCH THƯỚC (scale) và dịch sang trái */
+  opacity: 0.7; /* Hơi mờ */
+  z-index: 5; /* Nằm dưới ảnh trung tâm */
+  pointer-events: auto; /* Cho phép click vào ảnh này */
+  width: 40%; /* Đã TĂNG CHIỀU RỘNG ảnh nhỏ */
+  height: 85%; /* Đã TĂNG CHIỀU CAO ảnh nhỏ */
 }
 
 .rightItem {
-  right: 0; /* Đặt sát mép phải của wrapper */
-  width: 30%; /* Chiều rộng ảnh nhỏ */
-  height: 75%; /* Chiều cao ảnh nhỏ */
-  opacity: 0.7; /* Làm mờ ảnh phụ */
-  transform: translateY(-50%) scale(0.85); /* Thu nhỏ và dịch lên */
-  z-index: 5;
-  pointer-events: auto; /* Cho phép click */
+  transform: translate(0%, -50%) scale(0.8); /* Đã TĂNG KÍCH THƯỚC (scale) và dịch sang phải */
+  opacity: 0.7; /* Hơi mờ */
+  z-index: 5; /* Nằm dưới ảnh trung tâm */
+  pointer-events: auto; /* Cho phép click vào ảnh này */
+  width: 40%; /* Đã TĂNG CHIỀU RỘNG ảnh nhỏ */
+  height: 85%; /* Đã TĂNG CHIỀU CAO ảnh nhỏ */
 }
 
 /* Ảnh chính giữa (lớn hơn) */
 .centerItem {
-  left: 50%; /* Căn giữa theo chiều ngang của wrapper */
-  width: 60%; /* Chiều rộng ảnh lớn */
+  transform: translate(-50%, -50%) scale(1); /* Kích thước đầy đủ, căn giữa */
+  opacity: 1; /* Hiển thị rõ ràng */
+  z-index: 10; /* Hiển thị trên cùng */
+  pointer-events: auto; /* Cho phép click vào ảnh trung tâm */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Đổ bóng nổi bật hơn */
+  width: 100%; /* Đã TĂNG CHIỀU RỘNG của ảnh trung tâm */
   height: 100%; /* Chiều cao đầy đủ */
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1); /* Căn giữa cả ngang và dọc, không thu nhỏ */
-  z-index: 10; /* Đảm bảo ảnh trung tâm ở trên */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Đổ bóng nổi bật */
-  pointer-events: auto; /* Cho phép click */
+
+  /* Thêm animation nhẹ nhàng cho ảnh trung tâm */
+  animation: pulseShadow 2s infinite alternate ease-in-out;
 }
 
 /* Class để ẩn các ảnh không hiển thị */

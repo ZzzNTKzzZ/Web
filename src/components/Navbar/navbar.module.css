@@ -34,6 +34,7 @@
   width: 20%;
   height: 100%;
   gap: 10px;
+  cursor: pointer;
 }
 
 .itemLeft p {
@@ -78,6 +79,7 @@
   position: relative;
   color: #000;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .navbarItem::after {
@@ -87,10 +89,14 @@
   left: 0;
   width: 0%;
   height: 3px;
-  background: #ff7043;
+  background: #F54D0B;
   transition: width 0.3s ease;
 }
 
 .navbarItem:hover::after {
   width: 100%;
+}
+
+.navbarItem:hover {
+  color: #f54d0b;
 }

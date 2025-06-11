@@ -14,13 +14,21 @@ function Navbar() {
     navigate("/loginForm", { state: { tab: "login" } });
   };
 
+  // Reset trang web to vị trí đầu tiên
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <div
       className={`${style.navbar} ${
         scrollDirection === "down" ? style.hide : style.show
       }`}
     >
-      <div className={style.itemLeft}>
+      <div className={style.itemLeft} onClick={handleScrollToTop}>
         <div className={style.logo}></div>
         <p>Portlify</p>
       </div>
