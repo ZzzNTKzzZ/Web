@@ -26,7 +26,7 @@ export default function HeroBannerPortfolio({
   const contextStyle = {
     applyPosition: {
       fontFamily: "'Arial', sans-serif",
-      fontSize: "16px",
+      fontSize: "16",
       fontColor: "#000000",
       backgroundColor: "transparent",
       listStyle: "none",
@@ -41,7 +41,7 @@ export default function HeroBannerPortfolio({
     },
     introductions: {
       fontFamily: "'Arial', sans-serif",
-      fontSize: "14px",
+      fontSize: "14",
       fontColor: "#333333",
       backgroundColor: "transparent",
       listStyle: "none",
@@ -56,7 +56,7 @@ export default function HeroBannerPortfolio({
     },
     mainContent: {
       fontFamily: "'Arial', sans-serif",
-      fontSize: "18px",
+      fontSize: "18",
       fontColor: "#000000",
       backgroundColor: "transparent",
       listStyle: "none",
@@ -77,7 +77,7 @@ export default function HeroBannerPortfolio({
       id: "image",
       item: "image",
       label: "",
-      // image: Image,
+      image: Image,
     },
     {
       id: "bannerContent",

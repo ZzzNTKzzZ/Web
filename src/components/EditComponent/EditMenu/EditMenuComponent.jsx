@@ -225,6 +225,18 @@ function TextSet({ value, onChange, open, handleToggle }) {
     "Verdana",
   ];
   const fontsSize = [12, 14, 16, 18, 24, 32, 48, 64, 72];
+  const fontType = ["Heading 1", "Heading 2", "Heading 3", "Heading 4"];
+  const fontWeights = [
+    "100(Thin)",
+    "200 (Extra Light)",
+    "300 (Light)",
+    "400 (Regular)",
+    " 500 (Medium)",
+    "600 (Semi Bold)",
+    "700 (Bold) ",
+    "800 (Extra Bold)",
+  ];
+
   const [fontFamilyOpen, setFontFamilyOpen] = useState(false);
   const [fontSizeOpen, setFontSizeOpen] = useState(false);
   const [fontTypeOpen, setFontTypeOpen] = useState(false);
@@ -275,10 +287,25 @@ function TextSet({ value, onChange, open, handleToggle }) {
   };
 
   const handleFontFamily = (val) => {
-    onChange({ ...value, fontFamily: val });
+    onChange("fontFamily", val);
     setFontFamilyOpen(false);
   };
 
+  const handleFontSize = (val) => {
+    onChange("fontSize", val);
+    setFontSizeOpen(false);
+  };
+
+  const handleFontType = (val) => {
+    onChange("fontType", val);
+    setFontTypeOpen(false);
+  };
+
+  const handleFontWeight = (val) => {
+    onChange("typography.fontWeight", val);
+    setFontWeightOpen(false);
+  };
+  // Chỉnh lại css và làm thêm các component trong textSet
   return (
     <div className={menuSet.menuWrapper}>
       <div className={menuSet.menuButton} onClick={handleToggle}>
@@ -287,55 +314,105 @@ function TextSet({ value, onChange, open, handleToggle }) {
 
       <div className={`${menuSet.dropdown} ${open ? menuSet.open : ""}`}>
         <div className={editMenuComponent.control}>
-          <div className={editMenuComponent.textGroup}>
-            <div className={editMenuComponent.dropdownWrapper}>
-              <div
-                className={editMenuComponent.boxFontFamily}
-                onClick={toggleFontFamilyOpen}
-                style={{ fontFamily: value.fontFamily }}
-              >
-                {value.fontFamily}
-              </div>
+          <div className={editMenuComponent.textSet} style={{ width: "100%" }}>
+            <div className={editMenuComponent.textGroup}>
+              <div className={editMenuComponent.dropdownWrapper}>
+                <div
+                  className={editMenuComponent.boxFontFamily}
+                  onClick={toggleFontFamilyOpen}
+                  style={{ fontFamily: value.fontFamily }}
+                >
+                  {value.fontFamily}
+                </div>
 
-              <div
-                className={`${editMenuComponent.dropdownList} ${
-                  fontFamilyOpen ? editMenuComponent.show : ""
-                }`}
-              >
-                {fonts.map((font) => (
-                  <div
-                    key={font}
-                    className={editMenuComponent.fontFamily}
-                    onClick={() => handleFontFamily(font)}
-                    style={{ fontFamily: font }}
-                  >
-                    {font}
-                  </div>
-                ))}
+                <div
+                  className={`${editMenuComponent.dropdownList} ${
+                    fontFamilyOpen ? editMenuComponent.show : ""
+                  }`}
+                >
+                  {fonts.map((font) => (
+                    <div
+                      key={font}
+                      className={editMenuComponent.valueText}
+                      onClick={() => handleFontFamily(font)}
+                      style={{ fontFamily: font }}
+                    >
+                      {font}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className={editMenuComponent.dropdownWrapper}>
+                <div
+                  className={editMenuComponent.boxFontFamily}
+                  onClick={toggleFontSizeOpen}
+                >
+                  {value.fontSize}
+                </div>
+
+                <div
+                  className={`${editMenuComponent.dropdownList} ${
+                    fontSizeOpen ? editMenuComponent.show : ""
+                  }`}
+                >
+                  {fontsSize.map((size) => (
+                    <div
+                      key={size}
+                      className={editMenuComponent.valueText}
+                      onClick={() => handleFontSize(size)}
+                    >
+                      {size}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className={editMenuComponent.dropdownWrapper}>
-              <div
-                className={editMenuComponent.boxFontFamily}
-                onClick={toggleFontSizeOpen}
-              >
-                {value.fontSize}
+            <div className={editMenuComponent.textGroup}>
+              <div className={editMenuComponent.dropdownWrapper}>
+                <div
+                  className={editMenuComponent.boxFontFamily}
+                  onClick={toggleFontTypeOpen}
+                >
+                  {value.fontType}
+                </div>
+                <div
+                  className={`${editMenuComponent.dropdownList} ${
+                    fontTypeOpen ? editMenuComponent.show : ""
+                  }`}
+                >
+                  {fontType.map((type) => (
+                    <div
+                      key={type}
+                      className={editMenuComponent.valueText}
+                      onClick={() => handleFontType(type)}
+                    >
+                      {type}
+                    </div>
+                  ))}
+                </div>
               </div>
-
-              <div
-                className={`${editMenuComponent.dropdownList} ${
-                  fontSizeOpen ? editMenuComponent.show : ""
-                }`}
-              >
-                {fontsSize.map((size) => (
-                  <div
-                    key={size}
-                    className={editMenuComponent.fontFamily}
-                    onClick={() => handleFontFamily(size)}
-                  >
-                    {size}
-                  </div>
-                ))}
+              <div className={editMenuComponent.dropdownWrapper}>
+                <div
+                  className={editMenuComponent.boxFontFamily}
+                  onClick={toggleFontWeightOpen}
+                >
+                  {value.typography.fontWeight}
+                </div>
+                <div
+                  className={`${editMenuComponent.dropdownList} ${
+                    fontWeightOpen ? editMenuComponent.show : ""
+                  }`}
+                >
+                  {fontWeights.map((type) => (
+                    <div
+                      key={type}
+                      className={editMenuComponent.valueText}
+                      onClick={() => handleFontWeight(type)}
+                    >
+                      {type}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -928,9 +1005,20 @@ function MenuContext({ value, onChange }) {
     setTextOpen((prev) => !prev);
   };
 
-  const setVal = (key, val) => {
-    if (value[key] !== val) {
-      onChange({ ...value, [key]: val });
+  const setVal = (keyPath, val) => {
+    const keys = keyPath.split(".");
+    const lastKey = keys.pop();
+    const newValue = { ...value };
+    let curr = newValue;
+
+    for (const key of keys) {
+      curr[key] = { ...curr[key] };
+      curr = curr[key];
+    }
+
+    if (curr[lastKey] !== val) {
+      curr[lastKey] = val;
+      onChange(newValue);
     }
   };
 
