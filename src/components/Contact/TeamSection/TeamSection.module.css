@@ -1,0 +1,100 @@
+.teamSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffb999;
+  padding: 4% 6%;
+  flex-wrap: wrap;
+}
+
+.left {
+  width: 40%;
+  min-width: 280px;
+  margin-left: 5%;  /* ✅ Thêm margin-left */
+  margin-bottom: 30px;
+}
+
+.subtitle {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  color: white;
+}
+
+.description {
+  margin: 20px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #222;
+}
+
+.btn {
+  background-color: #f14504;
+  color: white;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2%;
+}
+
+.btn:hover {
+  background-color: #d93b00;
+}
+
+.right {
+  width: 50%;
+  min-width: 280px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+
+/* Hình ảnh thành viên */
+.avatar {
+  width: 28%;
+  min-width: 100px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .teamSection {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 6% 4%;
+  }
+
+  .left, .right {
+    width: 100%;
+    margin-left: 0;  
+  }
+
+  .right {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .avatar {
+    width: 60%;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 0.95rem;
+  }
+}
