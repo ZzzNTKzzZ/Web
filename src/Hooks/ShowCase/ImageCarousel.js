@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "../../Page/Home/ShowCase/showCase.module.css";
 
-// Import tất cả các hình ảnh bạn muốn sử dụng
 import ImgShowCase1 from "../../assets/Img/ImgShowCase1.svg";
 import ImgShowCase2 from "../../assets/Img/ImgShowCase2.svg";
 import ImgShowCase3 from "../../assets/Img/ImgShowCase3.svg";
