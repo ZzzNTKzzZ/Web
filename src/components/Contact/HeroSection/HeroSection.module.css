@@ -1,0 +1,10 @@
+.heroSection {
+    background-image: url('/src/assets/Img/contact.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}

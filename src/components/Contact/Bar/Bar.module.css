@@ -1,0 +1,33 @@
+.bar {
+    width: 100%;
+    height: 130px;
+    background-color: #F54D0B;
+    padding: 3% 2%;
+    display: flex;
+    justify-content: center;
+}
+
+.statsContainer {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.statsItem {
+    color: white;
+    text-align: center;
+    width: 22%;
+    margin-bottom: 2%;
+}
+
+.statsItem h2 {
+    margin: 0;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.statsItem p {
+    margin-top: 4%;
+    font-size: 90%;
+}
