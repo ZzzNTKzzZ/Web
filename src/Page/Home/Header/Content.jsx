@@ -3,11 +3,11 @@ import style from "./header.module.css";
 
 import TypewriterEffect from "../../../Hooks/Home/Header/TypewriterEffect";
 
-
 function Content() {
   const dynamicWords = [
     "Portlify"
   ];
+
 
   return (
     <div className={style.content}>

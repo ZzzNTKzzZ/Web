@@ -100,7 +100,7 @@ export default function NavbarPortfolio({ onCreate, navbarStyle }) {
     <div
       className={style.containerWrapper}
       ref={navbarRef}
-      style={{ ...navbarStyle }}
+      style={{ ...navbarStyle, ...navbarStyle.typography }}
     >
       <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         {containers.map((container) => (

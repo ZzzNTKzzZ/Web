@@ -8,17 +8,15 @@ export default function DraggAble({
   children,
   activeId,
   setActiveId,
-  styling, // now correctly used
+  styling, 
   image,
   setMenuContent,
   setMenuPosition,
 }) {
-  console.log(styling)
   const [isHover, setIsHover] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const isActive = activeId === id;
-
   const handleClick = (e) => {
     e.stopPropagation();
     setActiveId(id);
@@ -77,7 +75,7 @@ export default function DraggAble({
           React.cloneElement(children, { editable: true })
         ) : (
           <div style={{
-            fontFamily: styling?.typography?.fontFamily
+            fontFamily: styling?.fontFamily
           }}>{label}</div>
         )}
       </div>
