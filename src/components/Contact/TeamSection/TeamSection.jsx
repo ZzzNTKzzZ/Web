@@ -15,7 +15,9 @@ function TeamSection(){
                     Vietnam - Korea University of Information <br />
                     Technology and Communications.
                 </p>
-                <button className={style.btn}>Learn More</button>
+                <button className={style.btn} onClick={() => window.open("https://vku.udn.vn/vi/", "_blank")}>
+                    Learn More
+                </button>
             </div>
             <div className={style.right}>
                 <img src={member1} alt="Team Member 1" className={style.avatar} />
