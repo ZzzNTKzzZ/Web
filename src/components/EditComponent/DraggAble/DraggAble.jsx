@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import style from "./DraggAble.module.css";
 
@@ -17,7 +17,20 @@ export default function DraggAble({
   const [isHover, setIsHover] = useState(false);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
+  // Derive styleUsing from props directly
+  const styleUsing = editStyle || navbarStyle;
 
+  useEffect(() => {
+  const mergedStyle = {
+    ...navbarStyle,
+    ...editStyle,
+    typography: {
+      ...navbarStyle?.typography,
+      ...editStyle?.typography,
+    },
+  };
+  console.log("Updated merged styleUsing:", mergedStyle);
+}, [editStyle, navbarStyle]);
   const handleClick = (e) => {
     e.stopPropagation();
     setActiveId(id);
@@ -29,9 +42,9 @@ export default function DraggAble({
     e.stopPropagation();
 
     if (activeId === id) {
-      const rect = e.currentTarget.getBoundingClientRect()
-      setMenuPosition({x : rect.right + 12, y: rect.top  })
-      setMenuContent(true)
+      const rect = e.currentTarget.getBoundingClientRect();
+      setMenuPosition({ x: rect.right + 12, y: rect.top });
+      setMenuContent(true);
     }
   };
 
@@ -59,10 +72,10 @@ export default function DraggAble({
           pointerEvents: "auto",
           userSelect: "text",
           cursor: "text",
-          fontFamily: navbarStyle?.fontFamily,
-          fontWeight: navbarStyle?.typography?.fontWeight,
-          fontStyle: navbarStyle?.typography?.fontStyle,
-          textDecoration: navbarStyle?.typography?.textDecoration,
+          fontFamily: styleUsing?.fontFamily,
+          fontWeight: styleUsing?.typography?.fontWeight,
+          fontStyle: styleUsing?.typography?.fontStyle,
+          textDecoration: styleUsing?.typography?.textDecoration,
         }}
         onPointerDown={(e) => e.stopPropagation()}
       >
