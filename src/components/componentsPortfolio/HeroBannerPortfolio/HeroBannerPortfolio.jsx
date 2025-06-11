@@ -26,7 +26,7 @@ export default function HeroBannerPortfolio({
   const contextStyle = {
     applyPosition: {
       fontFamily: "'Arial', sans-serif",
-      fontSize: "16",
+      fontSize: 16,
       fontColor: "#000000",
       backgroundColor: "transparent",
       listStyle: "none",
@@ -41,7 +41,7 @@ export default function HeroBannerPortfolio({
     },
     introductions: {
       fontFamily: "'Arial', sans-serif",
-      fontSize: "14",
+      fontSize: 14,
       fontColor: "#333333",
       backgroundColor: "transparent",
       listStyle: "none",
@@ -56,7 +56,7 @@ export default function HeroBannerPortfolio({
     },
     mainContent: {
       fontFamily: "'Arial', sans-serif",
-      fontSize: "18",
+      fontSize: 18,
       fontColor: "#000000",
       backgroundColor: "transparent",
       listStyle: "none",
@@ -113,8 +113,7 @@ export default function HeroBannerPortfolio({
         {
           id: "mainContent-1",
           type: "mainContent",
-          text:
-            "Welcome to the heart of my portfolio, where I present a comprehensive collection of my projects, skills, and professional experience.",
+          text: "Welcome to the heart of my portfolio, where I present a comprehensive collection of my projects, skills, and professional experience.",
           style: {
             ...contextStyle.mainContent,
             typography: { ...contextStyle.mainContent.typography },
@@ -131,17 +130,52 @@ export default function HeroBannerPortfolio({
     },
   ]);
 
-useEffect(() => {
-  if (!activeId) return; // Guard clause
+  useEffect(() => {
+    if (!activeId) return;
 
-  console.log("Active ID:", activeId);
+    const [containerItem, contentId] = activeId.split("::");
+    const container = containers.find((c) => c.item === containerItem);
+    const contentItem = container.content.find((c) => c.id === contentId);
 
-  const [containerItem, contentId] = activeId.split("::");
-  const container = containers.find(c => c.item === containerItem);
-  const contentItem = container.content.find(c => c.id === contentId);
-  
-  setActiveStyle(contentItem.style)
-}, [activeId, containers]);
+    if (contentItem) {
+      console.log("Setting activeStyle to:", contentItem.style);
+      setActiveStyle(contentItem.style);
+    }
+  }, [activeId]);
+
+  // Log when activeStyle actually updates
+  useEffect(() => {
+    if (activeStyle) {
+      console.log("Updated activeStyle:", activeStyle);
+      setTextStyle(activeStyle); // This is now accurate
+    }
+  }, [activeStyle]);
+
+  // Update container content styles when textStyle changes
+  useEffect(() => {
+    if (!activeId) return;
+
+    const [containerItem, contentId] = activeId.split("::");
+
+    setContainers((prev) =>
+      prev.map((container) => {
+        if (container.item !== containerItem) return container;
+
+        const updatedContent = container.content.map((contentItem) =>
+          contentItem.id === contentId
+            ? {
+                ...contentItem,
+                style: {
+                  ...textStyle,
+                },
+              }
+            : contentItem
+        );
+
+        return { ...container, content: updatedContent };
+      })
+    );
+  }, [textStyle]);
 
   const columnStyle = {
     width: "max-content",
@@ -168,11 +202,7 @@ useEffect(() => {
         bannerRef.current && bannerRef.current.contains(event.target);
       const clickedInsideMenu =
         menuRef.current && menuRef.current.contains(event.target);
-
-      if (!clickedInsideBanner) {
-        setActiveId(null);
-      }
-      if (!clickedInsideMenu) {
+      if (!clickedInsideBanner && !clickedInsideMenu) {
         setMenuContent(null);
       }
     }
@@ -198,34 +228,6 @@ useEffect(() => {
     );
   };
 
-  // Update style for a given content item id
-  const handleUpdateContentStyle = (containerItem, contentId, newStyle) => {
-    setContainers((prev) =>
-      prev.map((container) => {
-        if (container.item !== containerItem) return container;
-
-        const updatedContent = container.content.map((contentItem) => {
-          if (contentItem.id === contentId) {
-            return {
-              ...contentItem,
-              style: {
-                ...contentItem.style,
-                ...newStyle,
-                typography: {
-                  ...contentItem.style.typography,
-                  ...(newStyle.typography || {}),
-                },
-              },
-            };
-          }
-          return contentItem;
-        });
-
-        return { ...container, content: updatedContent };
-      })
-    );
-  };
-
   // Drag handlers
   const handleDragStart = (event) => {
     setActiveId(event.active.id);
@@ -240,7 +242,8 @@ useEffect(() => {
 
     setContainers((prev) =>
       prev.map((container) => {
-        if (container.item !== containerItem || !container.contentOrder) return container;
+        if (container.item !== containerItem || !container.contentOrder)
+          return container;
 
         const oldIndex = container.contentOrder.indexOf(activeIdPart);
         const newIndex = container.contentOrder.indexOf(overIdPart);
@@ -304,7 +307,6 @@ useEffect(() => {
                   (c) => c.id === contentId
                 );
                 if (!contentItem) return null;
-
                 return (
                   <Droppable
                     key={`${container.item}::${contentItem.id}`}
@@ -315,7 +317,7 @@ useEffect(() => {
                       id={`${container.item}::${contentItem.id}`}
                       label={contentItem.text}
                       activeId={activeId}
-                      editStyle={contentItem.style}
+                      styling={contentItem.style}
                       setActiveId={setActiveId}
                       setMenuContent={setMenuContent}
                       setMenuPosition={setMenuPosition}
@@ -334,15 +336,14 @@ useEffect(() => {
                         editable={true}
                         className={style.editorContent}
                         style={{
-                          fontFamily: contentItem.style.fontFamily,
-                          fontSize: contentItem.style.fontSize,
-                          color: contentItem.style.fontColor,
-                          fontWeight: contentItem.style.typography.fontWeight,
-                          fontStyle: contentItem.style.typography.fontStyle,
-                          textDecoration:
-                            contentItem.style.typography.textDecoration,
-                          lineHeight: contentItem.style.lineHeight,
-                        }}
+                            fontFamily: "'Times New Roman', Times, serif", // ✅ CORRECT SYNTAX
+                            fontSize: contentItem.style.fontSize,
+                            color: contentItem.style.fontColor,
+                            fontWeight: contentItem.style.typography?.fontWeight,
+                            fontStyle: contentItem.style.typography?.fontStyle,
+                            textDecoration: contentItem.style.typography?.textDecoration,
+                            lineHeight: contentItem.style?.lineHeight,
+                          }}
                       />
                     </DraggAble>
                   </Droppable>

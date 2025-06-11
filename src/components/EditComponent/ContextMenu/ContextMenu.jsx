@@ -6,9 +6,7 @@ export default function ContextMenu({
   setEditMenu,
   handleDelete,
   handleCreate,
-  textStyle,
   setTextStyle,
-  activeId,
   activeStyle,
 }) {
   return (
@@ -16,9 +14,7 @@ export default function ContextMenu({
       <ul>
         <li
           onClick={() => {
-            console.log(activeStyle);
             setTextStyle(activeStyle);
-            console.log(textStyle);
             setEditMenu("text-section");
           }}
         >

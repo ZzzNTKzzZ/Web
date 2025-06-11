@@ -43,7 +43,7 @@ export default function EditPortfolio() {
   const [columnHeroBannerStyle, setColumnHeroBannerStyle ] = useState();
   const [textStyle, setTextStyle] = useState();
   const [styleContentSection, setStyleContentSection] = useState();
-
+  
   function renderMenu() {
     switch (editMenu) {
       case "navbar-section":

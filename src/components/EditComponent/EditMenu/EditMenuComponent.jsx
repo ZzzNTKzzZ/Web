@@ -168,7 +168,7 @@ function ColorPickerSet({ label, value, onChange }) {
 }
 
 // --- Typography ---
-function TypographySet({ value, onChange }) {
+function TypographySet({ value = {}, onChange }) {
   const toggle = (key, expected) => {
     onChange({
       ...value,
@@ -216,6 +216,7 @@ function TypographySet({ value, onChange }) {
 }
 
 function TextSet({ value, onChange, open, handleToggle }) {
+
   const fonts = [
     "Arial",
     "Georgia",
@@ -231,12 +232,12 @@ function TextSet({ value, onChange, open, handleToggle }) {
     "200 (Extra Light)",
     "300 (Light)",
     "400 (Regular)",
-    " 500 (Medium)",
+    "500 (Medium)",
     "600 (Semi Bold)",
     "700 (Bold) ",
     "800 (Extra Bold)",
   ];
-
+  const reg = /^(1000|[1-9][0-9]{2})$/;
   const [fontFamilyOpen, setFontFamilyOpen] = useState(false);
   const [fontSizeOpen, setFontSizeOpen] = useState(false);
   const [fontTypeOpen, setFontTypeOpen] = useState(false);
@@ -302,7 +303,8 @@ function TextSet({ value, onChange, open, handleToggle }) {
   };
 
   const handleFontWeight = (val) => {
-    onChange("typography.fontWeight", val);
+    const num = val.match(/^\d+/)?.[0]; // extract leading number
+    onChange("typography.fontWeight", num);
     setFontWeightOpen(false);
   };
   // Chỉnh lại css và làm thêm các component trong textSet

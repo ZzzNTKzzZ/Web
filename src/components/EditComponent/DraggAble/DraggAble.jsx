@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import style from "./DraggAble.module.css";
 
@@ -8,29 +8,17 @@ export default function DraggAble({
   children,
   activeId,
   setActiveId,
-  editStyle,
-  navbarStyle,
+  styling, // now correctly used
   image,
   setMenuContent,
-  setMenuPosition
+  setMenuPosition,
 }) {
+  console.log(styling)
   const [isHover, setIsHover] = useState(false);
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const [isEditing, setIsEditing] = useState(false);
-  // Derive styleUsing from props directly
-  const styleUsing = editStyle || navbarStyle;
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+  const isActive = activeId === id;
 
-  useEffect(() => {
-  const mergedStyle = {
-    ...navbarStyle,
-    ...editStyle,
-    typography: {
-      ...navbarStyle?.typography,
-      ...editStyle?.typography,
-    },
-  };
-  console.log("Updated merged styleUsing:", mergedStyle);
-}, [editStyle, navbarStyle]);
   const handleClick = (e) => {
     e.stopPropagation();
     setActiveId(id);
@@ -41,7 +29,7 @@ export default function DraggAble({
     e.preventDefault();
     e.stopPropagation();
 
-    if (activeId === id) {
+    if (isActive) {
       const rect = e.currentTarget.getBoundingClientRect();
       setMenuPosition({ x: rect.right + 12, y: rect.top });
       setMenuContent(true);
@@ -56,9 +44,9 @@ export default function DraggAble({
         transform: transform
           ? `translate(${transform.x}px, ${transform.y}px)`
           : undefined,
-        border: activeId === id ? "2px solid blue" : "1px solid gray",
+        border: isActive ? "2px solid blue" : "1px solid gray",
         cursor: "grab",
-        color: isHover ? navbarStyle?.hoverColor : "inherit",
+        color: isHover ? styling?.hoverColor || "inherit" : "inherit",
       }}
       {...listeners}
       {...attributes}
@@ -72,10 +60,12 @@ export default function DraggAble({
           pointerEvents: "auto",
           userSelect: "text",
           cursor: "text",
-          fontFamily: styleUsing?.fontFamily,
-          fontWeight: styleUsing?.typography?.fontWeight,
-          fontStyle: styleUsing?.typography?.fontStyle,
-          textDecoration: styleUsing?.typography?.textDecoration,
+          fontWeight: styling?.typography?.fontWeight,
+          fontStyle: styling?.typography?.fontStyle,
+          textDecoration: styling?.typography?.textDecoration,
+          fontSize: styling?.fontSize,
+          lineHeight: styling?.lineHeight,
+          color: styling?.fontColor,
         }}
         onPointerDown={(e) => e.stopPropagation()}
       >
@@ -86,7 +76,9 @@ export default function DraggAble({
         ) : isEditing && React.isValidElement(children) ? (
           React.cloneElement(children, { editable: true })
         ) : (
-          <div>{label}</div>
+          <div style={{
+            fontFamily: styling?.typography?.fontFamily
+          }}>{label}</div>
         )}
       </div>
     </div>
