@@ -6,12 +6,21 @@
     padding: 0;
     box-sizing: border-box;
     justify-content: center;
-    margin-bottom: 18%;
+    margin-bottom: 12%;
 }
 
 .templateCard {
-    width: 90%;
-    aspect-ratio: 291 / 229;
-    background-color: #746D6D;
-    border-radius: 28px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
 }
