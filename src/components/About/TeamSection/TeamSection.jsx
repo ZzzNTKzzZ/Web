@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../../Contact/TeamSection/TeamSection.module.css";
+import style from "../../About/TeamSection/TeamSection.module.css";
 import member1 from "../../../assets/Img/team/member1.jpg";
 import member2 from "../../../assets/Img/team/member2.jpg";
 import member3 from "../../../assets/Img/team/member3.png";
