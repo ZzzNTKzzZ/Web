@@ -1,5 +1,5 @@
 .servicesSection {
-  padding: 80px 5%;
+  padding: 60px 15%;
   background-color: #fff9f5;
   text-align: center;
 }
@@ -17,7 +17,7 @@
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* Luôn 4 card hàng ngang */
   gap: 30px;
 }
 
@@ -59,4 +59,24 @@
 
 .card a:hover {
   border-color: #f14504;
+}
+
+@media (max-width: 1200px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 24px 16px;
+  }
 }
