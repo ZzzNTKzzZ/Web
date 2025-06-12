@@ -66,6 +66,7 @@
 .header {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   font-family: sans-serif;
   position: relative;
@@ -74,6 +75,7 @@
 .content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
   line-height: 1.5;
@@ -112,6 +114,8 @@
 
 
 
+
+
 /*  */
 /*  */
 /* HEADER 2 */
@@ -131,4 +135,77 @@
   will-change: transform;
 
   mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 767px) {
+  .background {
+    height: 100vh; /* Giảm chiều cao của ảnh nền trên mobile */
+    background-position: center top; /* Ưu tiên phần trên của ảnh */
+    /* Có thể thay đổi ảnh nền riêng cho mobile để tối ưu dung lượng */
+    /* background-image: url('../../../public/images/home_bg_mobile.webp'); */
+  }
+
+  .header {
+    /* Điều chỉnh các style cho nội dung header trên mobile */
+    padding: 10px; /* Giảm padding */
+  }
+
+  .header2 {
+    display: none; /* Ẩn hoàn toàn phần tử header2 trên mobile */
+  }
+
+  /* Điều chỉnh kích thước font cho Content và BtnStart nếu cần */
+  /* (Bạn sẽ cần thêm các class cho các phần tử con trong Content và BtnStart nếu muốn điều chỉnh chúng) */
+  /* Ví dụ: */
+  /* .header p {
+    font-size: 14px;
+  } */
+  /* .header h1 {
+    font-size: 28px;
+  } */
+}
+
+@media only screen and (max-width: 768px) { /* Cho các thiết bị nhỏ hơn nữa, ví dụ iPhone SE/màn hình nhỏ hơn */
+  .background {
+    width: 100vw;
+    height: 100vh; /* Giảm chiều cao hơn nữa */
+    overflow: hidden;
+  }
+
+  .header2 {
+    display: none; /* Ẩn hoàn toàn phần tử header2 trên mobile */
+  }
+
+  .content h2 {
+    font-size: clamp(20px, 5vw, 26px);
+    text-align: center;
+  }
+
+  .content h4 {
+    font-size: clamp(14px, 4vw, 20px);
+  }
+
+  
+  /* .header {
+    padding: 5px;
+  } */
 }

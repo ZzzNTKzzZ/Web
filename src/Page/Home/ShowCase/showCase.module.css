@@ -1,4 +1,3 @@
-/* showCase.module.css */
 .content h2 {
   font-size: 40px;
   font-weight: bold;
@@ -17,7 +16,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 800px; /* Đảm bảo đủ không gian */
+  height: 800px;
   background-color: #ffffff;
   text-align: center;
   color: black;
@@ -56,7 +55,7 @@
 .carouselItem {
   position: absolute; /* Quan trọng: định vị tự do trong carouselWrapper */
   top: 50%; /* Căn giữa theo chiều dọc */
-   left: 50%; /*Tất cả item đều bắt đầu từ giữa, sau đó dùng translateX để dịch chuyển */
+  left: 50%; /*Tất cả item đều bắt đầu từ giữa, sau đó dùng translateX để dịch chuyển */
   transform: translate(-50%, -50%) scale(0.1); /* Mặc định: nhỏ và ẩn đi ở trung tâm */
   opacity: 0; /* Mặc định ẩn */
   pointer-events: none; /* Ngăn chặn click vào các ảnh ẩn */
@@ -153,4 +152,50 @@
 
 .carouselButtonNext {
   right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  .showCase{
+    height: 600px;
+    margin-top: 86vh;
+    margin-bottom: 0vh;
+  }
+
+  .content h2 {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+
+  .content p{
+    font-size: clamp(14px, 2vw, 18px);
+  }
+
+  .carouselContainer{
+    height: 214px;
+  }
+
+  .carousel{
+    width: 90vw;
+    height: auto;
+    margin: 30px auto 20px auto;
+  }
+
+  .carouselItem{
+    height: 38%;
+  }
+
+  .carouselWrapper{
+    height: 442px;
+  }
 }

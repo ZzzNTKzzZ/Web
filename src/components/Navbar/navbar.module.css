@@ -100,3 +100,21 @@
 .navbarItem:hover {
   color: #f54d0b;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  .navbar{
+    display: none;
+  }
+}

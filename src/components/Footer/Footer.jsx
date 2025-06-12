@@ -8,11 +8,19 @@ import { ReactComponent as IconYoutube } from "../../assets/icon/IconYoutube.svg
 import style from "./footer.module.css";
 
 function Footer() {
+  // Reset trang web to vị trí đầu tiên
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <div className={style.footerContainer}>
       <div className={style.footer}>
         <div className={style.itemLeft}>
-          <div className={style.logoFooterContainer}>
+          <div className={style.logoFooterContainer} onClick={handleScrollToTop}>
             <div className={style.logoFooter}></div>
             <p>Portlify</p>
           </div>
@@ -54,6 +62,7 @@ function Footer() {
         </div>
       </div>
       <div className={style.lineCopyRight}>
+        <div className={style.iconCopyRight}></div>
         Copyrighted by Portlify development team
       </div>
     </div>

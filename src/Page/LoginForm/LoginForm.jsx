@@ -4,6 +4,7 @@ import style from "./loginForm.module.css";
 
 import Login from "./Login/Login";
 import Register from "./Register/Register";
+import Navbar from "../../components/Navbar/Navbar"
 
 function LoginForm() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function LoginForm() {
 
   return (
     <div className={style.container}>
+      <Navbar />
       <div className={style.authContainer}>
         <div className={style.tabContainer}>
           <div

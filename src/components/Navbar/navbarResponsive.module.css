@@ -1,0 +1,143 @@
+.navbarResponsive{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  opacity: 90%;
+  z-index: 100;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.itemLeft{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #f54d0b;
+}
+
+.itemLeft p{
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: bold;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  background-image: url("../../assets/icon/Logo.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+}
+
+.itemRight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+
+
+
+.navbarToggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 20;
+  background: transparent;
+  border: none;
+}
+
+.navbarToggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #f54d0b;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+/* Toggle "X" effect */
+.navbarToggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.navbarToggle.open span:nth-child(2) {
+  opacity: 0;
+}
+.navbarToggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.menuLeft {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.collapse {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  /* padding-top: 40px; */
+}
+
+.menuLeft li {
+  margin: 6px 0;
+  list-style: none;
+}
+
+.menuLeft a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: black;
+}
+
+.btnMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 314px;
+}
+
+.btnSignIn {
+  background-color: #f54d0b;
+  border: none;
+  padding: 12px;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.btnSignUp {
+  background-color: #f54d0b;
+  border: none;
+  padding: 12px;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}

@@ -9,7 +9,6 @@ function Register() {
       <div className={style.socialLogin}>
         <span>Register new account</span>
         <div className={style.socialIcons}>
-          <FaFacebook style={{ color: "#1877F2" }} className={style.icon} />{" "}
           <FaGoogle style={{ color: "#DB4437" }} className={style.icon} />{" "}
           <FaGithub style={{ color: "#333" }} className={style.icon} />{" "}
         </div>

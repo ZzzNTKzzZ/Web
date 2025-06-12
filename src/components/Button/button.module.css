@@ -36,6 +36,150 @@
   box-shadow: 0 0 10px rgba(245, 77, 11, 0.5);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+.btnStartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+/* Variables manually replaced */
+:root {
+  --cyan: #f54d0b;
+  --dark: #FFFFFF;
+  --borderW: 2px;
+}
+
+.blobBtn {
+  position: relative;
+  padding: 20px 46px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: #f54d0b;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: color 0.5s;
+  z-index: 1;
+}
+
+.blobBtn::before {
+  content: "";
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: var(--borderW) solid #f54d0b;
+  border-radius: 30px;
+}
+
+.blobBtn::after {
+  content: "";
+  z-index: -2;
+  position: absolute;
+  left: calc(var(--borderW) * 1.5);
+  top: calc(var(--borderW) * 1.5);
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  transition: all 0.3s 0.2s;
+}
+
+.blobBtn:hover {
+  color: var(--dark);
+}
+
+.blobBtn:hover::after {
+  left: 0;
+  top: 0;
+  transition: all 0.3s;
+  border-radius: 30px;
+}
+
+.blobBtnInner {
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: #ffffff;
+}
+
+.blobBtnBlobs {
+  position: relative;
+  display: block;
+  height: 100%;
+  filter: url('#goo');
+}
+
+.blob {
+  position: absolute;
+  top: var(--borderW);
+  width: 25%;
+  height: 100%;
+  background: #f54d0b;
+  border-radius: 100%;
+  transform: translate3d(0, 150%, 0) scale(1.4);
+  transition: transform 0.45s;
+}
+
+.blob:nth-child(1) {
+  left: 0%;
+  transition-delay: 0s;
+}
+.blob:nth-child(2) {
+  left: 30%;
+  transition-delay: 0.08s;
+}
+.blob:nth-child(3) {
+  left: 60%;
+  transition-delay: 0.16s;
+}
+.blob:nth-child(4) {
+  left: 90%;
+  transition-delay: 0.24s;
+}
+
+.blobBtn:hover .blob {
+  transform: translateZ(0) scale(1.4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .btnLogin {
   display: flex;
   align-items: center;
@@ -52,4 +196,31 @@
 .btnLogin:hover {
   background-color: #f76c3c;
   box-shadow: 0 0 10px rgba(245, 77, 11, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  .blobBtn{
+    font-size: 22px;
+    height: 64px;
+    padding: 24px 46px;
+  }
+
+  .btnStepStart{
+    font-size: 10px;
+    height: 52px;
+    padding: 20px 30px;
+  }
 }

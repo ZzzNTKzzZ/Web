@@ -38,7 +38,7 @@ function Navbar() {
         <a href="/about" className={style.navbarItem}>About</a>
         <a href="/contact" className={style.navbarItem}>Contact</a>
       </div>
-      <BtnLogin Content={"Login"} onClick={handleLoginAccountClick} />
+      <BtnLogin Content={"Sign In"} onClick={handleLoginAccountClick} />
     </div>
   );
 }

@@ -5,12 +5,51 @@
 }
 
 .authContainer {
+  position: relative;
   background-color: #f9f9f9;
   border-radius: 10px;
-  padding: 20px;
+  padding: 40px;
   width: 350px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 50px auto; /* Để căn giữa trang nếu muốn */
+  height: auto;
+  box-shadow: inset 0 0 0 1px rgba(105, 202, 98, 0.5);
+  margin: 50px auto;
+  overflow: visible;
+  z-index: 1;
+  display: inline-block;
+}
+
+/* Viền chạy quanh */
+.authContainer::before,
+.authContainer::after {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  width: 100%;
+  height: 100%;
+  margin: 0%;
+  box-shadow: inset 0 0 0 3px #f54d0b;
+  z-index: -1;
+  animation: clipRun 8s linear infinite;
+  border-radius: 12px;
+}
+
+.authContainer::before {
+  animation-delay: -4s;
+}
+
+@keyframes clipRun {
+  0%, 100% {
+    clip: rect(0px, 420px, 2px, 0px); /* width + padding + margin = ~420px */
+  }
+  25% {
+    clip: rect(0px, 2px, 420px, 0px);
+  }
+  50% {
+    clip: rect(418px, 420px, 420px, 0px);
+  }
+  75% {
+    clip: rect(0px, 420px, 420px, 418px);
+  }
 }
 
 .tabContainer {
