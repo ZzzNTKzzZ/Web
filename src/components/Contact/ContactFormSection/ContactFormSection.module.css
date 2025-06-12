@@ -1,0 +1,201 @@
+.contactSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 5%;
+  background-color: white;
+  gap: 60px;
+}
+
+.formContainer {
+  background-color: #e0e0e0;
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 520px;
+}
+
+.formContainer h2 {
+  margin-bottom: 32px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #222;
+}
+
+.inputsRow {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.inputsRow input {
+  flex: 1;
+  min-width: 200px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-family: inherit;
+  background-color: white;
+  transition: border 0.3s;
+}
+
+input:focus, textarea:focus {
+  border-color: #f14504;
+  outline: none;
+}
+
+textarea {
+  height: 140px;
+  resize: none;
+}
+
+.button {
+  background-color: #f14504;
+  color: white;
+  padding: 14px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  width: 140px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #d93800;
+}
+
+/* Optional: Details section styling below (if shown beside the form) */
+
+.detailsContainer {
+  flex: 1;
+  max-width: 500px;
+}
+
+.detailsContainer h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333; /* Đậm nhưng không quá nặng */
+  margin-bottom: 16px;
+  border-left: 4px solid #ff5c00; /* Gạch cam nổi bật */
+  padding-left: 12px;
+}
+
+.detailsContainer p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.infoBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #e0e0e0;
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+
+.icon {
+  color: #f14504;
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+.socials {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.icons {
+  display: flex;
+  gap: 12px;
+}
+
+.icons svg {
+  font-size: 20px;
+  color: #f14504;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.icons svg:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contactSection {
+    padding: 60px 5%;
+    gap: 40px;
+  }
+
+  .formContainer,
+  .detailsContainer {
+    max-width: 100%;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detailsContainer h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+  border-left: 4px solid #ff5c00;
+  padding-left: 12px;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeSlideIn 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.detailsContainer p,
+.infoGrid,
+.socials {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeSlideIn 0.8s ease forwards;
+}
+
+.detailsContainer p {
+  animation-delay: 0.3s;
+}
+.infoGrid {
+  animation-delay: 0.5s;
+}
+.socials {
+  animation-delay: 0.7s;
+}
