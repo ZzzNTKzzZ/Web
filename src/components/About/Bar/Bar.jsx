@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../../Contact/Bar/Bar.module.css";
+import style from "../../About/Bar/Bar.module.css";
 
 const stats = [
     { number: "3+", Label: "Team Members" },

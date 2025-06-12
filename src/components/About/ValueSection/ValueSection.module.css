@@ -1,0 +1,103 @@
+.valueSection {
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  padding: 60px 15%; 
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.valueText {
+  flex: 1;
+  min-width: 320px;
+}
+
+.skillBox {
+  flex: 1;
+  min-width: 320px;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  color: orange;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.valueBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.iconWrapper {
+  background-color: #ffe8c4;
+  color: black;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 24px;
+  margin-right: 16px;
+}
+
+.valueTitle {
+  color: orange;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.valueDescription {
+  font-size: 15px;
+  color: black;
+}
+
+.skillItem {
+  margin-bottom: 20px;
+}
+
+.skillLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.skillBar {
+  background-color: #ddd;
+  border-radius: 6px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.skillProgress {
+  background-color: orange;
+  height: 100%;
+  width: 0;
+  border-radius: 6px;
+  transition: width 1s ease-out;
+}
+
+.animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.animateIn {
+  opacity: 1;
+  transform: translateY(0);
+}

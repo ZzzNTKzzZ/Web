@@ -4,7 +4,7 @@ import EditPortfolio from "../Page/EditPortfolio/EditPortfolio";
 import Home from "../Page/Home/Home";
 import LoginForm from "../Page/LoginForm/LoginForm";
 import PortfolioHome from "../Page/Portfolio/PortfolioHome";
-import Contact from "../Page/Contact/Contact";
+import About from "../Page/About/About";
 
 const publicRoutes = [
   { path: "/", element: Home },
@@ -16,7 +16,7 @@ const publicRoutes = [
   { path: "/privacyPolicy", element: PrivacyPolicy },
 
   { path: "/portfolio", element: PortfolioHome },
-  { path: "/contact", element: Contact }, 
+  { path: "/About", element: About }, 
 ];
 
 export default publicRoutes;
