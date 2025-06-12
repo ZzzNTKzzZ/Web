@@ -1,0 +1,26 @@
+.btn1_container {
+  position: relative;
+    width: 64px;
+    height: 32px;
+    border-radius: 30px;
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+.one {
+  position: absolute;
+    height: 32px;
+    width: 32px;
+    background-color: rgba(255, 0, 0, 0.5);
+    display: block;
+    border-radius: 30px;
+    border: 2px solid red;
+    transition: all 0.3s ease;
+    left: 0;
+}
+
+.inactive1 {
+  transform: translateX(calc(32px));
+  border: 2px solid #10d610;
+  background-color: rgba(0, 255, 0, 0.3);
+}

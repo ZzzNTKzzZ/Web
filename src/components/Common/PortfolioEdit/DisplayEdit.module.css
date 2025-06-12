@@ -1,0 +1,24 @@
+.container:hover {
+    background-color: #f9f9f9;
+}
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 4px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: pointer;
+}
+button:hover path{
+    stroke: #F54D0B;
+}
+button.active path {
+    stroke: #F54D0B;
+    fill: #F54D0B;
+}

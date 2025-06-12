@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
 import Topbar from "../../components/Topbar/Topbar";
 import EditZone from "../../components/EditZone/EditZone";
-import EditMenu from "../../components/EditComponent/EditMenu/EditMenu";
 
 import style from "./EditPortfolio.module.css";
 
@@ -44,47 +43,6 @@ export default function EditPortfolio() {
   const [textStyle, setTextStyle] = useState();
   const [styleContentSection, setStyleContentSection] = useState();
   
-  function renderMenu() {
-    switch (editMenu) {
-      case "navbar-section":
-        return (
-          <EditMenu.NavbarSection
-            styleNavbar={styleNavbarSection}
-            setStyleNavbar={setStyleNavbarSection}
-            setMenu={setEditMenu} // toggle editMenu state to close menu
-          />
-        );
-      case "content-section":
-        return <EditMenu.ContentSection />;
-      case "herobanner-section":
-        return (
-          <EditMenu.HeroBannerSection
-            setStyleHeroBanner={setHerobannerStyle}
-            styleHeroBanner={herobannerStyle}
-            setMenu={setEditMenu}
-          />
-        );
-      case "column-section" :
-        return (
-          <EditMenu.ColumnSection 
-            setStyleColumn={setColumnHeroBannerStyle}
-            styleColumn={columnHeroBannerStyle}
-            setMenu={setEditMenu}
-          />
-        )
-      case "text-section" :
-        return (
-          <EditMenu.TextSection
-            textStyle={textStyle}
-            setTextStyle={setTextStyle}
-            setMenu={setEditMenu}
-          />
-        )
-      default:
-        return null;
-    }
-  }
-
   return (
     <div className={style.editPortfolio}>
       <Topbar />
@@ -101,7 +59,6 @@ export default function EditPortfolio() {
         textStyle={textStyle}
         setTextStyle={setTextStyle}
       />
-      {editMenu && renderMenu()}
     </div>
   );
 }

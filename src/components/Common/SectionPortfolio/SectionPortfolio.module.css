@@ -1,44 +1,33 @@
-.sectionPortfolio {
+.container {
     position: relative;
 }
 
-.sectionPortfolio:hover {
-    outline: 2px dashed #000;
+.container.active{
+    outline: 2px dashed black;
 }
 
-.sectionPortfolio:hover .settingMenu {
-    display: block;
-}
-
-.sectionPortfolio.active {
-    outline: 2px dashed #000;
-}
-
-.sectionPortfolio.active .settingMenu {
-    display: block;
-}
-
-.settingMenu {
-    display: none;
+.control {
     position: absolute;
     bottom: -16px;
     right: 32px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* <-- đúng cú pháp */
+    background-color: #fff;
+    border-radius: 8px;
     padding: 4px;
-    background-color: #fff; /* no quotes */
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* optional for better visibility */
-    z-index: 10; /* keep it above other elements */
+    display: flex;
+    gap: 4px;
 }
 
 button {
-    cursor: pointer;
     background-color: transparent;
     outline: none;
     border: none;
-    padding: 0;
-    margin: 0 12px;
 }
 
 button:hover path {
-    fill: #72acee;
+    fill: #F54D0B;
+}
+.trash:hover path {
+    fill: none;
+    stroke: #F54D0B;
 }

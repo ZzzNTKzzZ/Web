@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./ThemedText.module.css";
 import TitleType from "../../../Common/TitleType";
-import DraggAble from "../../../EditComponent/DraggAble/DraggAble";
 
 export default function ThemedText() {
   const headings = [

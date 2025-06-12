@@ -1,92 +1,162 @@
-import { useRef, useState, useEffect } from "react";
-import SectionPortfolio from "../Common/SectionPortfolio/SectionPortfolio";
-import NavbarPortfolio from "../componentsPortfolio/NavbarPortfolio/NavbarPortfolio";
+import { useEffect, useState } from "react";
 import style from "./PageCreate.module.css";
-import HeroBannerPortfolio from "../componentsPortfolio/HeroBannerPortfolio/HeroBannerPortfolio";
+import SectionPortfolio from "../Common/SectionPortfolio/SectionPortfolio";
+import menuEdit from "../MenuEdit/MenuEdit";
+import NavbarItem from "../ItemPorfolio/NavbarItem/NavbarItem";
+import HerobannerItem from "../ItemPorfolio/HerobannerItem/HerobannerItem";
+import Image from "../../assets/Img/DemoUser.jpg";
 
-export default function PageCreate({
-  setEditMenu,
-  setNavbarStyle,
-  navbarStyle,
-  herobannerStyle,
-  setHerobannerStyle,
-  columnHeroBannerStyle,
-  setColumnHeroBannerStyle,
-  textStyle,
-  setTextStyle
-}) {
-  const sectionRef = useRef(null);
-  const [onCreate, setOnCreate] = useState(null);
+const menu = [
+  { type: "navbar", menuEdit: menuEdit.menuEditNavbar },
+  { type: "herobanner", menuEdit: menuEdit.menuEditHerobanner },
+  { type: "item", menuEdit: menuEdit.menuEditItem },
+];
 
-  const [activeSection, setActiveSection] = useState(null);
+export default function PageCreate({ idPortfolio }) {
+  const [sections, setSections] = useState([
+    {
+      id: "section-1",
+      type: "navbar",
+      styleSection: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+        gap: 20,
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        fontSize: 14,
+        backgroundColor: "#fff",
+        color: "#62e2cfff",
+        typography: {
+          fontWeight: "normal",
+          fontStyle: "normal",
+          textDecoration: "none",
+        },
+      },
+      content: ["Home", "About", "Contact"],
+    },
+    {
+      id: "section-2",
+      type: "herobanner",
+      styleSection: {
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "center",
+        flexDirection: "row",
+        gap: 20,
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        backgroundColor: "#fff",
+        color: "#62e2cfff",
+        backgroundImage: "",
+        typography: {
+          fontWeight: "normal",
+          fontStyle: "normal",
+          textDecoration: "none",
+        },
+      },
+      content: [
+        { type: "heading_1", content: "Admin" },
+        { type: "heading_2", content: "Web dev" },
+        { type: "heading_3", content: "Full stack dev" },
+        {
+          type: "paragraph",
+          content: "Hi everyone, I am best dev you ever seen",
+        },
+      ],
+    },
+  ]);
+  const [menuItem, setMenuItem] = useState();
+  const [menuType, setMenuType] = useState(null);
+  const [sectionActive, setSectionActive] = useState(null);
+  const [matchMenu, setMatchMenu] = useState(null);
+  useEffect(() => {
+    const match = menu.find((item) => item.type === menuType);
+    setMatchMenu(match);
+  }, [menuType]);
 
-  // Track which sections are visible
-  const [visibleSections, setVisibleSections] = useState({
-    navbar: true,
-    content: true,
-  });
-
-  const handleDelete = (sectionKey) => {
-    if (sectionKey === "navbar-section") {
-      setVisibleSections((prev) => ({ ...prev, navbar: false }));
-    }
-    if (sectionKey === "content-section") {
-      setVisibleSections((prev) => ({ ...prev, content: false }));
-    }
-    setActiveSection(null);
+  const handleStyleChange = (id, updateStyleFn) => {
+    setSections((prev) =>
+      prev.map((section) => {
+        if (section.id === id) {
+          const newStyleSection = updateStyleFn(section.styleSection);
+          return { ...section, styleSection: newStyleSection };
+        }
+        return section;
+      })
+    );
   };
 
-  useEffect(() => {
-    if (onCreate) {
-      const timer = setTimeout(() => setOnCreate(null), 200);
-      return () => clearTimeout(timer);
-    }
-  }, [onCreate]);
-
   return (
-    <div className={style.pageCreate}>
-      {visibleSections.navbar && (
-        <SectionPortfolio
-          ref={sectionRef}
-          sectionKey="navbar-section"
-          setEditMenu={setEditMenu}
-          active={activeSection === "navbar-section"}
-          setIsActive={() => setActiveSection("navbar-section")}
-          background={navbarStyle.backgroundColor}
-          handleDelete={() => handleDelete("navbar-section")}
-        >
-          <NavbarPortfolio
-            onCreate={onCreate}
-            setStyle={setNavbarStyle}
-            navbarStyle={navbarStyle}
-          />
-        </SectionPortfolio>
-      )}
-      
-      {visibleSections.content && (
-        <SectionPortfolio
-          ref={sectionRef}
-          sectionKey="herobanner-section"
-          setEditMenu={setEditMenu}
-          background={
-            herobannerStyle?.backgroundImage || herobannerStyle.backgroundColor
-          }
-          border={herobannerStyle.border}
-          active={activeSection === "herobanner-section"}
-          setIsActive={() => setActiveSection("herobanner-section")}
-          handleDelete={() => handleDelete("herobanner-section")}
-        >
-          {/* Your content here */}
-          <HeroBannerPortfolio
-            setEditMenu={setEditMenu}
-            herobannerStyle={herobannerStyle}
-            setColumnStyle={setColumnHeroBannerStyle}
-            columnHeroBannerStyle={columnHeroBannerStyle}
-            textStyle={textStyle}
-            setTextStyle={setTextStyle}
-          />
-        </SectionPortfolio>
-      )}
+    <div className={style.wrapper}>
+      <div
+        className={`${style.pageCreate} ${matchMenu ? style.pageShrink : ""}`}
+      >
+        {sections.map((section) => (
+          <SectionPortfolio
+            key={section.id}
+            id={section.id}
+            type={section.type}
+            styleSection={{
+              ...section.styleSection,
+              ...(section.styleSection.backgroundImage && {
+                backgroundImage: `url(${section.styleSection.backgroundImage})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }),
+            }}
+            setMenuType={setMenuType}
+            setSectionActive={setSectionActive}
+          >
+            {(() => {
+              switch (section.type) {
+                case "navbar":
+                  return <NavbarItem labels={section.content} />;
+                case "herobanner":
+                  return (
+                    <HerobannerItem
+                      Image={Image}
+                      contents={section.content}
+                      menuItem={menuItem}
+                      setMenuItem={setMenuItem}
+                      setMenuType={setMenuType}
+                      setSectionActive={setSectionActive}
+                      sectionId={section.id}
+                    />
+                  );
+                default:
+                  break;
+              }
+            })()}
+          </SectionPortfolio>
+        ))}
+      </div>
+
+      {matchMenu &&
+        sectionActive &&
+        (() => {
+          const currentSection = sections.find((s) => s.id === sectionActive);
+          if (!currentSection) return null;
+
+          const MenuEditComponent = matchMenu.menuEdit;
+          return (
+            <MenuEditComponent
+              setMenuType={setMenuType}
+              styleItem={menuItem}
+              onChangeItem={setMenuItem}
+              styleSection={currentSection.styleSection}
+              onChange={(newStyle) =>
+                handleStyleChange(currentSection.id, newStyle)
+              }
+            />
+          );
+        })()}
     </div>
   );
 }

@@ -1,8 +1,11 @@
+.uploader {
+    width: 100%;
+}
+
 .menuWrapper {
     position: relative;
     display: inline-block;
     width: 100%;
-
 }
 
 .menuButton {

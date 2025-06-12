@@ -1,68 +1,59 @@
-import { useRef, forwardRef } from "react";
 import style from "./SectionPortfolio.module.css";
-
 import { ReactComponent as SettingIcon } from "../../../assets/icon/Setting.svg";
 import { ReactComponent as TrashIcon } from "../../../assets/icon/Trash.svg";
+import { useEffect, useState } from "react";
 
-const SectionPortfolio = forwardRef(function SectionPortfolio(props, ref) {
-  const nodeRef = useRef(null);
+export default function SectionPortfolio({
+  id,
+  type,
+  styleSection,
+  setMenuType,
+  children,
+  setSectionActive,
+}) {
+  const [activeSection, setActiveSection] = useState(false);
 
-  const handleSettingsClick = () => {
-    props.setEditMenu(props.sectionKey);
-    props.setIsActive(); // Notify parent this section is active
+  const handleMouseEnter = () => {
+    setActiveSection(true);
   };
 
-  // Check if background is an image (URL or blob)
-  const isImage =
-    typeof props.background === "string" &&
-    (props.background.startsWith("http") ||
-      props.background.startsWith("blob:") ||
-      props.background.startsWith("data:image"));
+  const handleMouseLeave = () => {
+    setActiveSection(false);
+  };
 
-  const backgroundStyle = isImage
-    ? {
-        backgroundImage: `url(${props.background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }
-    : {
-        background: props.background,
-      };
+  const handleClick = () => {
+    setMenuType(type);
+    setSectionActive(id); 
+  };
 
   return (
     <div
-      ref={ref || nodeRef}
-      className={`${props.active ? style.active : ""} ${
-        style.sectionPortfolio
-      }`}
+      className={`${style.container} ${activeSection ? style.active : ""}`}
       style={{
-        ...backgroundStyle,
-        border: props.border,
+        zIndex: `${activeSection ? "999" : ""}`,
+        ...styleSection,
+        paddingTop: `${styleSection?.paddingTop}px`,
+        paddingBottom: `${styleSection?.paddingBottom}px`,
+        paddingLeft: `${styleSection?.paddingLeft}px`,
+        paddingRight: `${styleSection?.paddingRight}px`,
+        gap: `${styleSection?.gap}px`,
+        fontSize: `${styleSection?.fontSize}px`,
+        ...styleSection?.typography,
       }}
-      onClick={props.setIsActive}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {props.children}
-      <div className={style.settingMenu}>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleSettingsClick();
-          }}
-        >
-          <SettingIcon />
-        </button>
-
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            props.handleDelete();
-          }}
-        >
-          <TrashIcon />
-        </button>
-      </div>
+      {children}
+      {activeSection && (
+        <div className={style.control}>
+          <button onClick={handleClick}>
+            <SettingIcon />
+          </button>
+          <button className={style.trash}>
+            <TrashIcon />
+          </button>
+        </div>
+      )}
     </div>
   );
-});
-
-export default SectionPortfolio;
+}

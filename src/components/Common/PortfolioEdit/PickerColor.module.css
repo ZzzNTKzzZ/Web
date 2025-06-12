@@ -1,0 +1,41 @@
+.control {
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  font-size: 16px;
+  width: 100%;
+
+}
+
+.controlColor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 10px;
+}
+
+.boxColor {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.colorValue {
+  color: #333;
+  min-width: 100px;
+}
+
+.colorPickerPopup {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  z-index: 999;
+}

@@ -1,0 +1,27 @@
+.control {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+svg {
+    cursor: pointer;
+}
+
+button:hover path {
+    fill: #F54D0B;
+}
+
+button.active path {
+    fill: #F54D0B;
+    stroke: #F54D0B;
+}

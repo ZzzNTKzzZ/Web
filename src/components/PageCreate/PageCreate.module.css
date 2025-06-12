@@ -1,6 +1,14 @@
+.wrapper {
+    height: 100%;
+}
+
 .pageCreate{
     width: 100%;
     height: 100%;
     background-color: #fff;
     font-size: inherit;
+    position: relative;
+}
+.pageCreate.pageShrink {
+    width: calc(100% - 336px);
 }
