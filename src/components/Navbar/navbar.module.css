@@ -117,17 +117,17 @@
 }
 
 .userAvatar {
-  width: 2.5rem; /* w-10 */
-  height: 2.5rem; /* h-10 */
-  border-radius: 9999px; /* rounded-full */
-  object-fit: cover; /* Ensures image covers the area */
-  border: 1px solid #d1d5db; /* subtle border */
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 1px solid #d1d5db;
 }
 
 .userEmail {
-  color: #374151; /* text-gray-800 */
-  font-weight: 500; /* font-medium */
-  font-size: 1rem; /* base text size */
+  color: #374151;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .signOutButton {
@@ -142,7 +142,7 @@
 }
 
 .signOutButton:hover {
-  background-color: #d55e2f; /* bg-red-600 */
+  background-color: #d55e2f;
 }
 
 

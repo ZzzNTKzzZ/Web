@@ -35,9 +35,9 @@ function Navbar({ user, handleSignOut }) {
       {user ? (
         // Nếu người dùng đã đăng nhập
         <div className={style.loggedInUserContainer}>
-          {user.photoURL && (
+          {/* {user.photoURL && (
             <img src={user.photoURL} alt="User Avatar" className={style.userAvatar} />
-          )}
+          )} */}
           {/* Email của người dùng */}
           <span className={style.userEmail}>{user.email || user.displayName}</span>
           <button onClick={handleSignOut} className={style.signOutButton}>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import Navbar from "../../components/Navbar/Navbar"
 import SideBar from "../../components/Sidebar/Sidebar";
 import Topbar from "../../components/Topbar/Topbar";
 import EditZone from "../../components/EditZone/EditZone";
@@ -7,6 +9,15 @@ import EditZone from "../../components/EditZone/EditZone";
 import style from "./EditPortfolio.module.css";
 
 export default function EditPortfolio() {
+  const navigate = useNavigate();
+  // Check responsive: nếu nhỏ hơn 768 thì chuyển hướng
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      alert("Editing is not available on mobile devices. Please use a computer to continue.");
+      navigate("/");
+    }
+  }, [navigate]);
+
   const [editMenu, setEditMenu] = useState(null);
   const [styleNavbarSection, setStyleNavbarSection] = useState({
     backgroundColor: "rgba(255, 255, 255, 1)",
@@ -46,6 +57,7 @@ export default function EditPortfolio() {
   return (
     <div className={style.editPortfolio}>
       <Topbar />
+      {/* <Navbar /> */}
       <SideBar />
       <EditZone
         setEditMenu={setEditMenu}
