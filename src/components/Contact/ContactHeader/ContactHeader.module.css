@@ -23,6 +23,23 @@
   animation: fadeSlideInHeading 1s ease forwards;
 }
 
+.underlined {
+  display: inline-block;
+  position: relative;
+  z-index: 0;
+}
+
+.underlined::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #f76c35;
+  border-radius: 2px;
+}
+
 .highlighted {
   color: #f76c35;  /* Cam */
 }
