@@ -35,7 +35,7 @@ function HeroSection() {
           optimize performance, and deliver seamless web experiences.
         </p>
         <a href="#services" className={styles.ctaButton} ref={buttonRef}>
-          Explore My Work
+          Let's Start Your Project
         </a>
       </div>
     </div>
