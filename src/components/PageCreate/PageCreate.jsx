@@ -11,6 +11,7 @@ const menu = [
   { type: "herobanner", menuEdit: menuEdit.menuEditHerobanner },
   { type: "item", menuEdit: menuEdit.menuEditItem },
   { type: "button", menuEdit: menuEdit.menuEditButton },
+  { type: "add", menuEdit: menuEdit.menuEditAdd}
 ];
 
 export default function PageCreate({ idPortfolio }) {
@@ -210,6 +211,8 @@ export default function PageCreate({ idPortfolio }) {
               onChange={(newStyle) =>
                 handleStyleChange(currentSection.id, newStyle)
               }
+              onAdd={handleAddContent}
+              section={sectionActive}
             />
           );
         })()}

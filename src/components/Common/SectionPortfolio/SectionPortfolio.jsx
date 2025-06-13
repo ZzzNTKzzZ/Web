@@ -29,10 +29,7 @@ export default function SectionPortfolio({
   };
   const handleAddNew = () => {
     setSectionActive(id);
-    handleAddContent(id, {
-      type: "paragraph",
-      content: "text",
-    });
+    setMenuType("add")
   };
 
   return (

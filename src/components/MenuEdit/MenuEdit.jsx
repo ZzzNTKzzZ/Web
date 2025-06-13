@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, useState } from "react";
 import CloseButton from "../Common/CloseButton/CloseButton";
 import DisplayEdit from "../Common/PortfolioEdit/DisplayEdit";
 import ProgressBar from "../Common/PortfolioEdit/ProgressBar";
@@ -420,7 +420,7 @@ function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
             <DesignButton
               onChange={(newStyle) => setVal("styleItem", newStyle)}
             />
-           <PickerColor
+            <PickerColor
               label={"Background Color"}
               value={styleItem.styleItem.backgroundColor}
               onChange={(newColor) => setVal("backgroundColor", newColor)}
@@ -430,16 +430,113 @@ function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
               value={styleItem.styleItem.color}
               onChange={(newColor) => setVal("color", newColor)}
             />
-            <BorderEdit 
+            <BorderEdit
               value={styleItem.styleItem.border}
               onChange={(newBorder) => setVal("border", newBorder)}
             />
-            <BorderRadiusEdit 
+            <BorderRadiusEdit
               value={styleItem.styleItem.borderRadius}
-              onChange={(newBorderRadius) => setVal("borderRadius", newBorderRadius)}
+              onChange={(newBorderRadius) =>
+                setVal("borderRadius", newBorderRadius)
+              }
             />
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function MenuEditAdd({ setMenuType, onAdd, section }) {
+  const TYPES = [
+    "Heading 1",
+    "Heading 2",
+    "Heading 3",
+    "Heading 4",
+    "paragraph",
+  ];
+  const [text, setText] = useState("");
+  const [type, setType] = useState("Heading 1");
+  const [buttonText, setButtonText] = useState("")
+  const handleAdd = () => {
+    onAdd(section, {
+      type: type,
+      content: text,
+    });
+    setText("")
+  };
+
+  const handleAddButton = () => {
+    onAdd(section, {
+      type: "button",
+      content: buttonText,
+    });
+    setButtonText("")
+  }
+
+  return (
+    <div className={style.container}>
+      <div className={style.header}>
+        <p className={style.label}>Add New Content</p>
+        <CloseButton onClick={() => setMenuType(null)} />
+      </div>
+
+      <div className={style.body}>
+        <div>
+          <div
+            className={style.control}
+            style={{ flexDirection: "column", gap: 24, alignItems: "unset" }}
+          >
+            <p className={style.label} style={{ fontSize: 24 }}>
+              Create paragraph
+            </p>
+            <input
+              className={style.input}
+              placeholder="Enter content..."
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+          </div>
+
+          <div className={style.section} style={{ flexWrap: "wrap" }}>
+            {TYPES.map((t) => (
+              <p
+                key={t}
+                className={`${style.type} ${type === t ? style.active : ""}`}
+                onClick={() => setType(t)}
+              >
+                {t}
+              </p>
+            ))}
+          </div>
+
+          <div className={style.addButton}>
+            <button className={style.button} onClick={handleAdd}>
+              Add
+            </button>
+          </div>
+        </div>
+        <div>
+          <div
+            className={style.control}
+            style={{ flexDirection: "column", gap: 24, alignItems: "unset" }}
+          >
+            <p className={style.label} style={{ fontSize: 24 }}>
+              Create paragraph
+            </p>
+            <input
+              className={style.input}
+              placeholder="Enter content..."
+              value={buttonText}
+              onChange={(e) => setButtonText(e.target.value)}
+            />
+          </div>
+          <div className={style.addButton}>
+            <button className={style.button} onClick={handleAddButton}>
+              Add Button
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -450,6 +547,7 @@ const menuEdit = {
   menuEditHerobanner: MenuEditHerobanner,
   menuEditItem: MenuEditItem,
   menuEditButton: MenuEditButton,
+  menuEditAdd: MenuEditAdd,
 };
 
 export default menuEdit;

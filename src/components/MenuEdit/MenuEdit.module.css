@@ -123,3 +123,71 @@
   visibility: visible;
   pointer-events: all;
 }
+
+.section p {
+  position: relative;
+  padding-bottom: 4px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.section p:hover {
+  color: #F54D0B;
+}
+
+.section p::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #F54D0B;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.section p.active::after {
+  transform: scaleX(1);
+}
+
+.section p.active {
+  color: #F54D0B;
+  font-weight: bold;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: #F54D0B;
+  outline: none;
+}
+
+.addButton {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.button {
+  padding: 8px 16px;
+  background-color: #F54D0B;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background-color: #d9440b;
+}
