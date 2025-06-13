@@ -29,7 +29,6 @@ export default function BorderEdit({ value = "", onChange }) {
 
   // Sync external value changes
   useEffect(() => {
-    console.log(value)
     setBorderProps(parseBorder(value));
   }, [value]);
 

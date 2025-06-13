@@ -1,13 +1,13 @@
 .container {
   width: 336px;
-  height: 100%;
+  height: calc(100% - 72px);
   padding: 12px;
   position: fixed;
   right: 0;
   background-color: white;
   top: 72px;
   border-top: 4px solid #F54D0B;
-  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
 .header {
