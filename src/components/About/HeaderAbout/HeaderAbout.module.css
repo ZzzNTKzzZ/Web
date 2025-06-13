@@ -1,0 +1,56 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* bạn có thể chỉnh cao thấp tùy ý */
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* hình phủ hết và không méo */
+    display: block;
+}
+
+.textOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    padding: 1rem 2rem;
+    background: rgba(231, 226, 226, 0.123); /* lớp nền mờ dễ đọc chữ */
+    border-radius: 8px;
+}
+
+.textOverlay {
+    top: 70%; /* hạ xuống gần đáy */
+    left: 10%; /* lệch về trái */
+    transform: translate(0, -50%);
+    text-align: left;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb {
+    color: #F54D0B;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumbArrow {
+    margin: 0 0.25rem;
+}
+
+.current {
+    color: #F54D0B;
+}
+
+.description {
+    color: #f3f4f6; /* xám nhạt hơn trên nền đen */
+}
