@@ -3,7 +3,8 @@
   padding-bottom: 40px;
   background-color: white;
   text-align: center;
-  z-index: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -17,8 +18,12 @@
   font-weight: 700;
   margin-bottom: 16px;
   color: #222;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: fadeSlideInHeading 1s ease forwards;
 }
 
+<<<<<<< HEAD
 .underlined {
   display: inline-block;
   position: relative;
@@ -34,6 +39,10 @@
   height: 4px;
   background-color: #f76c35;
   border-radius: 2px;
+=======
+.highlighted {
+  color: #f76c35;  /* Cam */
+>>>>>>> d0aca63834230ae1f48ec9f57962e661016fcd07
 }
 
 .description {
@@ -41,30 +50,36 @@
   color: #555;
   line-height: 1.6;
   padding: 0 10px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideInDesc 1s ease forwards;
+  animation-delay: 0.5s;
 }
 
-/* Responsive for tablets and smaller screens */
+/* Animation keyframes */
+@keyframes fadeSlideInHeading {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideInDesc {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .heading {
     font-size: 2rem;
   }
-
-  .description {
-    font-size: 0.95rem;
-  }
 }
 
-/* Responsive for phones */
 @media (max-width: 480px) {
   .heading {
     font-size: 1.6rem;
-  }
-
-  .description {
-    font-size: 0.9rem;
-  }
-
-  .underlined::after {
-    height: 3px;
   }
 }
