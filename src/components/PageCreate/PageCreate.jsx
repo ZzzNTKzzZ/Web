@@ -10,7 +10,7 @@ const menu = [
   { type: "navbar", menuEdit: menuEdit.menuEditNavbar },
   { type: "herobanner", menuEdit: menuEdit.menuEditHerobanner },
   { type: "item", menuEdit: menuEdit.menuEditItem },
-  { type: "button", menuEdit: menuEdit.menuEditButton},
+  { type: "button", menuEdit: menuEdit.menuEditButton },
 ];
 
 export default function PageCreate({ idPortfolio }) {
@@ -69,9 +69,46 @@ export default function PageCreate({ idPortfolio }) {
           type: "paragraph",
           content: "Hi everyone, I am best dev you ever seen",
         },
-        { type: "button", content: "Contact me", path: ""}
+        { type: "button", content: "Contact me", path: "" },
       ],
     },
+    // {
+    //   id: "section-3",
+    //   type: "herobanner",
+    //   styleSection: {
+    //     display: "flex",
+    //     flexDirection: "row",
+    //     gap: 20,
+    //     paddingTop: 20,
+    //     paddingBottom: 20,
+    //     paddingLeft: 20,
+    //     paddingRight: 20,
+    //     backgroundColor: "#f9f9f9",
+    //     color: "#333",
+    //     typography: {
+    //       fontWeight: "normal",
+    //       fontStyle: "normal",
+    //       textDecoration: "none",
+    //     },
+    //   },
+    //   content: [
+    //     {
+    //       title: "Web Design",
+    //       description: "Beautiful UI/UX design for your website",
+    //       image: "https://example.com/image1.jpg",
+    //     },
+    //     {
+    //       title: "Development",
+    //       description: "Robust and scalable web development",
+    //       image: "https://example.com/image2.jpg",
+    //     },
+    //     {
+    //       title: "SEO",
+    //       description: "Improve your site's visibility on search engines",
+    //       image: "https://example.com/image3.jpg",
+    //     },
+    //   ],
+    // },
   ]);
   const [menuItem, setMenuItem] = useState();
   const [menuType, setMenuType] = useState(null);
@@ -83,20 +120,20 @@ export default function PageCreate({ idPortfolio }) {
   }, [menuType]);
 
   const handleStyleChange = (id, updateStyle) => {
-  setSections((prev) =>
-    prev.map((section) => {
-      if (section.id !== id) return section;
+    setSections((prev) =>
+      prev.map((section) => {
+        if (section.id !== id) return section;
 
-      const prevStyle = section.styleSection;
-      const newStyle =
-        typeof updateStyle === "function"
-          ? updateStyle(prevStyle)
-          : { ...prevStyle, ...updateStyle };
+        const prevStyle = section.styleSection;
+        const newStyle =
+          typeof updateStyle === "function"
+            ? updateStyle(prevStyle)
+            : { ...prevStyle, ...updateStyle };
 
-      return { ...section, styleSection: newStyle };
-    })
-  );
-};
+        return { ...section, styleSection: newStyle };
+      })
+    );
+  };
 
   return (
     <div className={style.wrapper}>

@@ -23,7 +23,6 @@
   animation: fadeSlideInHeading 1s ease forwards;
 }
 
-<<<<<<< HEAD
 .underlined {
   display: inline-block;
   position: relative;
@@ -39,10 +38,6 @@
   height: 4px;
   background-color: #f76c35;
   border-radius: 2px;
-=======
-.highlighted {
-  color: #f76c35;  /* Cam */
->>>>>>> d0aca63834230ae1f48ec9f57962e661016fcd07
 }
 
 .description {

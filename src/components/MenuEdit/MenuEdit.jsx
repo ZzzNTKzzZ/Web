@@ -12,6 +12,7 @@ import TextConfiguration from "../Common/PortfolioEdit/TextConfiguration";
 import TextAlign from "../Common/PortfolioEdit/TextAlign";
 import DesignButton from "../Common/PortfolioEdit/DesignButton";
 import TypographyNavbar from "../Common/PortfolioEdit/TypographyNavbar";
+import BorderEdit from "../Common/PortfolioEdit/BorderEdit";
 
 function MenuEditNavbar({ setMenuType, styleSection, onChange }) {
   const [open, setOpen] = useState(false);
@@ -423,6 +424,15 @@ function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
               label={"Background Color"}
               value={styleItem.styleItem.backgroundColor}
               onChange={(newColor) => setVal("backgroundColor", newColor)}
+            />
+            <PickerColor
+              label={"Color"}
+              value={styleItem.styleItem.color}
+              onChange={(newColor) => setVal("color", newColor)}
+            />
+            <BorderEdit 
+              value={styleItem.styleItem.border}
+              onChange={(newBorder) => setVal("border", newBorder)}
             />
           </div>
         )}

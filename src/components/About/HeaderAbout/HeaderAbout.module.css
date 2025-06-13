@@ -1,19 +1,10 @@
 .container {
-<<<<<<< HEAD
   position: relative;
   width: 100%;
   height: 400px; /* bạn có thể chỉnh cao thấp tùy ý */
   overflow: hidden;
   z-index: -1;
   border-radius: 16px;
-=======
-    position: relative;
-    width: 100%;
-    height: 400px; /* bạn có thể chỉnh cao thấp tùy ý */
-    overflow: hidden;
-    z-index: -1;
-    border-radius: 0 0 16px 16px;
->>>>>>> d0aca63834230ae1f48ec9f57962e661016fcd07
 }
 
 .image {
