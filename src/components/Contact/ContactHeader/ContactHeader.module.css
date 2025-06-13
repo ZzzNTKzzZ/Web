@@ -16,6 +16,11 @@
   font-weight: 700;
   margin-bottom: 16px;
   color: #222;
+
+  /* Animation */
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: fadeSlideInHeading 1s ease forwards;
 }
 
 .underlined {
@@ -39,6 +44,27 @@
   color: #555;
   line-height: 1.6;
   padding: 0 10px;
+
+  /* Animation */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideInDesc 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+/* Keyframes */
+@keyframes fadeSlideInHeading {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideInDesc {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive for tablets and smaller screens */
