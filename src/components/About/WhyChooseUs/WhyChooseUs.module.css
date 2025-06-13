@@ -1,0 +1,58 @@
+.container {
+    background: #ff6600;
+    padding: 60px 15%;
+    text-align: center;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 260px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+    color: #ff6600;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ff6600;
+    margin-bottom: 8px;
+}
+
+.cardDesc {
+  font-size: 14px;
+  color: #333;
+}
