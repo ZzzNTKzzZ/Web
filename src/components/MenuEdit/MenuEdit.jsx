@@ -236,13 +236,11 @@ function MenuEditHerobanner({ setMenuType, styleSection, onChange }) {
 }
 
 function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
-  console.log(styleItem)
   const [activeSection, setActiveSection] = useState("text");
 
+
   const setVal = (keyPath, val) => {
-    console.log(val)
     const keys = keyPath.split(".");
-    console.log(keys)
     const lastKey = keys.pop();
 
     const newStyle = { ...styleItem.styleItem };
@@ -285,24 +283,24 @@ function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
             }}
           >
             <TextConfiguration
-              value={styleItem.styleItem}
+              value={styleItem?.styleItem}
               onChange={setVal}
               type={styleItem.type}
             />
             <Typography
-              value={styleItem.styleItem}
+              value={styleItem?.styleItem}
               onChange={setVal}
               showLabel={false}
             />
-            <TextAlign value={styleItem.styleItem} onChange={setVal} />
+            <TextAlign value={styleItem?.styleItem} onChange={setVal} />
             <PickerColor
               label={"Background Color"}
-              value={styleItem.styleItem.backgroundColor}
+              value={styleItem?.styleItem?.backgroundColor}
               onChange={(newColor) => {setVal("backgroundColor", newColor)}}
             />
             <PickerColor
               label={"Color"}
-              value={styleItem.styleItem.color}
+              value={styleItem?.styleItem?.color}
               onChange={(newColor) => setVal("color", newColor)}
             />
           </div>
@@ -388,23 +386,23 @@ function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
             }}
           >
             <TextConfiguration
-              value={styleItem.styleItem}
+              value={styleItem?.styleItem}
               onChange={setVal}
               type={styleItem.type}
             />
             <Typography
-              value={styleItem.styleItem}
+              value={styleItem?.styleItem}
               onChange={setVal}
               showLabel={false}
             />
             <PickerColor
               label={"Background Color"}
-              value={styleItem.styleItem.backgroundColor}
+              value={styleItem?.styleItem?.backgroundColor}
               onChange={(newColor) => setVal("backgroundColor", newColor)}
             />
             <PickerColor
               label={"Color"}
-              value={styleItem.styleItem.color}
+              value={styleItem?.styleItem?.color}
               onChange={(newColor) => setVal("color", newColor)}
             />
           </div>
@@ -423,20 +421,20 @@ function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
             />
             <PickerColor
               label={"Background Color"}
-              value={styleItem.styleItem.backgroundColor}
+              value={styleItem?.styleItem?.backgroundColor}
               onChange={(newColor) => setVal("backgroundColor", newColor)}
             />
             <PickerColor
               label={"Color"}
-              value={styleItem.styleItem.color}
+              value={styleItem?.styleItem?.color}
               onChange={(newColor) => setVal("color", newColor)}
             />
             <BorderEdit
-              value={styleItem.styleItem.border}
+              value={styleItem?.styleItem?.border}
               onChange={(newBorder) => setVal("border", newBorder)}
             />
             <BorderRadiusEdit
-              value={styleItem.styleItem.borderRadius}
+              value={styleItem?.styleItem?.borderRadius}
               onChange={(newBorderRadius) =>
                 setVal("borderRadius", newBorderRadius)
               }
@@ -678,12 +676,11 @@ function MenuEditTestimonial({ setMenuType, styleItem, onChangeItem }) {
     </div>
   );
 }
- function MenuEditFooter({
-  setMenuType,
+function MenuEditFooter({
+  section,
   styleSection,
   contentItem,
   onChange,
-  section,
   onChangeItem,
 }) {
   const [text, setText] = useState(contentItem?.text || "");
@@ -694,31 +691,42 @@ function MenuEditTestimonial({ setMenuType, styleItem, onChangeItem }) {
     setLinks(contentItem?.links || []);
   }, [contentItem]);
 
-  const handleTextChange = (e) => {
-    setText(e.target.value);
+  const updateFooter = (newText, newLinks) => {
     onChangeItem({
       id: section,
-      index: 0,
-      text: e.target.value,
-      links,
-    });
-  };
-
-  const handleLinkChange = (index, key, value) => {
-    const newLinks = [...links];
-    newLinks[index][key] = value;
-    setLinks(newLinks);
-    onChangeItem({
-      id: section,
-      index: 0,
-      text,
+      text: newText,
       links: newLinks,
     });
   };
 
+  const handleTextChange = (e) => {
+    const newText = e.target.value;
+    setText(newText);
+    updateFooter(newText, links);
+  };
+
+  const handleLinkChange = (index, key, value) => {
+    const updated = [...links];
+    updated[index][key] = value;
+    setLinks(updated);
+    updateFooter(text, updated);
+  };
+
+  const handleAddLink = () => {
+    const updated = [...links, { label: "", url: "" }];
+    setLinks(updated);
+    updateFooter(text, updated);
+  };
+
+  const handleRemoveLink = (index) => {
+    const updated = links.filter((_, i) => i !== index);
+    setLinks(updated);
+    updateFooter(text, updated);
+  };
+
   return (
-    <div className={style.menuEditSection}>
-      <h3 className={style.title}>Footer Content</h3>
+    <div className={style.container}>
+      <p className={style.label}>Footer Content</p>
 
       <label className={style.label}>Copyright Text</label>
       <input
@@ -726,9 +734,10 @@ function MenuEditTestimonial({ setMenuType, styleItem, onChangeItem }) {
         className={style.input}
         value={text}
         onChange={handleTextChange}
+        placeholder="© 2025 Khánh Nguyễn"
       />
 
-      <h4 className={style.subtitle}>Links</h4>
+      <h4 className={style.subtitle}>Footer Links</h4>
       {links.map((link, index) => (
         <div key={index} className={style.linkRow}>
           <input
@@ -736,25 +745,32 @@ function MenuEditTestimonial({ setMenuType, styleItem, onChangeItem }) {
             className={style.input}
             placeholder="Label"
             value={link.label}
-            onChange={(e) =>
-              handleLinkChange(index, "label", e.target.value)
-            }
+            onChange={(e) => handleLinkChange(index, "label", e.target.value)}
           />
           <input
             type="text"
             className={style.input}
             placeholder="URL"
             value={link.url}
-            onChange={(e) =>
-              handleLinkChange(index, "url", e.target.value)
-            }
+            onChange={(e) => handleLinkChange(index, "url", e.target.value)}
           />
+          <button
+            className={style.deleteButton}
+            onClick={() => handleRemoveLink(index)}
+          >
+            ✕
+          </button>
         </div>
       ))}
+
+      <div className={style.addButton}>
+        <button className={style.button} onClick={handleAddLink}>
+          + Add Link
+        </button>
+      </div>
     </div>
   );
 }
-
 
 const menuEdit = {
   menuEditNavbar: MenuEditNavbar,
