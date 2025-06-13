@@ -3,6 +3,7 @@
     width: 100%;
     height: 400px; /* bạn có thể chỉnh cao thấp tùy ý */
     overflow: hidden;
+    z-index: -1;
 }
 
 .image {

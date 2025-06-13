@@ -7,18 +7,34 @@ import PortfolioFAQ from "../../components/Contact/PortfolioFAQ/PortfolioFAQ";
 import PortfolioServices from "../../components/Contact/PortfolioServices/PortfolioServices";
 import Footer from "../../components/Footer/Footer";
 
+import useScrollDirection from "../../Hooks/useScrollY";
+import useScreenWidth from "../../Hooks/useScreenWidth";
+
+import NavbarResponsive from "../../components/Navbar/NavbarResponsive";
+
 function Contact() {
-    return (
-        <div>
-            <Navbar/>
-            <ContactHeader />
-            <ContactFromSection />
-            <MapSection />
-            <PortfolioFAQ />
-            <PortfolioServices/>
-            <Footer />
-        </div>
-    );
+    const scrollDirection = useScrollDirection();
+    const currentScreenWidth = useScreenWidth();
+
+    const MOBILE_BREAKPOINT = 768; // px
+
+  return (
+    <div>
+      {currentScreenWidth < MOBILE_BREAKPOINT ? (
+        // Nếu chiều rộng màn hình nhỏ hơn 768px, hiển thị NavbarResponsive
+        <NavbarResponsive/>
+      ) : (
+        // Nếu chiều rộng màn hình lớn hơn hoặc bằng 768px, hiển thị Navbar
+        <Navbar scrollDirection={scrollDirection} />
+      )}
+      <ContactHeader />
+      <ContactFromSection />
+      <MapSection />
+      <PortfolioFAQ />
+      <PortfolioServices />
+      <Footer />
+    </div>
+  );
 }
 
 export default Contact;
