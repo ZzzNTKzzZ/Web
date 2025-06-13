@@ -124,6 +124,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   width: 100%;
   height: 120vh;
   position: relative;  /* Để nằm đúng vị trí dưới Header */
@@ -132,7 +133,9 @@
   z-index: 0;
 
   transform-origin: 33% 19%;  /* Vị trí bắt đầu zoom theo % chiều ngang và dọc*/
+  scroll-behavior: smooth;
   will-change: transform;
+  transition: background-position 0.3s ease-out;
 
   mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
