@@ -218,28 +218,30 @@ function MenuEditHerobanner({ setMenuType, styleSection, onChange }) {
 }
 
 function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
- const setVal = (keyPath, val) => {
-  const keys = keyPath.split(".");
-  const lastKey = keys.pop();
-
-  const newStyle = { ...styleItem.styleItem };
-  let curr = newStyle;
-
-  for (const key of keys) {
-    curr[key] = { ...curr[key] };
-    curr = curr[key];
-  }
-
-  if (curr[lastKey] !== val) {
-    curr[lastKey] = val;
-    onChangeItem({ id: styleItem.id, styleItem: newStyle }); 
-  }
-};
   const [activeSection, setActiveSection] = useState("text");
+
+  const setVal = (keyPath, val) => {
+    const keys = keyPath.split(".");
+    const lastKey = keys.pop();
+
+    const newStyle = { ...styleItem.styleItem };
+    let curr = newStyle;
+
+    for (const key of keys) {
+      curr[key] = { ...curr[key] };
+      curr = curr[key];
+    }
+
+    if (curr[lastKey] !== val) {
+      curr[lastKey] = val;
+      onChangeItem({ id: styleItem.id, styleItem: newStyle });
+    }
+  };
+
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <p>Item </p>
+        <p>Item</p>
         <CloseButton onClick={() => setMenuType(null)} />
       </div>
 
@@ -256,16 +258,30 @@ function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
         {activeSection === "text" && (
           <div
             className={style.control}
-            style={{ flexDirection: "column", alignContent: "space-around" }}
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: "16px",
+              width: "100%",
+            }}
           >
-            <TextConfiguration value={styleItem.styleItem} onChange={setVal} type={styleItem.type}/>
-            <Typography value={styleItem.styleItem} onChange={onChangeItem}/>
+            <TextConfiguration
+              value={styleItem.styleItem}
+              onChange={setVal}
+              type={styleItem.type}
+            />
+            <Typography
+              value={styleItem.styleItem}
+              onChange={setVal}
+              showLabel={false}
+            />
           </div>
         )}
       </div>
     </div>
   );
 }
+
 
 const menuEdit = {
   menuEditNavbar: MenuEditNavbar,

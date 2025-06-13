@@ -5,38 +5,35 @@ import { ReactComponent as Underline } from "../../../assets/icon/Underline.svg"
 import style from "./Typography.module.css";
 
 export default function Typography({ value, onChange }) {
-  const toggleStyle = (property, activeValue, inactiveValue = "normal") => {
-    onChange((prev) => ({
-      ...prev,
-      typography: {
-        ...prev.typography,
-        [property]:
-          prev.typography?.[property] === activeValue
-            ? inactiveValue
-            : activeValue,
-      },
-    }));
+  const handleChange = (key, val) => {
+      onChange(key, val);
+  };
+
+  const toggleStyle = (key, onValue, offValue ) => {
+    const currentValue = value?.typography?.[key.split(".")[1]];
+    const nextValue = currentValue === onValue ? offValue : onValue;
+    handleChange(key, nextValue);
   };
 
   return (
     <div className={style.control}>
-      <p>Menu</p>
+      <p className={style.label}>Typography</p>
       <div className={style.option}>
         <button
-          className={value.fontWeight === "bold" ? style.active : ""}
-          onClick={() => toggleStyle("fontWeight", "bold")}
+          className={value.typography.fontWeight === "bold" ? style.active : ""}
+          onClick={() => toggleStyle("typography.fontWeight", "bold", "normal")}
         >
           <Bold />
         </button>
         <button
-          className={value.fontStyle === "italic" ? style.active : ""}
-          onClick={() => toggleStyle("fontStyle", "italic")}
+          className={value.typography.fontStyle === "italic" ? style.active : ""}
+          onClick={() => toggleStyle("typography.fontStyle", "italic", "normal")}
         >
           <Italic />
         </button>
         <button
-          className={value.textDecoration === "underline" ? style.active : ""}
-          onClick={() => toggleStyle("textDecoration", "underline", "none")}
+          className={value.typography.textDecoration === "underline" ? style.active : ""}
+          onClick={() => toggleStyle("typography.textDecoration", "underline", "none")}
         >
           <Underline />
         </button>
@@ -44,3 +41,5 @@ export default function Typography({ value, onChange }) {
     </div>
   );
 }
+
+

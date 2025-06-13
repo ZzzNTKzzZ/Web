@@ -39,7 +39,11 @@ export default function SortableItem({
         id,
         styleItem: {
           ...baseStyle,
-          typography,
+          typography : {
+            ...typography,
+            fontStyle : "normal",
+            textDecoration : "none"
+          },
           fontType: formatTypeLabel(typeId),
         },
       });
