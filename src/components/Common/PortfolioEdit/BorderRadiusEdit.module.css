@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.label {
+  font-weight: 600;
+  color: #333;
+  font-size: 15px;
+}
+
+.options {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.optionBox {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.icon:hover {
+  background-color: #f0f0f0;
+}
+
+.active {
+  background-color: #f54d0b1a;
+  border: 1px solid #f54d0b;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.cornerIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  flex-grow: 1;
+  height: 4px;
+  background: #ccc;
+  border-radius: 2px;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Slider thumb for Chrome/Safari */
+.input::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #555;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.input::-webkit-slider-thumb:hover {
+  background: #222;
+}
+
+.input::-webkit-slider-thumb:active {
+  background: #F54D0B;
+}
+
+/* Slider thumb for Firefox */
+.input::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #555;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.input::-moz-range-thumb:hover {
+  background: #222;
+}
+
+.input::-moz-range-thumb:active {
+  background: #F54D0B;
+}
+
+.box {
+  min-width: 50px;
+  text-align: right;
+  font-size: 14px;
+  color: #555;
+}

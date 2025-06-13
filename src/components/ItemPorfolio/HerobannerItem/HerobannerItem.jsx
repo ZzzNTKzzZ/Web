@@ -43,6 +43,26 @@ export default function HerobannerItem({
       };
     })
   );
+
+  useEffect(() => {
+  setItems(
+    contents.map((item, index) => ({
+      id: `item-${index}`,
+      content: item.content || "",
+      type: item.type || "paragraph",
+      style: {
+        fontSize: matchingTypeHeading(item.type)?.fontSize,
+        fontFamily: "Arial",
+        typography: {
+          textAlign: "left",
+          fontWeight: matchingTypeHeading(item.type)?.fontWeight,
+          lineHeight: matchingTypeHeading(item.type)?.lineHeight,
+        },
+      },
+    }))
+  );
+}, [contents]);
+
   const handleUpdateStyle = (id, newStyle) => {
     setItems((prev) =>
       prev.map((item) =>
@@ -95,7 +115,7 @@ export default function HerobannerItem({
           <img src={Image} alt="Hero banner" style={{ height: "400px" }} />
         </div>
       )}
-      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+      <div style={{ display: "flex", flexDirection: "column", width: "100%",gap : 4}}>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}

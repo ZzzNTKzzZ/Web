@@ -6,7 +6,7 @@ export default function TextConfiguration({ value, onChange, open, handleToggle 
   const fontsSize = [12, 14, 16, 18, 24, 32, 48, 64, 72];
   const fontType = ["Heading 1", "Heading 2", "Heading 3", "Heading 4"];
   const fontWeights = [
-    "100(Thin)",
+    "100 (Thin)",
     "200 (Extra Light)",
     "300 (Light)",
     "400 (Regular)",
@@ -15,7 +15,6 @@ export default function TextConfiguration({ value, onChange, open, handleToggle 
     "700 (Bold)",
     "800 (Extra Bold)",
   ];
-  console.log(value)
   const [openDropdown, setOpenDropdown] = useState(null);
   const toggleDropdown = (name) => {
     setOpenDropdown((prev) => (prev === name ? null : name));
@@ -109,7 +108,7 @@ export default function TextConfiguration({ value, onChange, open, handleToggle 
                 <div
                   key={weight}
                   className={style.valueText}
-                  onClick={() => handleChange("typography.fontWeight", weight)}
+                  onClick={() => handleChange("typography.fontWeight", weight.split(" ")[0])}
                 >
                   {weight}
                 </div>
