@@ -3,6 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { useRef, useState, useEffect } from "react";
 
 export default function SortableItem({
+  section,
   id,
   typeId,
   content,
@@ -28,6 +29,24 @@ export default function SortableItem({
   const mergedStyle = {
     ...baseStyle,
     ...typography,
+    fontSize:
+      section === "navbar"
+        ? "inherit"
+        : typography?.fontSize ?? baseStyle.fontSize,
+    fontWeight:
+      section === "navbar"
+        ? "inherit"
+        : typography?.fontWeight ?? baseStyle.fontWeight,
+    fontStyle:
+      section === "navbar"
+        ? "inherit"
+        : typography?.fontStyle ?? baseStyle.fontStyle,
+    textDecoration:
+      section === "navbar"
+        ? "inherit"
+        : typography?.textDecoration ?? baseStyle.textDecoration,
+    paddingLeft: section === "navbar" ? "inherit" : baseStyle.paddingLeft,
+    paddingRight: section === "navbar" ? "inherit" : baseStyle.paddingRight,
   };
 
   const sharedStyle = {
@@ -49,6 +68,7 @@ export default function SortableItem({
   };
 
   const handleMouseDown = () => {
+    const typeItem = typeId === "button" ? "button" : "item";
     if (typeof setMenuItem === "function") {
       const formatTypeLabel = (type) =>
         type?.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "";
@@ -67,7 +87,7 @@ export default function SortableItem({
       });
     }
 
-    if (typeof setMenuType === "function") setMenuType(typeId);
+    if (typeof setMenuType === "function") setMenuType(typeItem);
     if (typeof setSectionActive === "function") setSectionActive(sectionId);
   };
 
@@ -94,7 +114,6 @@ export default function SortableItem({
         cursor: isFocused ? "text" : "grab",
         border: active?.id === id ? "1px solid red" : "",
         display: "inline-block",
-        backgroundColor: baseStyle.backgroundColor,
         width: typeId === "button" ? "max-content" : undefined,
         ...(baseStyle.width ? { width: baseStyle.width } : {}),
       }}
@@ -106,10 +125,15 @@ export default function SortableItem({
           onDoubleClick={() => setIsFocused(true)}
           style={{
             ...sharedStyle,
-            padding: baseStyle.padding || "14px 16px",
+            // fontSize:
+            padding: baseStyle.padding || "8px 16px",
             border: baseStyle.border || "1px solid #ccc",
             borderRadius: baseStyle.borderRadius || "6px",
-            backgroundColor: baseStyle.backgroundColor || "#f5f5f5",
+            backgroundColor:
+              baseStyle.backgroundColor &&
+              baseStyle.backgroundColor !== "transparent"
+                ? baseStyle.backgroundColor
+                : "#f5f5f5",
             userSelect: "none",
             pointerEvents: "auto",
             width: "max-content",
