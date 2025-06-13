@@ -1,22 +1,16 @@
 .container {
-<<<<<<< HEAD
     position: relative;
     width: 100%;
     height: 400px; /* bạn có thể chỉnh cao thấp tùy ý */
     overflow: hidden;
     z-index: -1;
-=======
-  position: relative;
-  width: 100%;
-  height: 450px;
-  overflow: hidden;
-  border-radius: 16px;
->>>>>>> 216f808529d1e30e7aa09bd29999cf8195099aa7
+    border-radius: 0 0 16px 16px;
 }
 
 .image {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   filter: brightness(0.6); /* Làm tối ảnh nền để chữ nổi bật */
 }

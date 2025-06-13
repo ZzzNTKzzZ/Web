@@ -17,7 +17,7 @@ const ContactHeader = () => {
     <section className={style.headerSection}>
       <div className={style.container}>
         <h1 className={style.heading} ref={headingRef}>
-          <span className={style.underlined}>Connect</span> with Our Team
+          <span className={style.highlighted}>Connect</span> with Our Team
         </h1>
         <p className={style.description} ref={descRef}>
           Have a question or need support? Our team is here to help you every step of the way.
