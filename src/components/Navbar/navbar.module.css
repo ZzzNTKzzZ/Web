@@ -110,6 +110,49 @@
 
 
 
+.loggedInUserContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space-x-4 */
+}
+
+.userAvatar {
+  width: 2.5rem; /* w-10 */
+  height: 2.5rem; /* h-10 */
+  border-radius: 9999px; /* rounded-full */
+  object-fit: cover; /* Ensures image covers the area */
+  border: 1px solid #d1d5db; /* subtle border */
+}
+
+.userEmail {
+  color: #374151; /* text-gray-800 */
+  font-weight: 500; /* font-medium */
+  font-size: 1rem; /* base text size */
+}
+
+.signOutButton {
+  padding: 0.5rem 1rem;
+  background-color: #f54d0b;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-weight: 600;
+}
+
+.signOutButton:hover {
+  background-color: #d55e2f; /* bg-red-600 */
+}
+
+
+
+
+
+
+
+
+
 
 
 

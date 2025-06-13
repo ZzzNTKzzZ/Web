@@ -1,16 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import style from "./navbar.module.css";
 import useScrollDirection from "../../Hooks/Navbar/useScrollDirection";
 import BtnLogin from "../Button/BtnLogin";
 
-function Navbar() {
+function Navbar({ user, handleSignOut }) {
   const scrollDirection = useScrollDirection();
   const navigate = useNavigate();
 
   const handleLoginAccountClick = () => {
-    // Chuyển hướng kèm state để hiển thị tab login
     navigate("/loginForm", { state: { tab: "login" } });
   };
 
@@ -32,13 +31,31 @@ function Navbar() {
         <div className={style.logo}></div>
         <p>Portlify</p>
       </div>
-      <div className={style.navbarMenu}>
-        <a href="/" className={style.navbarItem}>Home</a>
-        <a href="/portfolio" className={style.navbarItem}>Portfolio</a>
-        <a href="/about" className={style.navbarItem}>About</a>
-        <a href="/contact" className={style.navbarItem}>Contact</a>
-      </div>
-      <BtnLogin Content={"Sign In"} onClick={handleLoginAccountClick} />
+
+      {user ? (
+        // Nếu người dùng đã đăng nhập
+        <div className={style.loggedInUserContainer}>
+          {user.photoURL && (
+            <img src={user.photoURL} alt="User Avatar" className={style.userAvatar} />
+          )}
+          {/* Email của người dùng */}
+          <span className={style.userEmail}>{user.email || user.displayName}</span>
+          <button onClick={handleSignOut} className={style.signOutButton}>
+            Log Out
+          </button>
+        </div>
+      ) : (
+        // Nếu chưa đăng nhập
+        <>
+          <div className={style.navbarMenu}>
+            <a href="/" className={style.navbarItem}>Home</a>
+            <a href="/portfolio" className={style.navbarItem}>Portfolio</a>
+            <a href="/about" className={style.navbarItem}>About</a>
+            <a href="/contact" className={style.navbarItem}>Contact</a>
+          </div>
+          <BtnLogin Content={"Sign In"} onClick={handleLoginAccountClick} />
+        </>
+      )}
     </div>
   );
 }

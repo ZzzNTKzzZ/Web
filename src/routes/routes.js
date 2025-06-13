@@ -6,6 +6,7 @@ import LoginForm from "../Page/LoginForm/LoginForm";
 import PortfolioHome from "../Page/Portfolio/PortfolioHome";
 import About from "../Page/About/About";
 import Contact from "../Page/Contact/Contact";
+import LoginAfter from "../Page/LoginAfter/LoginAfter";
 
 const publicRoutes = [
   { path: "/", element: Home },
@@ -19,6 +20,8 @@ const publicRoutes = [
   { path: "/portfolio", element: PortfolioHome },
   { path: "/About", element: About }, 
   { path: "/Contact", element: Contact },
+
+  { path: "/loginAfter", element: LoginAfter},
 ];
 
 export default publicRoutes;
