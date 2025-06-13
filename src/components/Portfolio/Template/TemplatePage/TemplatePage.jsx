@@ -10,7 +10,7 @@ function TemplatePage() {
 
     return (
         <div className={style.templatePage}>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <div className={style.mainContent}>
                 <h2 className={style.title}>Quickly create websites from professional templates</h2>
                 <TemplateGrid page={currentPage} />
