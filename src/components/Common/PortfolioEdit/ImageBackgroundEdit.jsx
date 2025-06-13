@@ -5,7 +5,6 @@ import { ReactComponent as Upload } from "../../../assets/icon/Upload.svg";
 import style from "./ImageBackgroundEdit.module.css";
 
 export default function ImageBackgroundEdit({ value, onChange }) {
-    console.log(value)
   const fileInputRef = useRef();
 
   const handleFileChange = (e) => {

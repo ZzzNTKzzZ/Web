@@ -16,10 +16,8 @@ export default function App() {
         // Gọi hàm để lấy dữ liệu. Giả sử bạn muốn lấy từ node 'users'
         // Nếu hàm getUsersData của bạn chấp nhận một path, thì sẽ là:
         const data = await getUsersData(''); // <--- Lấy tất cả user từ node 'users'
-        console.log("Dữ liệu tất cả người dùng từ database:", data);
         setAllUsersData(data); // Cập nhật state
       } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu tất cả người dùng:", error);
         setUsersError("Không thể tải danh sách người dùng.");
       } finally {
         setLoadingUsers(false);

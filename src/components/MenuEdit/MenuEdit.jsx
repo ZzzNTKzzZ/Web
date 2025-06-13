@@ -236,15 +236,17 @@ function MenuEditHerobanner({ setMenuType, styleSection, onChange }) {
 }
 
 function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
+  console.log(styleItem)
   const [activeSection, setActiveSection] = useState("text");
 
   const setVal = (keyPath, val) => {
+    console.log(val)
     const keys = keyPath.split(".");
+    console.log(keys)
     const lastKey = keys.pop();
 
     const newStyle = { ...styleItem.styleItem };
     let curr = newStyle;
-
     for (const key of keys) {
       curr[key] = { ...curr[key] };
       curr = curr[key];
@@ -296,7 +298,7 @@ function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
             <PickerColor
               label={"Background Color"}
               value={styleItem.styleItem.backgroundColor}
-              onChange={(newColor) => setVal("backgroundColor", newColor)}
+              onChange={(newColor) => {setVal("backgroundColor", newColor)}}
             />
             <PickerColor
               label={"Color"}

@@ -110,7 +110,6 @@ export default function SortableItem({
         },
       });
     }
-
     if (typeof setMenuType === "function") setMenuType(typeItem);
     if (typeof setSectionActive === "function") setSectionActive(sectionId);
   };

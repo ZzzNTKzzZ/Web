@@ -29,41 +29,40 @@ export default function PageCreate({ idPortfolio }) {
     styleSection: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "space-between",
       flexDirection: "row",
-      gap: 20,
-      paddingTop: 20,
-      paddingBottom: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
-      fontSize: 14,
-      backgroundColor: "#fff",
-      color: "#62e2cf",
+      gap: 24,
+      paddingTop: 16,
+      paddingBottom: 16,
+      paddingLeft: 40,
+      paddingRight: 40,
+      backgroundColor: "#0d1117",
+      color: "#ffffff",
+      fontSize: 16,
       typography: {
-        fontWeight: "normal",
+        fontWeight: "500",
         fontStyle: "normal",
         textDecoration: "none",
       },
     },
-    content: ["Home", "Projects", "Services", "Testimonials", "Contact"],
+    content: ["Home", "About", "Projects", "Contact"],
   },
   {
     id: "section-2",
     type: "herobanner",
-    image: "", // có thể dùng hình đại diện bạn
+    image: "",
     styleSection: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "center",
       flexDirection: "column",
       gap: 20,
-      paddingTop: 60,
-      paddingBottom: 60,
-      paddingLeft: 40,
-      paddingRight: 40,
-      backgroundColor: "#f0fbfc",
-      color: "#222",
-      backgroundImage: "",
+      paddingTop: 100,
+      paddingBottom: 100,
+      paddingLeft: 60,
+      paddingRight: 60,
+      backgroundColor: "#161b22",
+      color: "#c9d1d9",
       typography: {
         fontWeight: "normal",
         fontStyle: "normal",
@@ -72,13 +71,13 @@ export default function PageCreate({ idPortfolio }) {
     },
     content: [
       { type: "heading_1", content: "Hi, I'm Khánh Nguyễn" },
-      { type: "heading_2", content: "Full Stack Web Developer" },
+      { type: "heading_2", content: "Crafting clean & modern web apps." },
       {
         type: "paragraph",
         content:
-          "I design and build modern, responsive websites that deliver great user experiences.",
+          "I'm a full stack developer who builds responsive, fast, and accessible websites using modern technologies.",
       },
-      { type: "button", content: "View My Work", path: "#projects" },
+      { type: "button", content: "Explore My Work", path: "#projects" },
     ],
   },
   {
@@ -87,13 +86,13 @@ export default function PageCreate({ idPortfolio }) {
     styleSection: {
       display: "flex",
       flexDirection: "row",
-      gap: 20,
-      paddingTop: 40,
-      paddingBottom: 40,
+      gap: 24,
+      paddingTop: 60,
+      paddingBottom: 60,
       paddingLeft: 40,
       paddingRight: 40,
-      backgroundColor: "#ffffff",
-      color: "#333",
+      backgroundColor: "#f9fafb",
+      color: "#1f2937",
       typography: {
         fontWeight: "normal",
         fontStyle: "normal",
@@ -102,19 +101,19 @@ export default function PageCreate({ idPortfolio }) {
     },
     content: [
       {
-        title: "Portfolio Website",
-        description: "A personal portfolio to showcase my web development skills.",
-        image: "https://example.com/portfolio1.jpg",
+        title: "Startup Landing Page",
+        description: "Elegant landing page for a fintech startup using Next.js.",
+        image: "https://example.com/portfolio4.jpg",
       },
       {
-        title: "E-Commerce Platform",
-        description: "Fully functional e-commerce website built with React and Node.js.",
-        image: "https://example.com/portfolio2.jpg",
+        title: "Admin Dashboard",
+        description: "Custom dashboard with charts and management tools.",
+        image: "https://example.com/portfolio5.jpg",
       },
       {
-        title: "Company Landing Page",
-        description: "Clean and responsive landing page for startups.",
-        image: "https://example.com/portfolio3.jpg",
+        title: "Blog Platform",
+        description: "Markdown-based blog with SEO and light/dark mode.",
+        image: "https://example.com/portfolio6.jpg",
       },
     ],
   },
@@ -127,13 +126,13 @@ export default function PageCreate({ idPortfolio }) {
       alignItems: "center",
       justifyContent: "center",
       flexDirection: "column",
-      gap: 20,
-      paddingTop: 60,
-      paddingBottom: 60,
+      gap: 24,
+      paddingTop: 80,
+      paddingBottom: 80,
       paddingLeft: 40,
       paddingRight: 40,
-      backgroundColor: "#e0f7fa",
-      color: "#000",
+      backgroundColor: "#e0f2f1",
+      color: "#004d40",
       typography: {
         fontWeight: "bold",
         fontStyle: "normal",
@@ -141,27 +140,27 @@ export default function PageCreate({ idPortfolio }) {
       },
     },
     content: [
-      { type: "heading_2", content: "Let's Work Together!" },
+      { type: "heading_2", content: "Have a project in mind?" },
       {
         type: "paragraph",
-        content: "Interested in working on a project together? I’d love to hear from you.",
+        content: "Let’s work together to bring your ideas to life!",
       },
       { type: "button", content: "Contact Me", path: "/contact" },
     ],
   },
   {
-    id: "section-6",
+    id: "section-5",
     type: "faq",
     styleSection: {
       display: "flex",
       flexDirection: "column",
-      gap: 20,
-      paddingTop: 40,
-      paddingBottom: 40,
-      paddingLeft: 20,
-      paddingRight: 20,
-      backgroundColor: "#f9f9f9",
-      color: "#000",
+      gap: 24,
+      paddingTop: 60,
+      paddingBottom: 60,
+      paddingLeft: 30,
+      paddingRight: 30,
+      backgroundColor: "#fefefe",
+      color: "#333",
       typography: {
         fontWeight: "normal",
         fontStyle: "normal",
@@ -170,32 +169,33 @@ export default function PageCreate({ idPortfolio }) {
     },
     content: [
       {
-        question: "What services do you offer?",
-        answer: "I offer web development, UI/UX design, and website optimization.",
+        question: "Do you offer freelance services?",
+        answer: "Yes, I’m open to freelance or contract-based work.",
       },
       {
-        question: "What technologies do you use?",
-        answer: "React, Next.js, Node.js, Express, MongoDB, and more.",
+        question: "What tech stack do you use?",
+        answer: "React, TypeScript, Tailwind, Next.js, Node.js, MongoDB.",
       },
       {
-        question: "How can I contact you?",
-        answer: "Just click the Contact button above or email me directly.",
+        question: "How long does a project take?",
+        answer:
+          "It depends on the scope, but small projects usually take 1–2 weeks.",
       },
     ],
   },
   {
-    id: "section-7",
+    id: "section-6",
     type: "testimonial",
     styleSection: {
       display: "flex",
       flexDirection: "column",
       gap: 20,
-      paddingTop: 40,
-      paddingBottom: 40,
-      paddingLeft: 20,
-      paddingRight: 20,
-      backgroundColor: "#ffffff",
-      color: "#333",
+      paddingTop: 60,
+      paddingBottom: 60,
+      paddingLeft: 40,
+      paddingRight: 40,
+      backgroundColor: "#f8fafc",
+      color: "#1e293b",
       typography: {
         fontWeight: "normal",
         fontStyle: "italic",
@@ -204,15 +204,52 @@ export default function PageCreate({ idPortfolio }) {
     },
     content: [
       {
-        name: "Linh Tran",
+        name: "Trung Le",
         feedback:
-          "Khánh delivered a fantastic website for our startup. He’s fast, professional, and creative.",
-        avatar: "https://example.com/avatar1.jpg",
+          "Khánh is the kind of developer every team wants. Professional, fast, and always goes the extra mile.",
+        avatar: "https://example.com/avatar3.jpg",
       },
       {
-        name: "Minh Vu",
-        feedback: "Reliable developer with excellent communication and problem-solving skills.",
-        avatar: "https://example.com/avatar2.jpg",
+        name: "Anna Nguyen",
+        feedback: "His design-to-code skills are unmatched. Highly recommended!",
+        avatar: "https://example.com/avatar4.jpg",
+      },
+    ],
+  },
+  {
+    id: "section-7",
+    type: "content",
+    styleSection: {
+      display: "flex",
+      flexDirection: "row",
+      gap: 20,
+      paddingTop: 60,
+      paddingBottom: 60,
+      paddingLeft: 40,
+      paddingRight: 40,
+      backgroundColor: "#fffbea",
+      color: "#3e2723",
+      typography: {
+        fontWeight: "normal",
+        fontStyle: "normal",
+        textDecoration: "none",
+      },
+    },
+    content: [
+      {
+        title: "UI Components",
+        description: "Reusable component library built with Storybook.",
+        image: "https://example.com/ui.jpg",
+      },
+      {
+        title: "Portfolio CMS",
+        description: "Custom CMS to manage portfolio content easily.",
+        image: "https://example.com/cms.jpg",
+      },
+      {
+        title: "Design Systems",
+        description: "Created scalable design systems for consistent branding.",
+        image: "https://example.com/designsystem.jpg",
       },
     ],
   },
@@ -224,13 +261,13 @@ export default function PageCreate({ idPortfolio }) {
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
-      gap: 10,
-      paddingTop: 20,
-      paddingBottom: 20,
+      gap: 12,
+      paddingTop: 30,
+      paddingBottom: 30,
       paddingLeft: 20,
       paddingRight: 20,
-      backgroundColor: "#222",
-      color: "#fff",
+      backgroundColor: "#0d1117",
+      color: "#ffffff",
       typography: {
         fontWeight: "normal",
         fontStyle: "normal",
@@ -238,10 +275,11 @@ export default function PageCreate({ idPortfolio }) {
       },
     },
     content: {
-      text: "© 2025 Khánh Nguyễn. All rights reserved.",
+      text: "© 2025 Khánh Nguyễn — Full Stack Developer",
       links: [
         { label: "GitHub", url: "https://github.com/yourusername" },
         { label: "LinkedIn", url: "https://linkedin.com/in/yourprofile" },
+        { label: "Twitter", url: "https://twitter.com/yourhandle" },
       ],
     },
   },
@@ -407,16 +445,7 @@ export default function PageCreate({ idPortfolio }) {
               }
               onAdd={handleAddContent}
               section={sectionActive}
-              onChangeItem={(updatedItem) => {
-                setSections((prevSections) =>
-                  prevSections.map((section) => {
-                    if (section.id !== updatedItem.id) return section;
-                    const newContent = [...section.content];
-                    newContent[updatedItem.index] = updatedItem;
-                    return { ...section, content: newContent };
-                  })
-                );
-              }}
+              onChangeItem={setMenuItem}
             />
           );
         })()}
