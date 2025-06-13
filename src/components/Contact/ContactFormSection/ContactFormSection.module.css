@@ -35,7 +35,8 @@
   min-width: 200px;
 }
 
-input, textarea {
+.contactSection input[type="text"], 
+.contactSection textarea {
   width: 100%;
   padding: 14px 16px;
   border: 1px solid #ccc;
