@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../../../components/About/HowItWork/HowItWork.module.css";
 import img from "../../../assets/Img/Person/person2.jpg";
 import gsap from "gsap";
 
 function HowItWorks() {
+  const navigate = useNavigate();
+
+  const containerRef = useRef(null);
   const imageRef = useRef(null);
   const contentRef = useRef(null);
   const stepsRef = useRef([]);
@@ -43,8 +47,21 @@ function HowItWorks() {
       }, "-=0.8");
   }, []);
 
+  const handleContactClick = () => {
+    gsap.to(containerRef.current, {
+      opacity: 0,
+      y: -50,
+      duration: 0.8,
+      ease: "power2.in",
+      onComplete: () => {
+        navigate("/contact");
+        window.scrollTo(0, 0); 
+      }
+    });
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
       <div className={styles.imageContainer}>
         <img ref={imageRef} src={img} alt="How it works" className={styles.image} />
       </div>
@@ -69,7 +86,9 @@ function HowItWorks() {
           </div>
         ))}
 
-        <button className={styles.button}>Contact Now →</button>
+        <button className={styles.button} onClick={handleContactClick}>
+          Contact Now →
+        </button>
       </div>
     </div>
   );

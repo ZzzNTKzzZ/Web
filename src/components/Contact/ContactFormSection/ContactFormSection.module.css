@@ -4,24 +4,25 @@
   justify-content: center;
   align-items: flex-start;
   padding: 80px 5%;
-  background-color: white;
+  background: #fff;
   gap: 60px;
 }
 
 .formContainer {
-  background-color: #e0e0e0;
+  background: #f9f9f9;
   padding: 50px 40px;
   border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
   width: 100%;
   max-width: 520px;
+  animation: fadeSlideIn 0.8s ease forwards;
 }
 
 .formContainer h2 {
   margin-bottom: 32px;
-  font-size: 28px;
-  font-weight: bold;
-  color: #222;
+  font-size: 30px;
+  font-weight: 700;
+  color: #333;
 }
 
 .inputsRow {
@@ -35,21 +36,24 @@
   min-width: 200px;
 }
 
-.contactSection input[type="text"], 
+.contactSection input[type="text"],
+.contactSection input[type="email"],
 .contactSection textarea {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 10px;
   margin-bottom: 20px;
   font-size: 15px;
   font-family: inherit;
-  background-color: white;
-  transition: border 0.3s;
+  background: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #f14504;
+  box-shadow: 0 0 0 3px rgba(241, 69, 4, 0.1);
   outline: none;
 }
 
@@ -59,42 +63,42 @@ textarea {
 }
 
 .button {
-  background-color: #f14504;
-  color: white;
+  background: #f14504;
+  color: #fff;
   padding: 14px 0;
   border: none;
   border-radius: 10px;
   font-size: 16px;
-  font-weight: 500;
-  width: 140px;
-  margin-top: 10px;
+  font-weight: 600;
+  width: 160px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
 .button:hover {
-  background-color: #d93800;
+  background: #d93800;
+  transform: translateY(-2px);
 }
-
-/* Optional: Details section styling below (if shown beside the form) */
 
 .detailsContainer {
   flex: 1;
   max-width: 500px;
+  animation: fadeSlideIn 0.8s ease forwards;
 }
 
 .detailsContainer h2 {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 700;
-  color: #333; /* Đậm nhưng không quá nặng */
+  color: #333;
   margin-bottom: 16px;
-  border-left: 4px solid #ff5c00; /* Gạch cam nổi bật */
+  border-left: 4px solid #f14504;
   padding-left: 12px;
 }
 
 .detailsContainer p {
-  color: #666;
+  color: #555;
   margin-bottom: 24px;
+  font-size: 15px;
 }
 
 .infoGrid {
@@ -107,7 +111,7 @@ textarea {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  background: #e0e0e0;
+  background: #f3f3f3;
   padding: 14px 16px;
   border-radius: 12px;
 }
@@ -121,28 +125,28 @@ textarea {
 .socials {
   margin-top: 30px;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .icons {
   display: flex;
-  gap: 12px;
+  gap: 14px;
 }
 
 .icons svg {
-  font-size: 20px;
+  font-size: 22px;
   color: #f14504;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, color 0.3s;
 }
 
 .icons svg:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  color: #d93800;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
   .contactSection {
     padding: 60px 5%;
@@ -159,6 +163,7 @@ textarea {
   }
 }
 
+/* Animation */
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
@@ -168,35 +173,4 @@ textarea {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.detailsContainer h2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 16px;
-  border-left: 4px solid #ff5c00;
-  padding-left: 12px;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeSlideIn 0.8s ease forwards;
-  animation-delay: 0.2s;
-}
-
-.detailsContainer p,
-.infoGrid,
-.socials {
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeSlideIn 0.8s ease forwards;
-}
-
-.detailsContainer p {
-  animation-delay: 0.3s;
-}
-.infoGrid {
-  animation-delay: 0.5s;
-}
-.socials {
-  animation-delay: 0.7s;
 }
