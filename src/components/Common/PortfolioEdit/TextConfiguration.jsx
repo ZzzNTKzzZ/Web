@@ -15,30 +15,19 @@ export default function TextConfiguration({ value, onChange, open, handleToggle 
     "700 (Bold)",
     "800 (Extra Bold)",
   ];
-
+  console.log(value)
   const [openDropdown, setOpenDropdown] = useState(null);
-
   const toggleDropdown = (name) => {
     setOpenDropdown((prev) => (prev === name ? null : name));
   };
 
   const handleChange = (key, val) => {
-    if (key === "typography.fontWeight") {
-      const num = val.match(/^\d+/)?.[0];
-      onChange(key, num);
-    } else {
       onChange(key, val);
-    }
     setOpenDropdown(null);
   };
 
   return (
     <div className={style.container}>
-      <div className={style.header}>
-        <h3>Text Configuration</h3>
-        <div onClick={handleToggle} style={{ cursor: "pointer" }}>×</div>
-      </div>
-
       <div className={style.body}>
         {/* Font Family */}
         <div className={style.section}>
@@ -87,7 +76,7 @@ export default function TextConfiguration({ value, onChange, open, handleToggle 
           </div>
         </div>
 
-        {/* Font Type */}
+        {/* Font Type
         <div className={style.section}>
           <p className={style.label}>Font Type</p>
           <div className={style.dropdownWrapper}>
@@ -106,7 +95,7 @@ export default function TextConfiguration({ value, onChange, open, handleToggle 
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Font Weight */}
         <div className={style.section}>

@@ -8,7 +8,6 @@ export default function PickerColor({ label, value, onChange }) {
   const [showPicker, setShowPicker] = useState(false);
   const [color, setColor] = useState(parseColor(value));
   const wrapperRef = useRef(null);
-
   const debouncedOnChange = useMemo(
     () =>
       debounceUtils((rgba) => {

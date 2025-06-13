@@ -10,6 +10,7 @@ const menu = [
   { type: "navbar", menuEdit: menuEdit.menuEditNavbar },
   { type: "herobanner", menuEdit: menuEdit.menuEditHerobanner },
   { type: "item", menuEdit: menuEdit.menuEditItem },
+  { type: "button", menuEdit: menuEdit.menuEditButton},
 ];
 
 export default function PageCreate({ idPortfolio }) {
@@ -68,6 +69,7 @@ export default function PageCreate({ idPortfolio }) {
           type: "paragraph",
           content: "Hi everyone, I am best dev you ever seen",
         },
+        { type: "button", content: "Contact me", path: ""}
       ],
     },
   ]);
@@ -80,17 +82,21 @@ export default function PageCreate({ idPortfolio }) {
     setMatchMenu(match);
   }, [menuType]);
 
-  const handleStyleChange = (id, updateStyleFn) => {
-    setSections((prev) =>
-      prev.map((section) => {
-        if (section.id === id) {
-          const newStyleSection = updateStyleFn(section.styleSection);
-          return { ...section, styleSection: newStyleSection };
-        }
-        return section;
-      })
-    );
-  };
+  const handleStyleChange = (id, updateStyle) => {
+  setSections((prev) =>
+    prev.map((section) => {
+      if (section.id !== id) return section;
+
+      const prevStyle = section.styleSection;
+      const newStyle =
+        typeof updateStyle === "function"
+          ? updateStyle(prevStyle)
+          : { ...prevStyle, ...updateStyle };
+
+      return { ...section, styleSection: newStyle };
+    })
+  );
+};
 
   return (
     <div className={style.wrapper}>

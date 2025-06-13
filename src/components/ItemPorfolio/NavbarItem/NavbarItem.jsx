@@ -61,6 +61,7 @@ export default function NavbarItem({ labels }) {
             id={item.id}
             content={item.label}
             onChange={handleUpdateLabel}
+            section={"navbar"}
           />
         ))}
       </SortableContext>

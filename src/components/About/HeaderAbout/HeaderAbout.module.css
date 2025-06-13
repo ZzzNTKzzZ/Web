@@ -1,57 +1,87 @@
 .container {
+<<<<<<< HEAD
     position: relative;
     width: 100%;
     height: 400px; /* bạn có thể chỉnh cao thấp tùy ý */
     overflow: hidden;
     z-index: -1;
+=======
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  border-radius: 16px;
+>>>>>>> 216f808529d1e30e7aa09bd29999cf8195099aa7
 }
 
 .image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* hình phủ hết và không méo */
-    display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6); /* Làm tối ảnh nền để chữ nổi bật */
 }
 
 .textOverlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    padding: 1rem 2rem;
-    background: rgba(231, 226, 226, 0.123); /* lớp nền mờ dễ đọc chữ */
-    border-radius: 8px;
-}
-
-.textOverlay {
-    top: 70%; /* hạ xuống gần đáy */
-    left: 10%; /* lệch về trái */
-    transform: translate(0, -50%);
-    text-align: left;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6); /* overlay trắng mờ */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  text-align: center;
 }
 
 .title {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #000; /* chữ đen nổi bật */
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(255, 102, 0, 0.4); /* tạo chiều sâu */
+}
+
+.newTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff6600; /* cam đậm */
+  margin-bottom: 0.75rem;
 }
 
 .breadcrumb {
-    color: #F54D0B;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .breadcrumbArrow {
-    margin: 0 0.25rem;
+  margin: 0 0.25rem;
+  color: #ff6600;
 }
 
 .current {
-    color: #F54D0B;
+  color: #ff6600;
+  font-weight: 600;
 }
 
 .description {
-    color: #f3f4f6; /* xám nhạt hơn trên nền đen */
+  font-size: 1.2rem;
+  color: #333;
+  max-width: 700px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.2rem;
+  }
+  .newTitle {
+    font-size: 1.5rem;
+  }
+  .description {
+    font-size: 1rem;
+  }
 }
