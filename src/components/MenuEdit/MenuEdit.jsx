@@ -44,13 +44,13 @@ function MenuEditNavbar({ setMenuType, styleSection, onChange }) {
 
         {activeSection === "design" && (
           <>
-            <div className={style.control}>
+            {/* <div className={style.control}>
               <p>Fixed</p>
               <SwitchButton
                 value={true}
                 onToggle={(val) => console.log("Switched to:", val)}
               />
-            </div>
+            </div> */}
 
             <div className={style.control}>
               <p

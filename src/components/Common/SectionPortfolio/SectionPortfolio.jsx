@@ -1,6 +1,7 @@
 import style from "./SectionPortfolio.module.css";
 import { ReactComponent as SettingIcon } from "../../../assets/icon/Setting.svg";
 import { ReactComponent as TrashIcon } from "../../../assets/icon/Trash.svg";
+import { ReactComponent as AddIcon } from "../../../assets/icon/Add.svg";
 import { useEffect, useState } from "react";
 
 export default function SectionPortfolio({
@@ -10,6 +11,7 @@ export default function SectionPortfolio({
   setMenuType,
   children,
   setSectionActive,
+  handleAddContent,
 }) {
   const [activeSection, setActiveSection] = useState(false);
 
@@ -23,7 +25,14 @@ export default function SectionPortfolio({
 
   const handleClick = () => {
     setMenuType(type);
-    setSectionActive(id); 
+    setSectionActive(id);
+  };
+  const handleAddNew = () => {
+    setSectionActive(id);
+    handleAddContent(id, {
+      type: "paragraph",
+      content: "text",
+    });
   };
 
   return (
@@ -46,6 +55,9 @@ export default function SectionPortfolio({
       {children}
       {activeSection && (
         <div className={style.control}>
+          <button onClick={handleAddNew}>
+            <AddIcon />
+          </button>
           <button onClick={handleClick}>
             <SettingIcon />
           </button>

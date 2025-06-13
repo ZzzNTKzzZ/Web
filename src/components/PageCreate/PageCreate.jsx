@@ -135,6 +135,18 @@ export default function PageCreate({ idPortfolio }) {
     );
   };
 
+  const handleAddContent = (sectionId, newContent) => {
+  setSections((prevSections) =>
+    prevSections.map((section) => {
+      if (section.id !== sectionId) return section;
+      return {
+        ...section,
+        content: [...section.content, newContent],
+      };
+    })
+  );
+};
+  console.log(sections)
   return (
     <div className={style.wrapper}>
       <div
@@ -145,6 +157,7 @@ export default function PageCreate({ idPortfolio }) {
             key={section.id}
             id={section.id}
             type={section.type}
+            handleAddContent={handleAddContent}
             styleSection={{
               ...section.styleSection,
               ...(section.styleSection.backgroundImage && {

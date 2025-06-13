@@ -43,6 +43,26 @@ export default function HerobannerItem({
       };
     })
   );
+
+  useEffect(() => {
+  setItems(
+    contents.map((item, index) => ({
+      id: `item-${index}`,
+      content: item.content || "",
+      type: item.type || "paragraph",
+      style: {
+        fontSize: matchingTypeHeading(item.type)?.fontSize,
+        fontFamily: "Arial",
+        typography: {
+          textAlign: "left",
+          fontWeight: matchingTypeHeading(item.type)?.fontWeight,
+          lineHeight: matchingTypeHeading(item.type)?.lineHeight,
+        },
+      },
+    }))
+  );
+}, [contents]);
+
   const handleUpdateStyle = (id, newStyle) => {
     setItems((prev) =>
       prev.map((item) =>
