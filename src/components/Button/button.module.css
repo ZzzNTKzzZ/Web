@@ -33,7 +33,6 @@
   align-items: center;
   justify-content: center;
   height: 100px;
-  background-color: #f54d0b;
   color: white;
   font-size: 24px;
   font-weight: bold;
@@ -51,7 +50,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #3498db;
+  background-color: #f54d0b;
   border-radius: 10rem;
   z-index: -2;
 }
@@ -63,7 +62,7 @@
   left: 0;
   width: 0%;
   height: 100%;
-  background-color: #217dbb;
+  background-color: #f76c3c;
   transition: all 0.3s;
   border-radius: 10rem;
   z-index: -1;
