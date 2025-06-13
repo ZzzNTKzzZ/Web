@@ -38,9 +38,7 @@ export default function HerobannerItem({
             textAlign: "left",
             fontWeight: matchingTypeHeading(item.type)?.fontWeight,
             lineHeight: matchingTypeHeading(item.type)?.lineHeight,
-            listStyleType: "disc",
           },
-          backgroundColor: "transparent",
         },
       };
     })

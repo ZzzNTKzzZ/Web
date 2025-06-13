@@ -10,11 +10,13 @@ import style from "./MenuEdit.module.css";
 import ImageBackgroundEdit from "../Common/PortfolioEdit/ImageBackgroundEdit";
 import TextConfiguration from "../Common/PortfolioEdit/TextConfiguration";
 import TextAlign from "../Common/PortfolioEdit/TextAlign";
+import DesignButton from "../Common/PortfolioEdit/DesignButton";
+import TypographyNavbar from "../Common/PortfolioEdit/TypographyNavbar";
 
 function MenuEditNavbar({ setMenuType, styleSection, onChange }) {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("design"); // 'design' or 'text'
-
+  console.log(styleSection);
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -121,7 +123,21 @@ function MenuEditNavbar({ setMenuType, styleSection, onChange }) {
               onChange={onChange}
               max={42}
             />
-            <Typography value={styleSection} onChange={onChange} />
+            <TypographyNavbar
+              value={styleSection}
+              onChange={(path, val) => {
+                onChange((prev) => {
+                  const key = path.split(".")[1];
+                  return {
+                    ...prev,
+                    typography: {
+                      ...prev.typography,
+                      [key]: val,
+                    },
+                  };
+                });
+              }}
+            />
             <ProgressBar
               label={"Padding Left & Right"}
               value={styleSection.paddingLeft}
@@ -294,11 +310,35 @@ function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
 }
 
 function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
-  console.log(styleItem)
   const [activeSection, setActiveSection] = useState("text");
+  console.log(styleItem);
+  const setVal = (keyPathOrObject, val) => {
+    // CASE 1: Full style object passed, merge with existing
+    if (typeof keyPathOrObject === "object") {
+      onChangeItem({
+        id: styleItem.id,
+        styleItem: {
+          ...styleItem.styleItem,
+          ...keyPathOrObject,
+        },
+      });
+      return;
+    }
 
-  const setVal = (keyPath, val) => {
-    const keys = keyPath.split(".");
+    // CASE 2: key is "styleItem" — merge, not replace
+    if (keyPathOrObject === "styleItem") {
+      onChangeItem({
+        id: styleItem.id,
+        styleItem: {
+          ...styleItem.styleItem,
+          ...val,
+        },
+      });
+      return;
+    }
+
+    // CASE 3: Nested update (e.g., "typography.fontWeight")
+    const keys = keyPathOrObject.split(".");
     const lastKey = keys.pop();
 
     const newStyle = { ...styleItem.styleItem };
@@ -376,7 +416,14 @@ function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
               width: "100%",
             }}
           >
-           
+            <DesignButton
+              onChange={(newStyle) => setVal("styleItem", newStyle)}
+            />
+           <PickerColor
+              label={"Background Color"}
+              value={styleItem.styleItem.backgroundColor}
+              onChange={(newColor) => setVal("backgroundColor", newColor)}
+            />
           </div>
         )}
       </div>
