@@ -98,7 +98,7 @@ export default function HerobannerItem({
         </div>
       )}
       <div
-        style={{display: "flex", flexDirection: "column"}}
+        style={{display: "flex", flexDirection: "column", width: "100%"}}
       >
         <DndContext
           sensors={sensors}

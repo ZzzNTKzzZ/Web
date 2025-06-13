@@ -12,14 +12,13 @@ export default function SortableItem({
   setMenuType,
   setSectionActive,
   sectionId,
-  active
+  active,
 }) {
   const { typography = {}, ...baseStyle } = style || {};
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
   const localRef = useRef(null);
-  const mirrorRef = useRef(null);
   const inputRef = useRef(null);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -27,21 +26,25 @@ export default function SortableItem({
 
   const itemStyle = {
     ...baseStyle,
+    lineHeight: `${baseStyle.lineHeight}px`,
     ...typography,
   };
 
   const handleMouseDown = () => {
     if (typeof setMenuItem === "function") {
-      const formatTypeLabel = type => type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      const formatTypeLabel = (type) =>
+        type?.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "";
 
       setMenuItem({
         id,
-        styleItem: { ...baseStyle, typography,
+        styleItem: {
+          ...baseStyle,
+          typography,
           fontType: formatTypeLabel(typeId),
-
         },
       });
     }
+
     if (typeof setMenuType === "function") setMenuType("item");
     if (typeof setSectionActive === "function") setSectionActive(sectionId);
   };
@@ -51,11 +54,10 @@ export default function SortableItem({
     onChange(id, inputValue);
   };
 
-  // Dynamically adjust input width based on mirror span
   useEffect(() => {
-    if (mirrorRef.current && inputRef.current) {
-      mirrorRef.current.textContent = inputValue || " ";
-      inputRef.current.style.width = mirrorRef.current.offsetWidth + "px";
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = inputRef.current.scrollHeight + "px";
     }
   }, [inputValue, isFocused]);
 
@@ -66,44 +68,40 @@ export default function SortableItem({
         localRef.current = node;
       }}
       style={{
-        display: "flex",
-        ...itemStyle,
         transform: CSS.Transform.toString(transform),
         transition,
         cursor: isFocused ? "text" : "grab",
-        width: "fit-content",
-        display: "inline-block",
         border: active?.id === id ? "1px solid red" : "",
+        display: "inline-block",
+        ...(baseStyle.width ? { width: baseStyle.width } : {}), // ← use width only if it exists
       }}
       onMouseDownCapture={handleMouseDown}
       {...(!isFocused ? { ...attributes, ...listeners } : {})}
     >
-      {/* Hidden span used to calculate input width */}
-      <span
-        ref={mirrorRef}
-        style={{
-          position: "absolute",
-          visibility: "hidden",
-          height: 0,
-          overflow: "hidden",
-          whiteSpace: "pre",
-          color: "inherit",
-          ...itemStyle,
-        }}
-      />
       {isFocused ? (
-        <input
+        <textarea
           ref={inputRef}
           autoFocus
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onBlur={handleInputBlur}
+          rows={1}
           style={{
             ...itemStyle,
+            width: "100%",
             border: "none",
             background: "transparent",
             outline: "none",
             padding: 0,
+            margin: 0,
+            resize: "none",
+            overflow: "hidden",
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+          }}
+          onInput={(e) => {
+            e.target.style.height = "auto";
+            e.target.style.height = e.target.scrollHeight + "px";
           }}
         />
       ) : (
@@ -111,6 +109,9 @@ export default function SortableItem({
           onDoubleClick={() => setIsFocused(true)}
           style={{
             ...itemStyle,
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            width: "100%", // matches textarea
             userSelect: "none",
             pointerEvents: "auto",
           }}

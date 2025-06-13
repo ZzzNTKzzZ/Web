@@ -232,7 +232,7 @@ function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
 
   if (curr[lastKey] !== val) {
     curr[lastKey] = val;
-    onChangeItem({ id: styleItem.id, styleItem: newStyle }); // preserve id
+    onChangeItem({ id: styleItem.id, styleItem: newStyle }); 
   }
 };
   const [activeSection, setActiveSection] = useState("text");
@@ -259,6 +259,7 @@ function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
             style={{ flexDirection: "column", alignContent: "space-around" }}
           >
             <TextConfiguration value={styleItem.styleItem} onChange={setVal} type={styleItem.type}/>
+            <Typography value={styleItem.styleItem} onChange={onChangeItem}/>
           </div>
         )}
       </div>
