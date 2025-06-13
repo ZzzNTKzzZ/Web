@@ -11,8 +11,10 @@ function TemplatePage() {
     return (
         <div className={style.templatePage}>
             {/* <Sidebar /> */}
-            <div className={style.mainContent}>
-                <h2 className={style.title}>Quickly create websites from professional templates</h2>
+            <div className={style.mainContent} id="services">
+                <h2 className={style.title}>
+                    Quickly create websites from professional templates
+                </h2>
                 <TemplateGrid page={currentPage} />
                 <Pagination
                     currentPage={currentPage}
