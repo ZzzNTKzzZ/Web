@@ -17,14 +17,38 @@ export default function SortableItem({
 }) {
   const { typography = {}, ...baseStyle } = style || {};
   const isButton = typeId === "button";
+  const isContentObject =
+    content && typeof content === "object" && "title" in content && "description" in content;
+
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
   const localRef = useRef(null);
   const inputRef = useRef(null);
-
   const [isFocused, setIsFocused] = useState(false);
-  const [inputValue, setInputValue] = useState(content);
+
+  const stringifyContentObject = (obj) =>
+    [obj.title, obj.description, obj.image].filter(Boolean).join("\n");
+
+  const parseContentObject = (str) => {
+    const [title = "", description = "", image = ""] = str.split("\n");
+    return { title, description, image };
+  };
+
+  const [inputValue, setInputValue] = useState(
+    isContentObject
+      ? stringifyContentObject(content)
+      : typeof content === "string"
+      ? content
+      : ""
+  );
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = inputRef.current.scrollHeight + "px";
+    }
+  }, [inputValue, isFocused]);
 
   const mergedStyle = {
     ...baseStyle,
@@ -93,15 +117,13 @@ export default function SortableItem({
 
   const handleInputBlur = () => {
     setIsFocused(false);
-    onChange(id, inputValue);
+    if (isContentObject) {
+      onChange(id, parseContentObject(inputValue));
+    } else {
+      onChange(id, inputValue);
+    }
   };
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.style.height = "auto";
-      inputRef.current.style.height = inputRef.current.scrollHeight + "px";
-    }
-  }, [inputValue, isFocused]);
   return (
     <div
       ref={(node) => {
@@ -114,26 +136,26 @@ export default function SortableItem({
         cursor: isFocused ? "text" : "grab",
         border: active?.id === id ? "1px solid red" : "",
         display: "inline-block",
-        width: typeId === "button" ? "max-content" : undefined,
+        width: isButton ? "max-content" : undefined,
         ...(baseStyle.width ? { width: baseStyle.width } : {}),
       }}
       onMouseDownCapture={handleMouseDown}
       {...(!isFocused ? { ...attributes, ...listeners } : {})}
     >
       {isButton ? (
-        <button
+        <div
           onDoubleClick={() => setIsFocused(true)}
           style={{
             ...sharedStyle,
-            // fontSize:
+            display: "inline-block",
             padding: baseStyle.padding || "8px 16px",
             border: baseStyle.border || "1px solid #ccc",
             borderRadius: baseStyle.borderRadius || "6px",
             backgroundColor:
-              baseStyle.backgroundColor &&
-              baseStyle.backgroundColor !== "transparent"
+              baseStyle.backgroundColor && baseStyle.backgroundColor !== "transparent"
                 ? baseStyle.backgroundColor
                 : "#f5f5f5",
+            cursor: isFocused ? "text" : "grab",
             userSelect: "none",
             pointerEvents: "auto",
             width: "max-content",
@@ -167,7 +189,7 @@ export default function SortableItem({
           ) : (
             content || "Button"
           )}
-        </button>
+        </div>
       ) : isFocused ? (
         <textarea
           ref={inputRef}
@@ -197,7 +219,9 @@ export default function SortableItem({
             pointerEvents: "auto",
           }}
         >
-          {content || "Text"}
+          {isContentObject
+            ? stringifyContentObject(content)
+            : content || "Text"}
         </div>
       )}
     </div>

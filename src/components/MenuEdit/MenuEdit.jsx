@@ -1,4 +1,4 @@
-import { lazy, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import CloseButton from "../Common/CloseButton/CloseButton";
 import DisplayEdit from "../Common/PortfolioEdit/DisplayEdit";
 import ProgressBar from "../Common/PortfolioEdit/ProgressBar";
@@ -18,7 +18,6 @@ import BorderRadiusEdit from "../Common/PortfolioEdit/BorderRadiusEdit";
 function MenuEditNavbar({ setMenuType, styleSection, onChange }) {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("design"); // 'design' or 'text'
-  console.log(styleSection);
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -457,13 +456,13 @@ function MenuEditAdd({ setMenuType, onAdd, section }) {
   ];
   const [text, setText] = useState("");
   const [type, setType] = useState("Heading 1");
-  const [buttonText, setButtonText] = useState("")
+  const [buttonText, setButtonText] = useState("");
   const handleAdd = () => {
     onAdd(section, {
       type: type,
       content: text,
     });
-    setText("")
+    setText("");
   };
 
   const handleAddButton = () => {
@@ -471,8 +470,8 @@ function MenuEditAdd({ setMenuType, onAdd, section }) {
       type: "button",
       content: buttonText,
     });
-    setButtonText("")
-  }
+    setButtonText("");
+  };
 
   return (
     <div className={style.container}>
@@ -522,7 +521,7 @@ function MenuEditAdd({ setMenuType, onAdd, section }) {
             style={{ flexDirection: "column", gap: 24, alignItems: "unset" }}
           >
             <p className={style.label} style={{ fontSize: 24 }}>
-              Create paragraph
+              Create button
             </p>
             <input
               className={style.input}
@@ -542,12 +541,228 @@ function MenuEditAdd({ setMenuType, onAdd, section }) {
   );
 }
 
+function MenuEditFaq({ contentItem, onChangeItem, setMenuType }) {
+  const [question, setQuestion] = useState(contentItem?.question || "");
+  const [answer, setAnswer] = useState(contentItem?.answer || "");
+
+  useEffect(() => {
+    setQuestion(contentItem?.question || "");
+    setAnswer(contentItem?.answer || "");
+  }, [contentItem]);
+
+  const handleSave = () => {
+    if (typeof onChangeItem === "function") {
+      onChangeItem({
+        ...contentItem,
+        question,
+        answer,
+      });
+    }
+    setMenuType(null);
+  };
+
+  return (
+    <div className={style.container}>
+      <div className={style.header}>
+        <p className={style.label}>Edit FAQ</p>
+        <CloseButton onClick={() => setMenuType(null)} />
+      </div>
+
+      <div className={style.body}>
+        <div
+          className={style.control}
+          style={{ flexDirection: "column", alignItems: "unset", gap: 16 }}
+        >
+          <label className={style.label}>Question</label>
+          <input
+            className={style.input}
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Enter your question..."
+          />
+
+          <label className={style.label}>Answer</label>
+          <textarea
+            className={style.input}
+            style={{ minHeight: 100 }}
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="Enter your answer..."
+          />
+        </div>
+
+        <div className={style.addButton}>
+          <button className={style.button} onClick={handleSave}>
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MenuEditTestimonial({ setMenuType, styleItem, onChangeItem }) {
+  const [localItem, setLocalItem] = useState(styleItem || {});
+
+  useEffect(() => {
+    setLocalItem(styleItem || {});
+  }, [styleItem]);
+
+  const handleChange = (key, value) => {
+    const updated = { ...localItem, [key]: value };
+    setLocalItem(updated);
+    onChangeItem(updated);
+  };
+
+  return (
+    <div className={style.container}>
+      <div className={style.header}>
+        <h3>Testimonial Editor</h3>
+        <CloseButton onClick={() => setMenuType(null)} />
+      </div>
+
+      <div className={style.body}>
+        <div style={{ marginBottom: 12 }}>
+          <label className={style.label}>Name</label>
+          <input
+            type="text"
+            value={localItem.name || ""}
+            onChange={(e) => handleChange("name", e.target.value)}
+            className={style.input}
+          />
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+          <label className={style.label}>Feedback</label>
+          <textarea
+            value={localItem.feedback || ""}
+            onChange={(e) => handleChange("feedback", e.target.value)}
+            className={style.input}
+            style={{ minHeight: 80 }}
+          />
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+          <label className={style.label}>Avatar URL</label>
+          <input
+            type="text"
+            value={localItem.avatar || ""}
+            onChange={(e) => handleChange("avatar", e.target.value)}
+            className={style.input}
+          />
+        </div>
+
+        {localItem.avatar && (
+          <div style={{ textAlign: "center", marginTop: 10 }}>
+            <img
+              src={localItem.avatar}
+              alt="Avatar preview"
+              style={{
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          </div>
+        )}
+
+        <div className={style.addButton}>
+          <button className={style.button} onClick={() => setMenuType(null)}>
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+ function MenuEditFooter({
+  setMenuType,
+  styleSection,
+  contentItem,
+  onChange,
+  section,
+  onChangeItem,
+}) {
+  const [text, setText] = useState(contentItem?.text || "");
+  const [links, setLinks] = useState(contentItem?.links || []);
+
+  useEffect(() => {
+    setText(contentItem?.text || "");
+    setLinks(contentItem?.links || []);
+  }, [contentItem]);
+
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+    onChangeItem({
+      id: section,
+      index: 0,
+      text: e.target.value,
+      links,
+    });
+  };
+
+  const handleLinkChange = (index, key, value) => {
+    const newLinks = [...links];
+    newLinks[index][key] = value;
+    setLinks(newLinks);
+    onChangeItem({
+      id: section,
+      index: 0,
+      text,
+      links: newLinks,
+    });
+  };
+
+  return (
+    <div className={style.menuEditSection}>
+      <h3 className={style.title}>Footer Content</h3>
+
+      <label className={style.label}>Copyright Text</label>
+      <input
+        type="text"
+        className={style.input}
+        value={text}
+        onChange={handleTextChange}
+      />
+
+      <h4 className={style.subtitle}>Links</h4>
+      {links.map((link, index) => (
+        <div key={index} className={style.linkRow}>
+          <input
+            type="text"
+            className={style.input}
+            placeholder="Label"
+            value={link.label}
+            onChange={(e) =>
+              handleLinkChange(index, "label", e.target.value)
+            }
+          />
+          <input
+            type="text"
+            className={style.input}
+            placeholder="URL"
+            value={link.url}
+            onChange={(e) =>
+              handleLinkChange(index, "url", e.target.value)
+            }
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
 const menuEdit = {
   menuEditNavbar: MenuEditNavbar,
   menuEditHerobanner: MenuEditHerobanner,
   menuEditItem: MenuEditItem,
   menuEditButton: MenuEditButton,
   menuEditAdd: MenuEditAdd,
+  menuEditFaq: MenuEditFaq,
+  menuEditTestimonial: MenuEditTestimonial,
+  menuEditFooter: MenuEditFooter
 };
 
 export default menuEdit;

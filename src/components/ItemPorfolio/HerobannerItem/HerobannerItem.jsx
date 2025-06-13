@@ -47,7 +47,7 @@ export default function HerobannerItem({
   useEffect(() => {
   setItems(
     contents.map((item, index) => ({
-      id: `item-${index}`,
+      id: `item-${index}-${sectionId}`,
       content: item.content || "",
       type: item.type || "paragraph",
       style: {
