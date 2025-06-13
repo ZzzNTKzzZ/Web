@@ -39,6 +39,9 @@
   background-color: #f76c35;
   border-radius: 2px;
 }
+.highlighted {
+  color: #f76c35;  /* Cam */
+}
 
 .description {
   font-size: 1rem;
