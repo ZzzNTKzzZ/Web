@@ -13,6 +13,7 @@ import TextAlign from "../Common/PortfolioEdit/TextAlign";
 import DesignButton from "../Common/PortfolioEdit/DesignButton";
 import TypographyNavbar from "../Common/PortfolioEdit/TypographyNavbar";
 import BorderEdit from "../Common/PortfolioEdit/BorderEdit";
+import BorderRadiusEdit from "../Common/PortfolioEdit/BorderRadiusEdit";
 
 function MenuEditNavbar({ setMenuType, styleSection, onChange }) {
   const [open, setOpen] = useState(false);
@@ -312,7 +313,6 @@ function MenuEditItem({ setMenuType, styleItem, onChangeItem }) {
 
 function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
   const [activeSection, setActiveSection] = useState("text");
-  console.log(styleItem);
   const setVal = (keyPathOrObject, val) => {
     // CASE 1: Full style object passed, merge with existing
     if (typeof keyPathOrObject === "object") {
@@ -433,6 +433,10 @@ function MenuEditButton({ setMenuType, styleItem, onChangeItem }) {
             <BorderEdit 
               value={styleItem.styleItem.border}
               onChange={(newBorder) => setVal("border", newBorder)}
+            />
+            <BorderRadiusEdit 
+              value={styleItem.styleItem.borderRadius}
+              onChange={(newBorderRadius) => setVal("borderRadius", newBorderRadius)}
             />
           </div>
         )}
