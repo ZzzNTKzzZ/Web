@@ -17,6 +17,17 @@
   box-shadow: 0 0 10px rgba(245, 77, 11, 0.5);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 .btnStepStart {
   display: flex;
   align-items: center;
@@ -26,15 +37,51 @@
   color: white;
   font-size: 24px;
   font-weight: bold;
+  position: relative;
+  overflow: hidden;
   padding: 18px 64px;
   border-radius: 63px;
   border: none;
 }
 
-.btnStepStart:hover{
+.btnStepStart::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3498db;
+  border-radius: 10rem;
+  z-index: -2;
+}
+
+.btnStepStart::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #217dbb;
+  transition: all 0.3s;
+  border-radius: 10rem;
+  z-index: -1;
+}
+
+.btnStepStart:hover {
+  color: #fff;
+}
+
+.btnStepStart:hover::before {
+  width: 100%;
+}
+
+
+/* .btnStepStart:hover{
   background-color: #f76c3c;
   box-shadow: 0 0 10px rgba(245, 77, 11, 0.5);
-}
+} */
 
 
 
