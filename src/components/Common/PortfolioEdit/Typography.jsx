@@ -4,42 +4,52 @@ import { ReactComponent as Underline } from "../../../assets/icon/Underline.svg"
 
 import style from "./Typography.module.css";
 
-export default function Typography({ value, onChange }) {
-  const handleChange = (key, val) => {
-      onChange(key, val);
-  };
+export default function Typography({ value, onChange}) {
+  const current = value?.typography || {};
 
-  const toggleStyle = (key, onValue, offValue ) => {
-    const currentValue = value?.typography?.[key.split(".")[1]];
+  const options = [
+    {
+      key: "fontWeight",
+      onValue: "bold",
+      offValue: "normal",
+      icon: <Bold />,
+    },
+    {
+      key: "fontStyle",
+      onValue: "italic",
+      offValue: "normal",
+      icon: <Italic />,
+    },
+    {
+      key: "textDecoration",
+      onValue: "underline",
+      offValue: "none",
+      icon: <Underline />,
+    },
+  ];
+
+  const handleClick = ({ key, onValue, offValue }) => {
+    const currentValue = current[key];
     const nextValue = currentValue === onValue ? offValue : onValue;
-    handleChange(key, nextValue);
+    onChange(`typography.${key}`, nextValue);
   };
 
   return (
-    <div className={style.control}>
+    <div className={style.container}>
       <p className={style.label}>Typography</p>
-      <div className={style.option}>
-        <button
-          className={value.typography.fontWeight === "bold" ? style.active : ""}
-          onClick={() => toggleStyle("typography.fontWeight", "bold", "normal")}
-        >
-          <Bold />
-        </button>
-        <button
-          className={value.typography.fontStyle === "italic" ? style.active : ""}
-          onClick={() => toggleStyle("typography.fontStyle", "italic", "normal")}
-        >
-          <Italic />
-        </button>
-        <button
-          className={value.typography.textDecoration === "underline" ? style.active : ""}
-          onClick={() => toggleStyle("typography.textDecoration", "underline", "none")}
-        >
-          <Underline />
-        </button>
+      <div className={style.options}>
+        {options.map((option) => (
+          <button
+            key={option.key}
+            className={`${style.button} ${
+              current[option.key] === option.onValue ? style.active : ""
+            }`}
+            onClick={() => handleClick(option)}
+          >
+            {option.icon}
+          </button>
+        ))}
       </div>
     </div>
   );
 }
-
-

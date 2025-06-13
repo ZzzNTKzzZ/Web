@@ -1,27 +1,36 @@
-.control {
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 8px;
 }
 
-.option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4px;
+.label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
 }
 
-svg {
+.options {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    background: none;
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
-button:hover path {
-    fill: #F54D0B;
+.button:hover {
+    background-color: #f0f0f0;
 }
 
-button.active path {
-    fill: #F54D0B;
-    stroke: #F54D0B;
+.active {
+    background-color: #e0e0e0;
 }

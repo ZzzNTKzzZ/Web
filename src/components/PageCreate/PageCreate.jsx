@@ -10,6 +10,7 @@ const menu = [
   { type: "navbar", menuEdit: menuEdit.menuEditNavbar },
   { type: "herobanner", menuEdit: menuEdit.menuEditHerobanner },
   { type: "item", menuEdit: menuEdit.menuEditItem },
+  { type: "button", menuEdit: menuEdit.menuEditButton},
 ];
 
 export default function PageCreate({ idPortfolio }) {
@@ -68,6 +69,7 @@ export default function PageCreate({ idPortfolio }) {
           type: "paragraph",
           content: "Hi everyone, I am best dev you ever seen",
         },
+        { type: "button", content: "Contact me", path: ""}
       ],
     },
   ]);
@@ -154,6 +156,7 @@ export default function PageCreate({ idPortfolio }) {
               onChange={(newStyle) =>
                 handleStyleChange(currentSection.id, newStyle)
               }
+              
             />
           );
         })()}

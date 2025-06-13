@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.options {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover path {
+    fill: #F54D0B;
+    stroke: #F54D0B;
+}
+
+.button.active path {
+    fill: #F54D0B;
+    stroke: #F54D0B;
+    
+}

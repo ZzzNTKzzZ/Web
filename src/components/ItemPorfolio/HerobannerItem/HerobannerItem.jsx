@@ -27,22 +27,22 @@ export default function HerobannerItem({
 }) {
   const [items, setItems] = useState(
     contents.map((item, index) => {
-      return{
-          id: `item-${index}`,
+      return {
+        id: `item-${index}`,
         content: item.content || "",
         type: item.type || "paragraph",
         style: {
-          fontSize: matchingTypeHeading(item.type).fontSize,
+          fontSize: matchingTypeHeading(item.type)?.fontSize,
           fontFamily: "Arial",
           typography: {
-            fontWeight: matchingTypeHeading(item.type).fontWeight,
-            lineHeight: matchingTypeHeading(item.type).lineHeight,
             textAlign: "left",
+            fontWeight: matchingTypeHeading(item.type)?.fontWeight,
+            lineHeight: matchingTypeHeading(item.type)?.lineHeight,
             listStyleType: "disc",
           },
           backgroundColor: "transparent",
         },
-      }
+      };
     })
   );
   const handleUpdateStyle = (id, newStyle) => {
@@ -97,9 +97,7 @@ export default function HerobannerItem({
           <img src={Image} alt="Hero banner" style={{ height: "400px" }} />
         </div>
       )}
-      <div
-        style={{display: "flex", flexDirection: "column", width: "100%"}}
-      >
+      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -109,23 +107,29 @@ export default function HerobannerItem({
             items={items.map((item) => item.id)}
             strategy={verticalListSortingStrategy}
           >
-            {items.map((item) => (
-              <SortableItem
-                key={item.id}
-                id={item.id}
-                typeId={item.type}
-                content={item.content}
-                style={item.style}
-                onChange={handleUpdateContent}
-                onStyleChange={handleUpdateStyle}
-                menuItem={menuItem}
-                setMenuItem={setMenuItem}
-                setMenuType={setMenuType}
-                setSectionActive={setSectionActive}
-                sectionId={sectionId}
-                active={menuItem ? items.find((i) => i.id === menuItem.id) : null}
-              />
-            ))}
+            {items.map((item) => {
+              {
+                return (
+                  <SortableItem
+                    key={item.id}
+                    id={item.id}
+                    typeId={item.type}
+                    content={item.content}
+                    style={item.style}
+                    onChange={handleUpdateContent}
+                    onStyleChange={handleUpdateStyle}
+                    menuItem={menuItem}
+                    setMenuItem={setMenuItem}
+                    setMenuType={setMenuType}
+                    setSectionActive={setSectionActive}
+                    sectionId={sectionId}
+                    active={
+                      menuItem ? items.find((i) => i.id === menuItem.id) : null
+                    }
+                  />
+                );
+              }
+            })}
           </SortableContext>
         </DndContext>
       </div>
