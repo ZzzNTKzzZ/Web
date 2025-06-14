@@ -6,7 +6,7 @@ function TemplateCard({ template }) {
   const navigate = useNavigate();
 
   const handleUseNow = () => {
-      navigate(`/editor/${template.id}`);
+      navigate(`/${template.id}`);
   };
 
   return (
