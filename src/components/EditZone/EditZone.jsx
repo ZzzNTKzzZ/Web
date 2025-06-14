@@ -3,15 +3,8 @@ import style from "./EditZone.module.css";
 
 export default function EditZone({
   editMenu,
-  setEditMenu,
-  navbarStyle,
-  setNavbarStyle,
-  herobannerStyle,
-  setHerobannerStyle,
-  columnHeroBannerStyle,
-  setColumnHeroBannerStyle,
-  textStyle,
-  setTextStyle
+  
+  idPortfolio,
 }) {
   return (
     <div
@@ -21,15 +14,7 @@ export default function EditZone({
       }}
     >
       <PageCreate
-        setEditMenu={setEditMenu}
-        setNavbarStyle={setNavbarStyle}
-        navbarStyle={navbarStyle}
-        setHerobannerStyle={setHerobannerStyle}
-        herobannerStyle={herobannerStyle}
-        setColumnHeroBannerStyle={setColumnHeroBannerStyle}
-        columnHeroBannerStyle={columnHeroBannerStyle}
-        textStyle={textStyle}
-        setTextStyle={setTextStyle}
+        idPortfolio={idPortfolio}
       />
     </div>
   );

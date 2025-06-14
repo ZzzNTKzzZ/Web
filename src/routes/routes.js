@@ -10,7 +10,7 @@ import LoginAfter from "../Page/LoginAfter/LoginAfter";
 
 const publicRoutes = [
   { path: "/", element: Home },
-  { path: "/editor", element: EditPortfolio },
+  { path: "/editor/:id", element: EditPortfolio },
 
   { path: "/loginForm", element: LoginForm },
 
@@ -18,10 +18,10 @@ const publicRoutes = [
   { path: "/privacyPolicy", element: PrivacyPolicy },
 
   { path: "/portfolio", element: PortfolioHome },
-  { path: "/About", element: About }, 
+  { path: "/About", element: About },
   { path: "/Contact", element: Contact },
 
-  { path: "/loginAfter", element: LoginAfter},
+  { path: "/loginAfter", element: LoginAfter },
 ];
 
 export default publicRoutes;

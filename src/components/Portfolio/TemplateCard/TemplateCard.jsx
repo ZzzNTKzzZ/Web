@@ -6,14 +6,7 @@ function TemplateCard({ template }) {
   const navigate = useNavigate();
 
   const handleUseNow = () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-    if (isLoggedIn) {
-      navigate(`/builder/${template.id}`);
-    } else {
-      alert("Vui lòng đăng nhập để sử dụng mẫu này.");
-      navigate("/loginForm");
-    }
+      navigate(`/editor/${template.id}`);
   };
 
   return (

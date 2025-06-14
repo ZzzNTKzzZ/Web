@@ -7,6 +7,7 @@ import Topbar from "../../components/Topbar/Topbar";
 import EditZone from "../../components/EditZone/EditZone";
 
 import style from "./EditPortfolio.module.css";
+import { useParams } from "react-router-dom";
 
 export default function EditPortfolio() {
   const navigate = useNavigate();
@@ -54,22 +55,17 @@ export default function EditPortfolio() {
   const [textStyle, setTextStyle] = useState();
   const [styleContentSection, setStyleContentSection] = useState();
   
+  const { id } = useParams(); 
+  console.log("Editor ID:", id);
   return (
     <div className={style.editPortfolio}>
       <Topbar />
       {/* <Navbar /> */}
       <SideBar />
       <EditZone
-        setEditMenu={setEditMenu}
+        idPortfolio={id}
         editMenu={editMenu}
-        setNavbarStyle={setStyleNavbarSection}
-        navbarStyle={styleNavbarSection}
-        setHerobannerStyle={setHerobannerStyle}
-        herobannerStyle={herobannerStyle}
-        columnHeroBannerStyle={columnHeroBannerStyle}
-        setColumnHeroBannerStyle={setColumnHeroBannerStyle}
-        textStyle={textStyle}
-        setTextStyle={setTextStyle}
+        
       />
     </div>
   );

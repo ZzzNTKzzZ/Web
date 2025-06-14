@@ -1,7 +1,6 @@
 .editZone {
   margin-left: 72px;
   padding: 84px 72px 0;
-  height: 100vh;
   background-color: #ccc;
   transition: margin-left 0.3s ease;
   font-size: clamp(12px, 2vw, 18px); 
