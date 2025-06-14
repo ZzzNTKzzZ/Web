@@ -9,10 +9,9 @@ function TemplateCard({ template }) {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
     if (isLoggedIn) {
-      navigate(`/builder/${template.id}`);
+      navigate(`/${template.id}`);
     } else {
-      alert("Vui lòng đăng nhập để sử dụng mẫu này.");
-      navigate("/loginForm");
+      navigate("/editor")
     }
   };
 

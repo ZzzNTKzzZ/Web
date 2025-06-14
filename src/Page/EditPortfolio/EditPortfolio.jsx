@@ -10,11 +10,11 @@ import style from "./EditPortfolio.module.css";
 
 export default function EditPortfolio() {
   const navigate = useNavigate();
-  // Check responsive: nếu nhỏ hơn 768 thì chuyển hướng
+  // Check responsive: nếu nhỏ hơn 1024 thì chuyển hướng
   useEffect(() => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       alert("Editing is not available on mobile devices. Please use a computer to continue.");
-      navigate("/");
+      navigate("");
     }
   }, [navigate]);
 

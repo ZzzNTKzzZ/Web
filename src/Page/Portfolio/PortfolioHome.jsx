@@ -14,7 +14,7 @@ function PortfolioHome(){
     const scrollDirection = useScrollDirection();
     const currentScreenWidth = useScreenWidth();
 
-    const MOBILE_BREAKPOINT = 768; // px
+    const MOBILE_BREAKPOINT = 1024; // px
     return(
         <div>
             {currentScreenWidth < MOBILE_BREAKPOINT ? (

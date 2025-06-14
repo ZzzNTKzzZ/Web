@@ -1,4 +1,11 @@
 .editPortfolio {
-    background-color: #ccc;
-    padding-bottom: 36px;
+  background-color: #ccc;
+  padding-bottom: 36px;
 }
+
+@media screen and (max-width: 1024px) {
+    .editPortfolio{
+        display: none;
+    }
+}
+
